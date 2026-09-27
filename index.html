@@ -573,9 +573,21 @@
     </div>
   </div>
 
-  <!-- ===== LOCK SCREEN LANDING ===== -->
+  <!-- ===== LOCK SCREEN LANDING (iOS-style) ===== -->
   <div class="lock-screen" id="lockScreen">
     <div class="lock-bg"></div>
+
+    <!-- iOS status bar -->
+    <div class="ios-statusbar" aria-hidden="true">
+      <span class="ios-statusbar-time" id="statusBarTime">20.28</span>
+      <span class="ios-dynamic-island"></span>
+      <span class="ios-statusbar-icons">
+        <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.3" y="4" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="8.6" y="2" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="12.9" y="0" width="3" height="11" rx="0.5" fill="currentColor" opacity=".4"/></svg>
+        <svg width="15" height="11" viewBox="0 0 16 12" fill="none"><path d="M8 10.2a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" fill="currentColor"/><path d="M4.8 6.9a4.6 4.6 0 0 1 6.4 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2.2 4.3a8.4 8.4 0 0 1 11.6 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+        <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.5" stroke="currentColor" stroke-width="1"/><rect x="21.5" y="4" width="1.5" height="4" rx="0.7" fill="currentColor"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.3" fill="currentColor"/></svg>
+      </span>
+    </div>
+
     <div class="lock-overlay">
       <svg class="lock-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/>
@@ -584,20 +596,35 @@
       <p class="lock-date" id="lockDate">Senin, 1 Jan</p>
       <p class="lock-time" id="lockTime">00:00</p>
 
-      <div class="lock-notifs">
+      <div class="lock-notif-group">
+        <div class="lock-notif-group-head">
+          <span class="app-badge-icon" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z"/></svg>
+          </span>
+          <span class="lock-notif-group-title">Undangan</span>
+        </div>
+
         <button class="lock-notif" type="button" id="notifSamuel" aria-label="Buka pesan dari Samuel">
-          <span class="notif-avatar" aria-hidden="true"></span>
+          <span class="notif-avatar-wrap">
+            <span class="notif-avatar" aria-hidden="true"></span>
+            <span class="notif-app-icon" aria-hidden="true">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="var(--on-accent)"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z"/></svg>
+            </span>
+          </span>
           <span class="notif-body">
             <span class="notif-row1"><strong>Samuel</strong><span class="notif-time">sekarang</span></span>
-            <span class="notif-group">Samuel &amp; Ledy 💍</span>
             <span class="notif-text">Hai <span id="lockGuestName">Tamu Undangan</span>, kamu kami tambahkan ke grup undangan kami 💌</span>
           </span>
         </button>
         <button class="lock-notif" type="button" id="notifLedy" aria-label="Buka pesan dari Ledy">
-          <span class="notif-avatar avatar-bride" aria-hidden="true"></span>
+          <span class="notif-avatar-wrap">
+            <span class="notif-avatar avatar-bride" aria-hidden="true"></span>
+            <span class="notif-app-icon" aria-hidden="true">
+              <svg width="9" height="9" viewBox="0 0 24 24" fill="var(--on-accent)"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z"/></svg>
+            </span>
+          </span>
           <span class="notif-body">
             <span class="notif-row1"><strong>Ledy</strong><span class="notif-time">1 mnt lalu</span></span>
-            <span class="notif-group">Samuel &amp; Ledy 💍</span>
             <span class="notif-text">Mohon maaf bila ada kesalahan penulisan nama atau gelar ya 🙏</span>
           </span>
         </button>
@@ -606,9 +633,20 @@
       <div class="lock-swipe-zone" id="lockSwipeZone" aria-hidden="true">
         <span class="lock-swipe-chevron">&#8963;</span>
         <p class="lock-hint">Geser ke atas untuk membuka undangan</p>
-        <span class="lock-home-indicator"></span>
       </div>
     </div>
+
+    <!-- iOS bottom bar: flashlight, focus label, camera (decorative) -->
+    <div class="ios-bottombar" aria-hidden="true">
+      <span class="ios-bottom-icon">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M9 2h6l-1 7h3l-8 13 2-9H8l1-11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="ios-focus-label">Undangan Pernikahan</span>
+      <span class="ios-bottom-icon">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 8a2 2 0 0 1 2-2h1.2l.8-1.6A1 1 0 0 1 8.9 4h6.2a1 1 0 0 1 .9.6L16.8 6H18a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.6"/></svg>
+      </span>
+    </div>
+    <span class="lock-home-indicator"></span>
   </div>
 
 </div>

@@ -92,12 +92,15 @@
   // ---------- Lock screen clock ----------
   var lockDate = document.getElementById("lockDate");
   var lockTime = document.getElementById("lockTime");
+  var statusBarTime = document.getElementById("statusBarTime");
   var DAY_NAMES = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
   var MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
   function tickClock() {
     var now = new Date();
     lockDate.textContent = DAY_NAMES[now.getDay()] + ", " + now.getDate() + " " + MONTH_NAMES[now.getMonth()];
-    lockTime.textContent = pad(now.getHours()) + ":" + pad(now.getMinutes());
+    var hm = pad(now.getHours()) + ":" + pad(now.getMinutes());
+    lockTime.textContent = hm;
+    if (statusBarTime) statusBarTime.textContent = hm.replace(":", ".");
   }
   tickClock();
   setInterval(tickClock, 1000);

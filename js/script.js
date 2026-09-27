@@ -138,6 +138,32 @@
   document.getElementById("notifSamuel").addEventListener("click", openInvitation);
   document.getElementById("notifLedy").addEventListener("click", openInvitation);
 
+  // ---------- Swipe up to open (touch + mouse drag), anywhere on the lock screen ----------
+  var swipeStartY = null;
+
+  function swipeStart(y) { swipeStartY = y; }
+  function swipeEnd(y) {
+    if (swipeStartY === null) return;
+    var delta = swipeStartY - y;
+    swipeStartY = null;
+    if (delta > 50) openInvitation();
+  }
+
+  lockScreen.addEventListener("touchstart", function (e) { swipeStart(e.touches[0].clientY); }, { passive: true });
+  lockScreen.addEventListener("touchend", function (e) { swipeEnd(e.changedTouches[0].clientY); });
+
+  // Listen on document (not via setPointerCapture) so a mouse/trackpad drag
+  // that ends outside lockScreen still registers, without hijacking the
+  // notification buttons' own click-to-open behaviour.
+  function onDocPointerUp(e) {
+    document.removeEventListener("pointerup", onDocPointerUp);
+    swipeEnd(e.clientY);
+  }
+  lockScreen.addEventListener("pointerdown", function (e) {
+    swipeStart(e.clientY);
+    document.addEventListener("pointerup", onDocPointerUp);
+  });
+
   function closeInvitation() {
     chatShell.classList.add("locked");
     composeBar.classList.remove("show");

@@ -45,9 +45,17 @@
   var storyProgress = document.getElementById("storyProgress");
   var storyClasses = ["g1", "g2", "g3", "g4", "g5"];
 
+  var STORY_DURATION = 4500;
+  var storyAdvanceTimer = null;
+  var storyStartedAt = 0;
+  var storyRemaining = STORY_DURATION;
+
   for (var s = 0; s < STORY_COUNT; s++) {
     var seg = document.createElement("span");
     seg.className = "seg";
+    var fill = document.createElement("span");
+    fill.className = "seg-fill";
+    seg.appendChild(fill);
     storyProgress.appendChild(seg);
   }
   var storySegs = Array.prototype.slice.call(storyProgress.querySelectorAll(".seg"));
@@ -55,7 +63,50 @@
   function renderStory() {
     storyPhoto.className = "story-view-photo " + storyClasses[storyIndex];
     storyCounter.textContent = "Status · " + (storyIndex + 1) + " dari " + STORY_COUNT;
-    storySegs.forEach(function (seg, i) { seg.classList.toggle("filled", i <= storyIndex); });
+    storySegs.forEach(function (seg, i) {
+      seg.classList.toggle("filled", i < storyIndex);
+      seg.classList.toggle("active", i === storyIndex);
+      var segFill = seg.querySelector(".seg-fill");
+      segFill.style.transition = "none";
+      if (i === storyIndex) segFill.style.width = "0%";
+    });
+    startStoryTimer();
+  }
+
+  function startStoryTimer() {
+    clearTimeout(storyAdvanceTimer);
+    storyRemaining = STORY_DURATION;
+    runStoryTimer();
+  }
+
+  // Drives the active segment's fill via a CSS transition (rather than a
+  // fixed @keyframes animation) so pauseStoryTimer can freeze it mid-flight
+  // and resumeStoryTimer can continue the fill from that exact width.
+  function runStoryTimer() {
+    var activeFill = storySegs[storyIndex].querySelector(".seg-fill");
+    activeFill.style.transition = "none";
+    void activeFill.offsetWidth;
+    activeFill.style.transition = "width " + storyRemaining + "ms linear";
+    activeFill.style.width = "100%";
+    storyStartedAt = Date.now();
+    clearTimeout(storyAdvanceTimer);
+    storyAdvanceTimer = setTimeout(nextStory, storyRemaining);
+  }
+
+  function pauseStoryTimer() {
+    var activeSeg = storySegs[storyIndex];
+    var activeFill = activeSeg && activeSeg.querySelector(".seg-fill");
+    if (!activeFill) return;
+    var pct = (activeFill.getBoundingClientRect().width / activeSeg.getBoundingClientRect().width) * 100;
+    activeFill.style.transition = "none";
+    activeFill.style.width = Math.min(100, pct) + "%";
+    clearTimeout(storyAdvanceTimer);
+    storyRemaining = Math.max(0, storyRemaining - (Date.now() - storyStartedAt));
+  }
+
+  function resumeStoryTimer() {
+    if (!storyViewer.classList.contains("show")) return;
+    runStoryTimer();
   }
 
   function openStory() {
@@ -65,6 +116,7 @@
     storyViewer.setAttribute("aria-hidden", "false");
   }
   function closeStory() {
+    clearTimeout(storyAdvanceTimer);
     storyViewer.classList.remove("show");
     storyViewer.setAttribute("aria-hidden", "true");
   }
@@ -82,6 +134,12 @@
   document.getElementById("storyClose").addEventListener("click", closeStory);
   document.getElementById("storyNext").addEventListener("click", nextStory);
   document.getElementById("storyPrev").addEventListener("click", prevStory);
+  storyViewer.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".story-header, .story-progress, .story-nav")) return;
+    pauseStoryTimer();
+  });
+  storyViewer.addEventListener("pointerup", resumeStoryTimer);
+  storyViewer.addEventListener("pointercancel", resumeStoryTimer);
   document.addEventListener("keydown", function (e) {
     if (!storyViewer.classList.contains("show")) return;
     if (e.key === "Escape") closeStory();

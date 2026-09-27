@@ -24,7 +24,7 @@
 
     <!-- Sticky chat header -->
     <header class="chat-header">
-      <button class="pill pill-back" type="button" aria-label="Kembali ke daftar chat">
+      <button class="pill pill-back" type="button" id="mainBackBtn" aria-label="Kunci kembali undangan">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>1</span>
       </button>
@@ -51,27 +51,34 @@
       </span>
     </header>
 
-    <!-- Pinned carousel: 4 quick-jump items (tap or swipe) -->
-    <div class="pinned-carousel" id="pinnedCarousel" role="region" aria-label="Pesan disematkan">
-      <button class="pinned-bar" type="button" data-target="#countdown" aria-label="Lompat ke hitung mundur">
-        <span class="pinned-icon">⏳</span>
-        <span class="pinned-text">Hitung mundur · <strong id="pinnedDays">0</strong> hari lagi menuju hari H</span>
-      </button>
-      <button class="pinned-bar" type="button" data-target="#events" aria-label="Lompat ke lokasi acara">
-        <span class="pinned-icon">📍</span>
-        <span class="pinned-text">Lokasi · Akad Nikah, Graha Kencana</span>
-      </button>
-      <button class="pinned-bar" type="button" data-target="#gift" aria-label="Lompat ke tanda kasih">
-        <span class="pinned-icon">🎁</span>
-        <span class="pinned-text">Tanda kasih · BCA · 1234567890</span>
-      </button>
-      <button class="pinned-bar" type="button" data-target="#rsvp" aria-label="Lompat ke konfirmasi kehadiran">
-        <span class="pinned-icon">💌</span>
-        <span class="pinned-text">Konfirmasi kehadiran · Kamu bisa datang?</span>
-      </button>
+    <!-- Pinned carousel: 4 quick-jump items (tap arrows, dots, or swipe) -->
+    <div class="pinned-wrap">
+      <button class="pinned-arrow pinned-arrow-prev" type="button" id="pinnedPrev" aria-label="Pesan disematkan sebelumnya">&#8249;</button>
+      <div class="pinned-carousel" id="pinnedCarousel" role="region" aria-label="Pesan disematkan">
+        <button class="pinned-bar" type="button" data-target="#countdown" aria-label="Lompat ke hitung mundur">
+          <span class="pinned-icon">⏳</span>
+          <span class="pinned-text">Hitung mundur · <strong id="pinnedDays">0</strong> hari lagi menuju hari H</span>
+        </button>
+        <button class="pinned-bar" type="button" data-target="#events" aria-label="Lompat ke lokasi acara">
+          <span class="pinned-icon">📍</span>
+          <span class="pinned-text">Lokasi · Akad Nikah, Graha Kencana</span>
+        </button>
+        <button class="pinned-bar" type="button" data-target="#gift" aria-label="Lompat ke tanda kasih">
+          <span class="pinned-icon">🎁</span>
+          <span class="pinned-text">Tanda kasih · BCA · 1234567890</span>
+        </button>
+        <button class="pinned-bar" type="button" data-target="#rsvp" aria-label="Lompat ke konfirmasi kehadiran">
+          <span class="pinned-icon">💌</span>
+          <span class="pinned-text">Konfirmasi kehadiran · Kamu bisa datang?</span>
+        </button>
+      </div>
+      <button class="pinned-arrow pinned-arrow-next" type="button" id="pinnedNext" aria-label="Pesan disematkan berikutnya">&#8250;</button>
     </div>
-    <div class="pinned-dots" id="pinnedDots" aria-hidden="true">
-      <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <div class="pinned-dots" id="pinnedDots">
+      <button class="dot active" type="button" aria-label="Pesan disematkan 1"></button>
+      <button class="dot" type="button" aria-label="Pesan disematkan 2"></button>
+      <button class="dot" type="button" aria-label="Pesan disematkan 3"></button>
+      <button class="dot" type="button" aria-label="Pesan disematkan 4"></button>
     </div>
 
     <!-- System chips -->
@@ -463,7 +470,7 @@
     <div class="compose-bar" id="composeBar">
       <button class="compose-plus" type="button" id="jumpMenuToggle" aria-label="Buka menu navigasi cepat" aria-expanded="false">+</button>
       <button class="compose-input" type="button" id="composeInput">Balas kehadiran...</button>
-      <button class="compose-icon" type="button" aria-label="Ambil foto" disabled>📷</button>
+      <button class="compose-icon" type="button" id="composeCamera" aria-label="Lihat galeri foto">📷</button>
       <button class="compose-send" type="button" id="composeSend" aria-label="Isi konfirmasi kehadiran">➤</button>
     </div>
   </div>

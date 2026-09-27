@@ -138,6 +138,18 @@
   document.getElementById("notifSamuel").addEventListener("click", openInvitation);
   document.getElementById("notifLedy").addEventListener("click", openInvitation);
 
+  function closeInvitation() {
+    chatShell.classList.add("locked");
+    composeBar.classList.remove("show");
+    lockScreen.style.display = "";
+    lockScreen.style.pointerEvents = "";
+    requestAnimationFrame(function () { lockScreen.style.opacity = "1"; });
+    bgMusic.pause();
+    musicToggle.classList.remove("playing");
+    musicToggle.setAttribute("aria-pressed", "false");
+  }
+  document.getElementById("mainBackBtn").addEventListener("click", closeInvitation);
+
   // ---------- Music toggle ----------
   musicToggle.addEventListener("click", function () {
     if (bgMusic.paused) {
@@ -239,6 +251,28 @@
     var index = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
     pinnedDots.forEach(function (dot, i) { dot.classList.toggle("active", i === index); });
   }, { passive: true });
+
+  function goToPinnedIndex(index) {
+    index = Math.max(0, Math.min(pinnedBars.length - 1, index));
+    pinnedCarousel.scrollTo({ left: index * pinnedCarousel.clientWidth, behavior: "smooth" });
+  }
+  document.getElementById("pinnedPrev").addEventListener("click", function () {
+    var current = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
+    goToPinnedIndex(current - 1);
+  });
+  document.getElementById("pinnedNext").addEventListener("click", function () {
+    var current = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
+    goToPinnedIndex(current + 1);
+  });
+  pinnedDots.forEach(function (dot, i) {
+    dot.addEventListener("click", function () { goToPinnedIndex(i); });
+  });
+
+  // ---------- Compose bar camera icon -> jump to gallery ----------
+  document.getElementById("composeCamera").addEventListener("click", function () {
+    var gallerySection = document.getElementById("gallery");
+    if (gallerySection) gallerySection.scrollIntoView({ behavior: "smooth" });
+  });
 
   // ---------- Add to calendar (.ics download), generic for all events ----------
   document.querySelectorAll(".btn-calendar").forEach(function (btn) {

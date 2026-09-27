@@ -576,35 +576,14 @@ button, input, textarea, select{ font-family:inherit; }
 .admin-link-wrap{ text-align:center; margin-top:16px; }
 .admin-link{ font-size:11.5px; color:var(--muted); text-decoration:underline; }
 
-/* ===== PINNED CAROUSEL (4 quick-jump items) ===== */
-.pinned-wrap{
-  flex:0 0 auto;
-  display:flex; align-items:stretch;
-  border-bottom:1px solid var(--divider);
-}
-.pinned-arrow{
-  flex:0 0 32px;
-  border:none;
-  background:var(--wall);
-  color:var(--text-secondary);
-  font-size:18px;
-  cursor:pointer;
-}
-.pinned-carousel{
-  flex:1 1 auto;
-  display:flex;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  scrollbar-width:none;
-  min-width:0;
-}
-.pinned-carousel::-webkit-scrollbar{ display:none; }
+/* ===== PINNED MESSAGE (tap to cycle + jump) ===== */
 .pinned-bar{
-  flex:0 0 100%;
-  scroll-snap-align:start;
+  flex:0 0 auto;
+  width:100%;
   display:flex; align-items:center; gap:8px;
   min-width:0;
   border:none;
+  border-bottom:1px solid var(--divider);
   background:var(--wall);
   color:var(--text-secondary);
   font-size:12.5px;
@@ -619,28 +598,17 @@ button, input, textarea, select{ font-family:inherit; }
 }
 .pinned-dots{
   flex:0 0 auto;
-  display:flex; justify-content:center; gap:8px;
+  display:flex; justify-content:center; gap:5px;
   padding:6px 0;
   background:var(--wall);
   border-bottom:1px solid var(--divider);
 }
 .pinned-dots .dot{
-  width:16px; height:16px;
-  padding:0;
-  border:none;
-  cursor:pointer;
-  background:transparent;
-  position:relative;
-}
-.pinned-dots .dot::after{
-  content:"";
-  position:absolute; top:50%; left:50%;
   width:5px; height:5px;
-  transform:translate(-50%,-50%);
   border-radius:50%;
   background:var(--divider);
 }
-.pinned-dots .dot.active::after{ background:var(--accent); }
+.pinned-dots .dot.active{ background:var(--accent); }
 
 /* ===== MESSAGE GROUPING & TIMESTAMPS ===== */
 .msg.grouped .avatar{ visibility:hidden; }

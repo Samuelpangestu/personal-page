@@ -217,7 +217,7 @@
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
-  var pinnedDays = document.getElementById("pinnedDays");
+  var daysRemaining = 0;
 
   function tickCountdown() {
     var diff = WEDDING_DATE.getTime() - Date.now();
@@ -230,43 +230,43 @@
     elHours.textContent = pad(hours);
     elMins.textContent = pad(mins);
     elSecs.textContent = pad(secs);
-    if (pinnedDays) pinnedDays.textContent = days;
+    daysRemaining = days;
   }
-  tickCountdown();
-  setInterval(tickCountdown, 1000);
 
-  // ---------- Pinned carousel: click to jump, swipe to update dots ----------
-  var pinnedCarousel = document.getElementById("pinnedCarousel");
-  var pinnedBars = Array.prototype.slice.call(pinnedCarousel.querySelectorAll(".pinned-bar"));
+  // ---------- Pinned message: tap cycles to the next item and jumps to it ----------
+  var pinnedItems = [
+    { icon: "⏳", target: "#countdown", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
+    { icon: "📍", target: "#events", text: function () { return "Lokasi · Akad Nikah, Graha Kencana"; } },
+    { icon: "🎁", target: "#gift", text: function () { return "Tanda kasih · BCA · 1234567890"; } },
+    { icon: "💌", target: "#rsvp", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
+  ];
+  var pinnedIndex = 0;
+  var pinnedBar = document.getElementById("pinnedBar");
+  var pinnedIcon = document.getElementById("pinnedIcon");
+  var pinnedText = document.getElementById("pinnedText");
   var pinnedDots = Array.prototype.slice.call(document.getElementById("pinnedDots").querySelectorAll(".dot"));
 
-  pinnedBars.forEach(function (bar) {
-    bar.addEventListener("click", function () {
-      var targetEl = document.querySelector(bar.getAttribute("data-target"));
-      if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
-    });
-  });
-
-  pinnedCarousel.addEventListener("scroll", function () {
-    var index = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
-    pinnedDots.forEach(function (dot, i) { dot.classList.toggle("active", i === index); });
-  }, { passive: true });
-
-  function goToPinnedIndex(index) {
-    index = Math.max(0, Math.min(pinnedBars.length - 1, index));
-    pinnedCarousel.scrollTo({ left: index * pinnedCarousel.clientWidth, behavior: "smooth" });
+  function renderPinned() {
+    var item = pinnedItems[pinnedIndex];
+    pinnedIcon.textContent = item.icon;
+    pinnedText.innerHTML = item.text();
+    pinnedDots.forEach(function (dot, i) { dot.classList.toggle("active", i === pinnedIndex); });
   }
-  document.getElementById("pinnedPrev").addEventListener("click", function () {
-    var current = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
-    goToPinnedIndex(current - 1);
+  renderPinned();
+
+  pinnedBar.addEventListener("click", function () {
+    var item = pinnedItems[pinnedIndex];
+    var targetEl = document.querySelector(item.target);
+    if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
+    pinnedIndex = (pinnedIndex + 1) % pinnedItems.length;
+    renderPinned();
   });
-  document.getElementById("pinnedNext").addEventListener("click", function () {
-    var current = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
-    goToPinnedIndex(current + 1);
-  });
-  pinnedDots.forEach(function (dot, i) {
-    dot.addEventListener("click", function () { goToPinnedIndex(i); });
-  });
+
+  tickCountdown();
+  setInterval(function () {
+    tickCountdown();
+    if (pinnedIndex === 0) renderPinned();
+  }, 1000);
 
   // ---------- Compose bar camera icon -> jump to gallery ----------
   document.getElementById("composeCamera").addEventListener("click", function () {

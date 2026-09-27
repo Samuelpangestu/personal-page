@@ -598,37 +598,32 @@ button, input, textarea, select{ font-family:inherit; }
 
 /* ===== PINNED MESSAGE (tap to cycle + jump) ===== */
 .pinned-bar{
+  position:relative;
   flex:0 0 auto;
   width:100%;
-  display:flex; align-items:center; gap:8px;
+  display:flex; align-items:center; gap:6px;
   min-width:0;
   border:none;
   border-bottom:1px solid var(--divider);
   background:var(--wall);
   color:var(--text-secondary);
   font-size:12.5px;
-  padding:8px 12px;
+  padding:6px 12px 6px 16px;
   cursor:pointer;
   text-align:left;
 }
+.pinned-bar::before{
+  content:"";
+  position:absolute; left:0; top:0; bottom:0;
+  width:3px;
+  background:var(--accent);
+}
+.pinned-pin-glyph{ flex:0 0 auto; color:var(--muted); transform:rotate(45deg); }
 .pinned-icon{ flex:0 0 auto; }
 .pinned-text{
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   min-width:0;
 }
-.pinned-dots{
-  flex:0 0 auto;
-  display:flex; justify-content:center; gap:5px;
-  padding:6px 0;
-  background:var(--wall);
-  border-bottom:1px solid var(--divider);
-}
-.pinned-dots .dot{
-  width:5px; height:5px;
-  border-radius:50%;
-  background:var(--divider);
-}
-.pinned-dots .dot.active{ background:var(--accent); }
 
 /* ===== MESSAGE GROUPING & TIMESTAMPS ===== */
 .msg.grouped .avatar{ visibility:hidden; }

@@ -331,13 +331,11 @@
   var pinnedBar = document.getElementById("pinnedBar");
   var pinnedIcon = document.getElementById("pinnedIcon");
   var pinnedText = document.getElementById("pinnedText");
-  var pinnedDots = Array.prototype.slice.call(document.getElementById("pinnedDots").querySelectorAll(".dot"));
 
   function renderPinned() {
     var item = pinnedItems[pinnedIndex];
     pinnedIcon.textContent = item.icon;
     pinnedText.innerHTML = item.text();
-    pinnedDots.forEach(function (dot, i) { dot.classList.toggle("active", i === pinnedIndex); });
   }
   renderPinned();
 

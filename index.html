@@ -2,250 +2,449 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>The Wedding of Raka & Kirana</title>
-<meta name="description" content="Undangan pernikahan digital Raka & Kirana">
+<meta name="description" content="Undangan pernikahan digital Raka & Kirana — gaya percakapan grup chat">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Great+Vibes&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <div class="loader" id="loader">
   <div class="loader-ring"></div>
-  <p>Memuat Undangan...</p>
+  <p>Memuat percakapan...</p>
 </div>
 
 <div class="frame" id="frame">
 
-  <!-- ===== COVER ===== -->
-  <section class="screen cover" id="cover">
-    <div class="cover-bg"></div>
-    <div class="cover-ornament top"></div>
-    <div class="cover-content">
-      <p class="eyebrow">The Wedding Of</p>
-      <h1 class="cover-names">Raka <span>&</span> Kirana</h1>
-      <p class="cover-date">21 . 12 . 2026</p>
+  <!-- ===== CHAT SHELL (locked/blurred until opened) ===== -->
+  <div class="chat-shell locked" id="chatShell">
 
-      <div class="cover-guest">
-        <p>Kepada Yth. Bapak/Ibu/Saudara/i</p>
-        <p class="guest-name" id="guestName">Tamu Undangan</p>
-      </div>
-
-      <button class="btn-open" id="openBtn">
-        <span>Buka Undangan</span>
+    <!-- Sticky chat header -->
+    <header class="chat-header">
+      <button class="pill pill-back" type="button" aria-label="Kembali ke daftar chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>1</span>
       </button>
-    </div>
-    <div class="cover-ornament bottom"></div>
-  </section>
 
-  <!-- ===== MAIN CONTENT (hidden until opened) ===== -->
-  <div class="content" id="content">
+      <button class="status-avatar" type="button" aria-label="Lihat info grup">
+        <span class="avatar-ring">
+          <span class="avatar-inner">💍</span>
+        </span>
+      </button>
 
-    <!-- HERO / QUOTE -->
-    <section class="screen hero reveal">
-      <div class="section-ornament"></div>
-      <p class="hero-label">We Are Getting Married</p>
-      <h2 class="hero-names">Raka <span>&</span> Kirana</h2>
-      <p class="hero-quote">
-        "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
-        pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa
-        tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."
-      </p>
-      <p class="hero-source">QS. Ar-Rum : 21</p>
-    </section>
+      <button class="header-info" type="button" aria-label="Info grup Raka dan Kirana">
+        <span class="header-title">Raka &amp; Kirana 💍</span>
+        <span class="header-participants">Raka, Kirana, <span id="headerGuestName">Tamu</span></span>
+      </button>
 
-    <!-- COUNTDOWN -->
-    <section class="screen countdown-section reveal">
-      <p class="section-eyebrow">Menuju Hari Bahagia</p>
-      <h3 class="section-title">Save The Date</h3>
-      <div class="countdown" id="countdown">
-        <div class="cd-box"><span id="cd-days">00</span><small>Hari</small></div>
-        <div class="cd-box"><span id="cd-hours">00</span><small>Jam</small></div>
-        <div class="cd-box"><span id="cd-mins">00</span><small>Menit</small></div>
-        <div class="cd-box"><span id="cd-secs">00</span><small>Detik</small></div>
-      </div>
-      <button class="btn-outline" id="calendarBtn">+ Tambahkan ke Kalender</button>
-    </section>
+      <span class="header-actions">
+        <button class="pill pill-icon" type="button" id="liveBtn" aria-label="Info live streaming">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 10l5-3v10l-5-3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg>
+          <span class="tooltip" id="liveTooltip" role="status">Link live streaming akan dibagikan H-1 acara ✨</span>
+        </button>
+        <button class="pill pill-icon wide" type="button" id="musicToggle" aria-label="Putar musik latar" aria-pressed="false">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l10-2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="3" stroke="currentColor" stroke-width="2"/></svg>
+        </button>
+      </span>
+    </header>
 
-    <!-- COUPLE -->
-    <section class="screen couple-section reveal">
-      <p class="section-eyebrow">Mempelai</p>
-      <h3 class="section-title">Kedua Mempelai</h3>
-
-      <div class="couple-card">
-        <div class="couple-photo groom"></div>
-        <h4 class="couple-name">Raka Aditya Pratama</h4>
-        <p class="couple-parents">Putra dari<br>Bapak Surya Pratama &amp; Ibu Dewi Anggraini</p>
-        <div class="couple-social">Instagram: @raka.aditya</div>
-      </div>
-
-      <div class="couple-divider">&</div>
-
-      <div class="couple-card">
-        <div class="couple-photo bride"></div>
-        <h4 class="couple-name">Kirana Ayu Lestari</h4>
-        <p class="couple-parents">Putri dari<br>Bapak Bambang Wijaya &amp; Ibu Sri Rahayu</p>
-        <div class="couple-social">Instagram: @kirana.ayu</div>
-      </div>
-    </section>
-
-    <!-- LOVE STORY -->
-    <section class="screen story-section reveal">
-      <p class="section-eyebrow">Perjalanan Kami</p>
-      <h3 class="section-title">Love Story</h3>
-
-      <div class="timeline">
-        <div class="timeline-item">
-          <span class="timeline-year">2019</span>
-          <h5>Pertama Bertemu</h5>
-          <p>Dipertemukan pertama kali di sebuah acara kampus yang tidak pernah kami duga akan mengubah jalan hidup kami.</p>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-year">2021</span>
-          <h5>Menjalin Hubungan</h5>
-          <p>Setelah dua tahun saling mengenal, kami memutuskan untuk melangkah bersama dalam sebuah hubungan yang serius.</p>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-year">2025</span>
-          <h5>Lamaran</h5>
-          <p>Raka melamar Kirana disaksikan oleh kedua keluarga besar, menjadi awal dari babak baru kehidupan kami.</p>
-        </div>
-        <div class="timeline-item">
-          <span class="timeline-year">2026</span>
-          <h5>Hari Pernikahan</h5>
-          <p>Dengan penuh rasa syukur, kami akan mengikat janji suci pernikahan dan memulai kehidupan baru sebagai suami istri.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- EVENT -->
-    <section class="screen event-section reveal">
-      <p class="section-eyebrow">Save The Date</p>
-      <h3 class="section-title">Acara Pernikahan</h3>
-
-      <div class="event-card">
-        <h4>Akad Nikah</h4>
-        <p class="event-date">Senin, 21 Desember 2026</p>
-        <p class="event-time">08.00 – 10.00 WIB</p>
-        <p class="event-place">Gedung Serbaguna Graha Kencana<br>Jl. Melati Indah No. 12, Jakarta Selatan</p>
-        <a class="btn-outline" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Lihat Lokasi</a>
-      </div>
-
-      <div class="event-card">
-        <h4>Resepsi</h4>
-        <p class="event-date">Senin, 21 Desember 2026</p>
-        <p class="event-time">11.00 – 14.00 WIB</p>
-        <p class="event-place">Gedung Serbaguna Graha Kencana<br>Jl. Melati Indah No. 12, Jakarta Selatan</p>
-        <a class="btn-outline" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Lihat Lokasi</a>
-      </div>
-
-      <p class="health-note">
-        Demi kenyamanan bersama, dimohon untuk hadir tepat waktu sesuai sesi yang tertera pada undangan.
-      </p>
-    </section>
-
-    <!-- GALLERY -->
-    <section class="screen gallery-section reveal">
-      <p class="section-eyebrow">Our Moments</p>
-      <h3 class="section-title">Galeri</h3>
-      <div class="gallery-grid">
-        <div class="g-item g1" data-caption="Prewedding di taman kota"></div>
-        <div class="g-item g2" data-caption="Momen lamaran"></div>
-        <div class="g-item g3" data-caption="Liburan bersama"></div>
-        <div class="g-item g4" data-caption="Hari jadi kedua"></div>
-        <div class="g-item g5" data-caption="Bertemu keluarga"></div>
-        <div class="g-item g6" data-caption="Menuju hari bahagia"></div>
-      </div>
-    </section>
-
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-      <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
-      <div class="lightbox-photo" id="lightboxPhoto"></div>
-      <p class="lightbox-caption" id="lightboxCaption"></p>
+    <!-- System chips -->
+    <div class="chat-chips">
+      <span class="chip chip-lock">🔒 Pesan ini khusus untukmu</span>
+      <span class="chip">Grup dibuat oleh Raka</span>
+      <span class="chip"><span id="chipGuestName">Tamu</span> ditambahkan ke grup</span>
+      <span class="chip chip-date">Hari ini</span>
     </div>
 
-    <!-- GIFT -->
-    <section class="screen gift-section reveal">
-      <p class="section-eyebrow">Wedding Gift</p>
-      <h3 class="section-title">Kirim Hadiah</h3>
-      <p class="gift-note">
-        Doa restu Anda merupakan hadiah yang paling berarti bagi kami. Namun jika ingin memberikan tanda kasih,
-        Anda dapat mengirimkannya melalui:
-      </p>
+    <!-- ===== CHAT FEED ===== -->
+    <main class="chat-feed" id="chatFeed">
 
-      <div class="gift-card">
-        <div class="gift-bank">
-          <p class="bank-name">Bank Central Asia</p>
-          <p class="bank-number" id="bankNumber">1234567890</p>
-          <p class="bank-holder">a.n. Raka Aditya Pratama</p>
-          <button class="btn-copy" id="copyBtn" data-value="1234567890">Salin Nomor Rekening</button>
+      <!-- HOME -->
+      <section class="feed-section reveal" id="home">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-typing"><span></span><span></span><span></span></div>
         </div>
-      </div>
-
-      <div class="gift-card">
-        <div class="gift-address">
-          <p class="bank-name">Kirim Kado</p>
-          <p>Jl. Melati Indah No. 12,<br>Jakarta Selatan, DKI Jakarta 12210</p>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble">
+            <p class="sender sender-groom">Raka</p>
+            <p>Hai <strong id="homeGuestName">Tamu Undangan</strong> 👋 makasih ya udah gabung di grup kecil kami.</p>
+          </div>
         </div>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card">
+            <div class="hero-photo"></div>
+            <p class="hero-couple">Raka &amp; Kirana</p>
+            <p class="hero-date">21 Desember 2026</p>
+            <p class="hero-invite">
+              Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir
+              dan memberikan doa restu di hari bahagia kami.
+            </p>
+            <div class="music-row">
+              <span class="music-note">🎵</span>
+              <span class="music-track">Perfect — Ed Sheeran (akustik)</span>
+            </div>
+            <div class="reaction-row">
+              <button class="reaction-pill" type="button" data-emoji="❤️">❤️ <span class="r-count">12</span></button>
+              <button class="reaction-pill" type="button" data-emoji="🥹">🥹 <span class="r-count">5</span></button>
+              <button class="btn-share" type="button" id="shareBtn">Bagikan</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- VERSE -->
+      <section class="feed-section reveal" id="verse">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-forward">
+            <p class="forward-label">↪ Diteruskan</p>
+            <blockquote class="verse-quote">
+              "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
+              pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa
+              tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."
+            </blockquote>
+            <p class="verse-source">QS. Ar-Rum : 21</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROFILES -->
+      <section class="feed-section reveal" id="profiles">
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble">
+            <p class="sender sender-bride">Kirana</p>
+            <p>Kenalan dulu... 🌸</p>
+          </div>
+        </div>
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble bubble-card profile-card">
+            <div class="profile-photo profile-bride"></div>
+            <p class="profile-name">Kirana Ayu Lestari</p>
+            <p class="profile-role">Mempelai Wanita</p>
+            <p class="profile-parents">Putri dari Bapak Bambang Wijaya &amp; Ibu Sri Rahayu</p>
+            <a class="profile-ig" href="https://instagram.com/kirana.ayu" target="_blank" rel="noopener">@kirana.ayu</a>
+          </div>
+        </div>
+
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble">
+            <p class="sender sender-groom">Raka</p>
+            <p>Dan ini aku... 🤵</p>
+          </div>
+        </div>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card profile-card">
+            <div class="profile-photo profile-groom"></div>
+            <p class="profile-name">Raka Aditya Pratama</p>
+            <p class="profile-role">Mempelai Pria</p>
+            <p class="profile-parents">Putra dari Bapak Surya Pratama &amp; Ibu Dewi Anggraini</p>
+            <a class="profile-ig" href="https://instagram.com/raka.aditya" target="_blank" rel="noopener">@raka.aditya</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- COUNTDOWN -->
+      <section class="feed-section reveal" id="countdown">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card">
+            <p class="pinned-label">📌 Disematkan</p>
+            <p class="card-title">⏳ Hitung Mundur</p>
+            <div class="countdown-grid">
+              <div class="cd-tile"><span id="cd-days">00</span><small>Hari</small></div>
+              <div class="cd-tile"><span id="cd-hours">00</span><small>Jam</small></div>
+              <div class="cd-tile"><span id="cd-mins">00</span><small>Menit</small></div>
+              <div class="cd-tile"><span id="cd-secs">00</span><small>Detik</small></div>
+            </div>
+            <button class="btn-calendar" type="button"
+              data-summary="Pernikahan Raka & Kirana"
+              data-location="Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan"
+              data-start="20261221T010000Z" data-end="20261221T070000Z">
+              + Tambah ke kalender
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- EVENTS -->
+      <section class="feed-section reveal" id="events">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble"><p class="card-title">Rangkaian Acara</p></div>
+        </div>
+
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card event-card">
+            <p class="event-name">Akad Nikah</p>
+            <p class="event-when">Senin, 21 Desember 2026 · 08.00–10.00 WIB</p>
+            <p class="event-where">Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan</p>
+            <div class="map-preview" aria-hidden="true"><span class="map-pin"></span></div>
+            <div class="event-actions">
+              <a class="btn-mini" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Buka peta</a>
+              <button class="btn-mini btn-calendar" type="button"
+                data-summary="Akad Nikah Raka & Kirana"
+                data-location="Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan"
+                data-start="20261221T010000Z" data-end="20261221T030000Z">
+                Tambah ke kalender
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card event-card">
+            <p class="event-name">Resepsi</p>
+            <p class="event-when">Senin, 21 Desember 2026 · 11.00–14.00 WIB</p>
+            <p class="event-where">Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan</p>
+            <div class="map-preview" aria-hidden="true"><span class="map-pin"></span></div>
+            <div class="event-actions">
+              <a class="btn-mini" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Buka peta</a>
+              <button class="btn-mini btn-calendar" type="button"
+                data-summary="Resepsi Raka & Kirana"
+                data-location="Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan"
+                data-start="20261221T040000Z" data-end="20261221T070000Z">
+                Tambah ke kalender
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card event-card">
+            <p class="event-name">Resepsi Keluarga</p>
+            <p class="event-when">Minggu, 20 Desember 2026 · 18.00–21.00 WIB</p>
+            <p class="event-where">Kediaman Keluarga, Jl. Melati Indah No. 12, Jakarta Selatan</p>
+            <div class="map-preview" aria-hidden="true"><span class="map-pin"></span></div>
+            <div class="event-actions">
+              <a class="btn-mini" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Buka peta</a>
+              <button class="btn-mini btn-calendar" type="button"
+                data-summary="Resepsi Keluarga Raka & Kirana"
+                data-location="Kediaman Keluarga, Jl. Melati Indah No. 12, Jakarta Selatan"
+                data-start="20261220T110000Z" data-end="20261220T140000Z">
+                Tambah ke kalender
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- STORY -->
+      <section class="feed-section reveal" id="story">
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble"><p class="card-title">Our Story 💛</p></div>
+        </div>
+
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble bubble-forward story-card">
+            <p class="forward-label">↪ Kenangan · 2019</p>
+            <div class="story-photo"></div>
+            <p class="story-title">Pertama Bertemu</p>
+            <p>Dipertemukan pertama kali di sebuah acara kampus yang tidak pernah kami duga akan mengubah jalan hidup kami.</p>
+          </div>
+        </div>
+
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble bubble-forward story-card">
+            <p class="forward-label">↪ Kenangan · 2021</p>
+            <div class="story-photo"></div>
+            <p class="story-title">Menjalin Hubungan</p>
+            <p>Setelah dua tahun saling mengenal, kami memutuskan melangkah bersama dalam hubungan yang serius.</p>
+          </div>
+        </div>
+
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble bubble-forward story-card">
+            <p class="forward-label">↪ Kenangan · 2026</p>
+            <div class="story-photo"></div>
+            <p class="story-title">Lamaran &amp; Hari Bahagia</p>
+            <p>Raka melamar Kirana disaksikan kedua keluarga besar — awal babak baru menuju hari pernikahan kami.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DRESS CODE -->
+      <section class="feed-section reveal" id="dresscode">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble"><p>Dress code-nya, biar kompak ya 👗🤵</p></div>
+        </div>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card">
+            <div class="swatch-row">
+              <span class="swatch" style="background:#B3894A" title="Gold"></span>
+              <span class="swatch" style="background:#E7D3AE" title="Cream Gold"></span>
+              <span class="swatch" style="background:#FAF6EE" title="Ivory"></span>
+              <span class="swatch" style="background:#241A10" title="Dark Brown"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section class="feed-section reveal" id="gallery">
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble"><p>Beberapa foto kami 📸</p></div>
+        </div>
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble bubble-card gallery-card">
+            <div class="gallery-mosaic" id="galleryMosaic">
+              <button class="g-item g1" type="button" aria-label="Lihat foto 1" data-index="0"></button>
+              <button class="g-item g2" type="button" aria-label="Lihat foto 2" data-index="1"></button>
+              <button class="g-item g3" type="button" aria-label="Lihat foto 3" data-index="2"></button>
+              <button class="g-item g-more" type="button" id="galleryMore" aria-label="Lihat 3 foto lainnya" data-index="3">+3</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LIGHTBOX -->
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeri foto">
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Tutup galeri">&times;</button>
+        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Foto sebelumnya">&#8249;</button>
+        <div class="lightbox-photo" id="lightboxPhoto"></div>
+        <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Foto berikutnya">&#8250;</button>
+        <p class="lightbox-caption" id="lightboxCaption"></p>
       </div>
-    </section>
 
-    <!-- RSVP & WISHES -->
-    <section class="screen rsvp-section reveal">
-      <p class="section-eyebrow">Konfirmasi Kehadiran</p>
-      <h3 class="section-title">RSVP &amp; Ucapan</h3>
+      <!-- GIFT -->
+      <section class="feed-section reveal" id="gift">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble"><p>🎁 Tanda kasih. Doa restumu sudah lebih dari cukup, tapi kalau ingin memberi, ini infonya ya.</p></div>
+        </div>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card gift-card">
+            <p class="gift-bank-name">Bank Central Asia</p>
+            <p class="gift-bank-number">1234567890</p>
+            <p class="gift-bank-holder">a.n. Raka Aditya Pratama</p>
+            <button class="btn-copy" type="button" data-value="1234567890">Salin</button>
+          </div>
+        </div>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card gift-card">
+            <p class="gift-bank-name">Alamat Kirim Kado</p>
+            <p class="gift-address">Jl. Melati Indah No. 12, Jakarta Selatan, DKI Jakarta 12210</p>
+            <button class="btn-copy" type="button" data-value="Jl. Melati Indah No. 12, Jakarta Selatan, DKI Jakarta 12210">Salin</button>
+          </div>
+        </div>
+      </section>
 
-      <form class="rsvp-form" id="rsvpForm">
-        <input type="text" id="rsvpName" placeholder="Nama Anda" required>
-        <select id="rsvpStatus" required>
-          <option value="" disabled selected>Konfirmasi Kehadiran</option>
-          <option value="Hadir">Saya akan hadir</option>
-          <option value="Tidak Hadir">Maaf, saya tidak dapat hadir</option>
-          <option value="Ragu">Masih ragu</option>
-        </select>
-        <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan dan doa Anda..." required></textarea>
-        <button type="submit" class="btn-open small">Kirim Ucapan</button>
-      </form>
+      <!-- RSVP -->
+      <section class="feed-section reveal" id="rsvp">
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble bubble-card attendance-card">
+            <p class="card-title">Attendance</p>
+            <p class="deadline-note">Mohon konfirmasi sebelum 10 Desember 2026 ya 🙏</p>
+            <div class="attendance-choices">
+              <button class="choice-btn" type="button" data-status="Hadir" id="choiceHadir">Hadir 🙌</button>
+              <button class="choice-btn" type="button" data-status="Tidak Hadir" id="choiceTidak">Berhalangan</button>
+            </div>
+            <div class="guest-count-row" id="guestCountRow" hidden>
+              <label for="guestCount">Jumlah tamu (maks. 2)</label>
+              <select id="guestCount">
+                <option value="1">1 orang</option>
+                <option value="2">2 orang</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-      <div class="wishes-list" id="wishesList">
-        <p class="wishes-empty" id="wishesEmpty">Jadilah yang pertama memberikan ucapan &amp; doa.</p>
-      </div>
+        <div class="msg bride">
+          <span class="avatar avatar-bride">K</span>
+          <div class="bubble"><p>💬 Ucapan &amp; doa</p></div>
+        </div>
 
-      <a class="admin-link" href="admin.html" target="_blank" rel="noopener">Panitia? Buka Dashboard</a>
-    </section>
+        <form class="bubble bubble-card rsvp-form" id="rsvpForm">
+          <input type="text" id="rsvpName" placeholder="Nama kamu" required>
+          <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan dan doa..." required></textarea>
+          <button type="submit" class="btn-send">Kirim</button>
+          <p class="rsvp-error" id="rsvpError" role="alert">Pilih dulu status kehadiran di atas ya.</p>
+        </form>
 
-    <!-- CLOSING -->
-    <section class="screen closing-section reveal">
-      <div class="cover-ornament top"></div>
-      <p class="hero-label">Terima Kasih</p>
-      <h3 class="hero-names">Raka <span>&</span> Kirana</h3>
-      <p class="closing-text">
-        Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
-        berkenan hadir dan memberikan doa restu kepada kami.
-      </p>
-      <p class="closing-thanks">Wassalamu'alaikum Warahmatullahi Wabarakatuh</p>
-      <p class="closing-signature">Raka &amp; Kirana</p>
-      <div class="cover-ornament bottom"></div>
-    </section>
+        <div class="wishes-list" id="wishesList">
+          <p class="wishes-empty" id="wishesEmpty">Jadilah yang pertama memberikan ucapan &amp; doa.</p>
+        </div>
+      </section>
 
+      <!-- LOVE NOTE -->
+      <section class="feed-section reveal" id="lovenote">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble bubble-card">
+            <p class="lovenote-text">
+              "Terima kasih sudah jadi bagian penting perjalanan kami. Sampai jumpa di hari bahagia kami ya." — Raka
+            </p>
+            <button class="reaction-pill" type="button" data-emoji="❤️">❤️ <span class="r-count">8</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLOSING -->
+      <section class="feed-section reveal" id="closing">
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble">
+            <p>
+              Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
+              berkenan hadir dan memberikan doa restu.
+            </p>
+          </div>
+        </div>
+        <div class="msg groom">
+          <span class="avatar">R</span>
+          <div class="bubble">
+            <p>Wassalamu'alaikum Warahmatullahi Wabarakatuh 🤍</p>
+            <p class="closing-signature">Raka &amp; Kirana</p>
+          </div>
+        </div>
+        <p class="admin-link-wrap"><a class="admin-link" href="admin.html" target="_blank" rel="noopener">Panitia? Buka dashboard</a></p>
+      </section>
+
+    </main>
+
+    <!-- Bottom nav -->
+    <nav class="bottom-nav" id="bottomNav" aria-label="Navigasi cepat">
+      <a href="#home" data-target="#home" class="active">Home</a>
+      <a href="#profiles" data-target="#profiles">Mempelai</a>
+      <a href="#events" data-target="#events">Acara</a>
+      <a href="#gallery" data-target="#gallery">Galeri</a>
+      <a href="#rsvp" data-target="#rsvp">RSVP</a>
+    </nav>
   </div>
 
-  <!-- Floating music toggle -->
-  <button class="music-toggle" id="musicToggle" aria-label="Toggle music">
-    <span class="music-icon"></span>
-  </button>
-
-  <!-- Bottom nav -->
-  <nav class="bottom-nav" id="bottomNav">
-    <a href="#cover" data-target="cover" class="active">Home</a>
-    <a href="#couple" data-target=".couple-section">Mempelai</a>
-    <a href="#event" data-target=".event-section">Acara</a>
-    <a href="#gallery" data-target=".gallery-section">Galeri</a>
-    <a href="#rsvp" data-target=".rsvp-section">RSVP</a>
-  </nav>
+  <!-- ===== OPENING GATE ===== -->
+  <div class="open-gate" id="openGate">
+    <div class="gate-card">
+      <div class="gate-avatar">💍</div>
+      <p class="gate-title">Raka &amp; Kirana 💍</p>
+      <p class="gate-sub">Kepada Yth. Bapak/Ibu/Saudara/i</p>
+      <p class="gate-guest" id="guestName">Tamu Undangan</p>
+      <button class="btn-open" id="openBtn" type="button">Buka pesan dari Raka &amp; Kirana 💍</button>
+    </div>
+  </div>
 
 </div>
 

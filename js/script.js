@@ -37,13 +37,13 @@
   document.getElementById("groupInfoBack").addEventListener("click", closeGroupInfo);
 
   // ---------- Story viewer (tap the avatar to open) ----------
-  var STORY_COUNT = 8;
+  var STORY_COUNT = 5;
   var storyIndex = 0;
   var storyViewer = document.getElementById("storyViewer");
   var storyPhoto = document.getElementById("storyPhoto");
   var storyCounter = document.getElementById("storyCounter");
   var storyProgress = document.getElementById("storyProgress");
-  var storyClasses = ["g1", "g2", "g3", "g1", "g2", "g3", "g1", "g2"];
+  var storyClasses = ["g1", "g2", "g3", "g4", "g5"];
 
   for (var s = 0; s < STORY_COUNT; s++) {
     var seg = document.createElement("span");
@@ -53,7 +53,7 @@
   var storySegs = Array.prototype.slice.call(storyProgress.querySelectorAll(".seg"));
 
   function renderStory() {
-    storyPhoto.className = "story-photo " + storyClasses[storyIndex];
+    storyPhoto.className = "story-view-photo " + storyClasses[storyIndex];
     storyCounter.textContent = "Status · " + (storyIndex + 1) + " dari " + STORY_COUNT;
     storySegs.forEach(function (seg, i) { seg.classList.toggle("filled", i <= storyIndex); });
   }
@@ -532,14 +532,13 @@
 
   // ---------- Gallery lightbox ----------
   var galleryCaptions = [
-    "Prewedding di taman kota",
-    "Momen lamaran",
-    "Liburan bersama",
-    "Hari jadi kedua",
-    "Bertemu keluarga",
-    "Menuju hari bahagia"
+    "Photo booth berdua",
+    "Liburan ke Bandung",
+    "Photo booth, lagi becanda",
+    "Nonton bareng",
+    "Lari pagi di Jakarta"
   ];
-  var galleryClasses = ["g1", "g2", "g3", "g1", "g2", "g3"];
+  var galleryClasses = ["g1", "g2", "g3", "g4", "g5"];
   var currentPhotoIndex = 0;
 
   var lightbox = document.getElementById("lightbox");

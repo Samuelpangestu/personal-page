@@ -33,9 +33,61 @@
     groupInfo.classList.remove("show");
     groupInfo.setAttribute("aria-hidden", "true");
   }
-  document.getElementById("statusAvatarBtn").addEventListener("click", openGroupInfo);
   document.getElementById("headerInfoBtn").addEventListener("click", openGroupInfo);
   document.getElementById("groupInfoBack").addEventListener("click", closeGroupInfo);
+
+  // ---------- Story viewer (tap the avatar to open) ----------
+  var STORY_COUNT = 8;
+  var storyIndex = 0;
+  var storyViewer = document.getElementById("storyViewer");
+  var storyPhoto = document.getElementById("storyPhoto");
+  var storyCounter = document.getElementById("storyCounter");
+  var storyProgress = document.getElementById("storyProgress");
+  var storyClasses = ["g1", "g2", "g3", "g1", "g2", "g3", "g1", "g2"];
+
+  for (var s = 0; s < STORY_COUNT; s++) {
+    var seg = document.createElement("span");
+    seg.className = "seg";
+    storyProgress.appendChild(seg);
+  }
+  var storySegs = Array.prototype.slice.call(storyProgress.querySelectorAll(".seg"));
+
+  function renderStory() {
+    storyPhoto.className = "story-photo " + storyClasses[storyIndex];
+    storyCounter.textContent = "Status · " + (storyIndex + 1) + " dari " + STORY_COUNT;
+    storySegs.forEach(function (seg, i) { seg.classList.toggle("filled", i <= storyIndex); });
+  }
+
+  function openStory() {
+    storyIndex = 0;
+    renderStory();
+    storyViewer.classList.add("show");
+    storyViewer.setAttribute("aria-hidden", "false");
+  }
+  function closeStory() {
+    storyViewer.classList.remove("show");
+    storyViewer.setAttribute("aria-hidden", "true");
+  }
+  function nextStory() {
+    if (storyIndex >= STORY_COUNT - 1) { closeStory(); return; }
+    storyIndex++;
+    renderStory();
+  }
+  function prevStory() {
+    storyIndex = Math.max(0, storyIndex - 1);
+    renderStory();
+  }
+
+  document.getElementById("statusAvatarBtn").addEventListener("click", openStory);
+  document.getElementById("storyClose").addEventListener("click", closeStory);
+  document.getElementById("storyNext").addEventListener("click", nextStory);
+  document.getElementById("storyPrev").addEventListener("click", prevStory);
+  document.addEventListener("keydown", function (e) {
+    if (!storyViewer.classList.contains("show")) return;
+    if (e.key === "Escape") closeStory();
+    if (e.key === "ArrowRight") nextStory();
+    if (e.key === "ArrowLeft") prevStory();
+  });
 
   // ---------- Lock screen clock ----------
   var lockDate = document.getElementById("lockDate");
@@ -67,7 +119,7 @@
     var participants = document.querySelector(".header-participants");
     if (participants) {
       var original = participants.textContent;
-      participants.textContent = "Kirana sedang mengetik...";
+      participants.textContent = "Ledy sedang mengetik...";
       participants.classList.add("typing-status");
       setTimeout(function () {
         participants.textContent = original;
@@ -83,8 +135,8 @@
     });
   }
   lockScreen.style.transition = "opacity .4s ease";
-  document.getElementById("notifRaka").addEventListener("click", openInvitation);
-  document.getElementById("notifKirana").addEventListener("click", openInvitation);
+  document.getElementById("notifSamuel").addEventListener("click", openInvitation);
+  document.getElementById("notifLedy").addEventListener("click", openInvitation);
 
   // ---------- Music toggle ----------
   musicToggle.addEventListener("click", function () {
@@ -117,8 +169,8 @@
   if (shareBtn) {
     shareBtn.addEventListener("click", function () {
       var shareData = {
-        title: "Undangan Pernikahan Raka & Kirana",
-        text: "Kamu diundang ke pernikahan Raka & Kirana!",
+        title: "Undangan Pernikahan Samuel & Ledy",
+        text: "Kamu diundang ke pernikahan Samuel & Ledy!",
         url: window.location.href
       };
       if (navigator.share) {
@@ -171,14 +223,27 @@
   tickCountdown();
   setInterval(tickCountdown, 1000);
 
-  document.getElementById("pinnedBar").addEventListener("click", function () {
-    document.getElementById("countdown").scrollIntoView({ behavior: "smooth" });
+  // ---------- Pinned carousel: click to jump, swipe to update dots ----------
+  var pinnedCarousel = document.getElementById("pinnedCarousel");
+  var pinnedBars = Array.prototype.slice.call(pinnedCarousel.querySelectorAll(".pinned-bar"));
+  var pinnedDots = Array.prototype.slice.call(document.getElementById("pinnedDots").querySelectorAll(".dot"));
+
+  pinnedBars.forEach(function (bar) {
+    bar.addEventListener("click", function () {
+      var targetEl = document.querySelector(bar.getAttribute("data-target"));
+      if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
+    });
   });
+
+  pinnedCarousel.addEventListener("scroll", function () {
+    var index = Math.round(pinnedCarousel.scrollLeft / pinnedCarousel.clientWidth);
+    pinnedDots.forEach(function (dot, i) { dot.classList.toggle("active", i === index); });
+  }, { passive: true });
 
   // ---------- Add to calendar (.ics download), generic for all events ----------
   document.querySelectorAll(".btn-calendar").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var summary = btn.getAttribute("data-summary") || "Pernikahan Raka & Kirana";
+      var summary = btn.getAttribute("data-summary") || "Pernikahan Samuel & Ledy";
       var location = btn.getAttribute("data-location") || "";
       var start = btn.getAttribute("data-start");
       var end = btn.getAttribute("data-end");
@@ -238,7 +303,7 @@
   choiceTidak.addEventListener("click", function () { selectStatus("Tidak Hadir"); });
 
   // ---------- RSVP & Wishes (localStorage) ----------
-  var STORAGE_KEY = "wedding_wishes_raka_kirana";
+  var STORAGE_KEY = "wedding_wishes_samuel_ledy";
   var wishesList = document.getElementById("wishesList");
   var wishesEmpty = document.getElementById("wishesEmpty");
   var rsvpForm = document.getElementById("rsvpForm");

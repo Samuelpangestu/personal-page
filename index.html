@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>The Wedding of Raka & Kirana</title>
-<meta name="description" content="Undangan pernikahan digital Raka & Kirana — gaya percakapan grup chat">
+<title>The Wedding of Samuel & Ledy</title>
+<meta name="description" content="Undangan pernikahan digital Samuel & Ledy — gaya percakapan grup chat">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
@@ -35,9 +35,9 @@
         </span>
       </button>
 
-      <button class="header-info" type="button" id="headerInfoBtn" aria-label="Info grup Raka dan Kirana">
-        <span class="header-title">Raka &amp; Kirana 💍</span>
-        <span class="header-participants">Raka, Kirana, <span id="headerGuestName">Tamu</span></span>
+      <button class="header-info" type="button" id="headerInfoBtn" aria-label="Info grup Samuel dan Ledy">
+        <span class="header-title">Samuel &amp; Ledy 💍</span>
+        <span class="header-participants">Samuel, Ledy, <span id="headerGuestName">Tamu</span></span>
       </button>
 
       <span class="header-actions">
@@ -51,17 +51,34 @@
       </span>
     </header>
 
-    <!-- Pinned countdown bar (tap to jump to full countdown card) -->
-    <button class="pinned-bar" type="button" id="pinnedBar" aria-label="Lompat ke hitung mundur">
-      <span class="pinned-icon">📌</span>
-      <span>⏳ Hitung mundur · <strong id="pinnedDays">0</strong> hari lagi menuju hari H</span>
-    </button>
+    <!-- Pinned carousel: 4 quick-jump items (tap or swipe) -->
+    <div class="pinned-carousel" id="pinnedCarousel" role="region" aria-label="Pesan disematkan">
+      <button class="pinned-bar" type="button" data-target="#countdown" aria-label="Lompat ke hitung mundur">
+        <span class="pinned-icon">⏳</span>
+        <span class="pinned-text">Hitung mundur · <strong id="pinnedDays">0</strong> hari lagi menuju hari H</span>
+      </button>
+      <button class="pinned-bar" type="button" data-target="#events" aria-label="Lompat ke lokasi acara">
+        <span class="pinned-icon">📍</span>
+        <span class="pinned-text">Lokasi · Akad Nikah, Graha Kencana</span>
+      </button>
+      <button class="pinned-bar" type="button" data-target="#gift" aria-label="Lompat ke tanda kasih">
+        <span class="pinned-icon">🎁</span>
+        <span class="pinned-text">Tanda kasih · BCA · 1234567890</span>
+      </button>
+      <button class="pinned-bar" type="button" data-target="#rsvp" aria-label="Lompat ke konfirmasi kehadiran">
+        <span class="pinned-icon">💌</span>
+        <span class="pinned-text">Konfirmasi kehadiran · Kamu bisa datang?</span>
+      </button>
+    </div>
+    <div class="pinned-dots" id="pinnedDots" aria-hidden="true">
+      <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
 
     <!-- System chips -->
     <div class="chat-chips">
       <span class="chip chip-lock">🔒 Undangan ini dikirim khusus untuk <span id="chipGuestName">Tamu</span></span>
-      <span class="chip">Raka membuat grup &ldquo;Raka &amp; Kirana 💍&rdquo;</span>
-      <span class="chip">Kirana menambahkan <span id="chipGuestName2">Tamu</span></span>
+      <span class="chip">Samuel membuat grup &ldquo;Samuel &amp; Ledy 💍&rdquo;</span>
+      <span class="chip">Ledy menambahkan <span id="chipGuestName2">Tamu</span></span>
       <span class="chip chip-date">Hari ini</span>
     </div>
 
@@ -77,7 +94,7 @@
         <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble">
-            <p class="sender sender-groom">Raka</p>
+            <p class="sender sender-groom">Samuel</p>
             <p>Hai <strong id="homeGuestName">Tamu Undangan</strong> 👋 makasih ya udah gabung di grup kecil kami.</p>
             <span class="msg-time">09.00</span>
           </div>
@@ -86,7 +103,7 @@
           <span class="avatar">R</span>
           <div class="bubble bubble-card">
             <div class="hero-photo"></div>
-            <p class="hero-couple">Raka &amp; Kirana</p>
+            <p class="hero-couple">Samuel &amp; Ledy</p>
             <p class="hero-date">21 Desember 2026</p>
             <p class="hero-invite">
               Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir
@@ -127,7 +144,7 @@
         <div class="msg bride">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble">
-            <p class="sender sender-bride">Kirana</p>
+            <p class="sender sender-bride">Ledy</p>
             <p>Kenalan dulu... 🌸</p>
           </div>
         </div>
@@ -135,17 +152,17 @@
           <span class="avatar avatar-bride">K</span>
           <div class="bubble bubble-card profile-card">
             <div class="profile-photo profile-bride"></div>
-            <p class="profile-name">Kirana Ayu Lestari</p>
+            <p class="profile-name">Ledy Ayu Lestari</p>
             <p class="profile-role">Mempelai Wanita</p>
             <p class="profile-parents">Putri dari Bapak Bambang Wijaya &amp; Ibu Sri Rahayu</p>
-            <a class="profile-ig" href="https://instagram.com/kirana.ayu" target="_blank" rel="noopener">@kirana.ayu</a>
+            <a class="profile-ig" href="https://instagram.com/ledy.ayu" target="_blank" rel="noopener">@ledy.ayu</a>
           </div>
         </div>
 
         <div class="msg groom">
           <span class="avatar">R</span>
           <div class="bubble">
-            <p class="sender sender-groom">Raka</p>
+            <p class="sender sender-groom">Samuel</p>
             <p>Dan ini aku... 🤵</p>
           </div>
         </div>
@@ -153,10 +170,10 @@
           <span class="avatar">R</span>
           <div class="bubble bubble-card profile-card">
             <div class="profile-photo profile-groom"></div>
-            <p class="profile-name">Raka Aditya Pratama</p>
+            <p class="profile-name">Samuel Aditya Pratama</p>
             <p class="profile-role">Mempelai Pria</p>
             <p class="profile-parents">Putra dari Bapak Surya Pratama &amp; Ibu Dewi Anggraini</p>
-            <a class="profile-ig" href="https://instagram.com/raka.aditya" target="_blank" rel="noopener">@raka.aditya</a>
+            <a class="profile-ig" href="https://instagram.com/samuel.aditya" target="_blank" rel="noopener">@samuel.aditya</a>
           </div>
         </div>
       </section>
@@ -175,7 +192,7 @@
               <div class="cd-tile"><span id="cd-secs">00</span><small>Detik</small></div>
             </div>
             <button class="btn-calendar" type="button"
-              data-summary="Pernikahan Raka & Kirana"
+              data-summary="Pernikahan Samuel & Ledy"
               data-location="Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan"
               data-start="20261221T010000Z" data-end="20261221T070000Z">
               + Tambah ke kalender
@@ -201,7 +218,7 @@
             <div class="event-actions">
               <a class="btn-mini" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Buka peta</a>
               <button class="btn-mini btn-calendar" type="button"
-                data-summary="Akad Nikah Raka & Kirana"
+                data-summary="Akad Nikah Samuel & Ledy"
                 data-location="Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan"
                 data-start="20261221T010000Z" data-end="20261221T030000Z">
                 Tambah ke kalender
@@ -220,7 +237,7 @@
             <div class="event-actions">
               <a class="btn-mini" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Buka peta</a>
               <button class="btn-mini btn-calendar" type="button"
-                data-summary="Resepsi Raka & Kirana"
+                data-summary="Resepsi Samuel & Ledy"
                 data-location="Gedung Serbaguna Graha Kencana, Jl. Melati Indah No. 12, Jakarta Selatan"
                 data-start="20261221T040000Z" data-end="20261221T070000Z">
                 Tambah ke kalender
@@ -239,7 +256,7 @@
             <div class="event-actions">
               <a class="btn-mini" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Buka peta</a>
               <button class="btn-mini btn-calendar" type="button"
-                data-summary="Resepsi Keluarga Raka & Kirana"
+                data-summary="Resepsi Keluarga Samuel & Ledy"
                 data-location="Kediaman Keluarga, Jl. Melati Indah No. 12, Jakarta Selatan"
                 data-start="20261220T110000Z" data-end="20261220T140000Z">
                 Tambah ke kalender
@@ -282,7 +299,7 @@
             <p class="forward-label">↪ Kenangan · 2026</p>
             <div class="story-photo"></div>
             <p class="story-title">Lamaran &amp; Hari Bahagia</p>
-            <p>Raka melamar Kirana disaksikan kedua keluarga besar — awal babak baru menuju hari pernikahan kami.</p>
+            <p>Samuel melamar Ledy disaksikan kedua keluarga besar — awal babak baru menuju hari pernikahan kami.</p>
           </div>
         </div>
       </section>
@@ -345,7 +362,7 @@
           <div class="bubble bubble-card gift-card">
             <p class="gift-bank-name">Bank Central Asia</p>
             <p class="gift-bank-number">1234567890</p>
-            <p class="gift-bank-holder">a.n. Raka Aditya Pratama</p>
+            <p class="gift-bank-holder">a.n. Samuel Aditya Pratama</p>
             <button class="btn-copy" type="button" data-value="1234567890">Salin</button>
           </div>
         </div>
@@ -403,7 +420,7 @@
           <span class="avatar">R</span>
           <div class="bubble bubble-card">
             <p class="lovenote-text">
-              "Terima kasih sudah jadi bagian penting perjalanan kami. Sampai jumpa di hari bahagia kami ya." — Raka
+              "Terima kasih sudah jadi bagian penting perjalanan kami. Sampai jumpa di hari bahagia kami ya." — Samuel
             </p>
             <button class="reaction-pill" type="button" data-emoji="❤️">❤️ <span class="r-count">8</span></button>
           </div>
@@ -425,7 +442,7 @@
           <span class="avatar">R</span>
           <div class="bubble">
             <p>Wassalamu'alaikum Warahmatullahi Wabarakatuh 🤍</p>
-            <p class="closing-signature">Raka &amp; Kirana</p>
+            <p class="closing-signature">Samuel &amp; Ledy</p>
           </div>
         </div>
         <p class="admin-link-wrap"><a class="admin-link" href="admin.html" target="_blank" rel="noopener">Panitia? Buka dashboard</a></p>
@@ -451,6 +468,24 @@
     </div>
   </div>
 
+  <!-- ===== STORY VIEWER ===== -->
+  <div class="story-viewer" id="storyViewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Story foto Samuel dan Ledy">
+    <div class="story-progress" id="storyProgress"></div>
+    <header class="story-header">
+      <button class="pill pill-back" type="button" id="storyClose" aria-label="Tutup story">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="story-avatar">💍</span>
+      <span class="story-title">
+        <strong>Samuel &amp; Ledy 💍</strong>
+        <span id="storyCounter">Status · 1 dari 8</span>
+      </span>
+    </header>
+    <div class="story-photo" id="storyPhoto"></div>
+    <button class="story-nav story-prev" type="button" id="storyPrev" aria-label="Foto sebelumnya"></button>
+    <button class="story-nav story-next" type="button" id="storyNext" aria-label="Foto berikutnya"></button>
+  </div>
+
   <!-- ===== GROUP INFO PANEL ===== -->
   <div class="group-info" id="groupInfo" aria-hidden="true">
     <header class="group-info-header">
@@ -462,14 +497,14 @@
 
     <div class="group-info-body">
       <div class="group-info-photo"></div>
-      <p class="group-info-name">Raka &amp; Kirana 💍</p>
+      <p class="group-info-name">Samuel &amp; Ledy 💍</p>
       <p class="group-info-count">Grup · 3 anggota</p>
 
       <section class="gi-card">
         <p class="gi-label">Deskripsi</p>
         <p class="gi-date">Senin, 21 Desember 2026</p>
         <p class="gi-desc">Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu di hari bahagia kami.</p>
-        <p class="gi-meta">Dibuat oleh Raka</p>
+        <p class="gi-meta">Dibuat oleh Samuel</p>
       </section>
 
       <section class="gi-card">
@@ -519,7 +554,7 @@
         <div class="gi-member-row">
           <span class="avatar avatar-bride">K</span>
           <span class="gi-member-text">
-            <span class="gi-member-name">Kirana Ayu Lestari</span>
+            <span class="gi-member-name">Ledy Ayu Lestari</span>
             <span class="gi-member-role">Mempelai Wanita</span>
           </span>
           <span class="gi-badge">Admin Grup</span>
@@ -527,7 +562,7 @@
         <div class="gi-member-row">
           <span class="avatar">R</span>
           <span class="gi-member-text">
-            <span class="gi-member-name">Raka Aditya Pratama</span>
+            <span class="gi-member-name">Samuel Aditya Pratama</span>
             <span class="gi-member-role">Mempelai Pria</span>
           </span>
           <span class="gi-badge">Admin Grup</span>
@@ -552,19 +587,19 @@
       <p class="lock-time" id="lockTime">00:00</p>
 
       <div class="lock-notifs">
-        <button class="lock-notif" type="button" id="notifRaka" aria-label="Buka pesan dari Raka">
+        <button class="lock-notif" type="button" id="notifSamuel" aria-label="Buka pesan dari Samuel">
           <span class="notif-avatar">R</span>
           <span class="notif-body">
-            <span class="notif-row1"><strong>Raka</strong><span class="notif-time">sekarang</span></span>
-            <span class="notif-group">Raka &amp; Kirana 💍</span>
+            <span class="notif-row1"><strong>Samuel</strong><span class="notif-time">sekarang</span></span>
+            <span class="notif-group">Samuel &amp; Ledy 💍</span>
             <span class="notif-text">Hai <span id="lockGuestName">Tamu Undangan</span>, kamu kami tambahkan ke grup undangan kami 💌</span>
           </span>
         </button>
-        <button class="lock-notif" type="button" id="notifKirana" aria-label="Buka pesan dari Kirana">
+        <button class="lock-notif" type="button" id="notifLedy" aria-label="Buka pesan dari Ledy">
           <span class="notif-avatar avatar-bride">K</span>
           <span class="notif-body">
-            <span class="notif-row1"><strong>Kirana</strong><span class="notif-time">1 mnt lalu</span></span>
-            <span class="notif-group">Raka &amp; Kirana 💍</span>
+            <span class="notif-row1"><strong>Ledy</strong><span class="notif-time">1 mnt lalu</span></span>
+            <span class="notif-group">Samuel &amp; Ledy 💍</span>
             <span class="notif-text">Mohon maaf bila ada kesalahan penulisan nama atau gelar ya 🙏</span>
           </span>
         </button>

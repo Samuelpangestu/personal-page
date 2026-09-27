@@ -2,7 +2,7 @@
   "use strict";
 
   var ADMIN_PASSWORD = "panitia2026";
-  var STORAGE_KEY = "wedding_wishes_raka_kirana";
+  var STORAGE_KEY = "wedding_wishes_samuel_ledy";
   var SESSION_KEY = "wedding_admin_session";
 
   var gate = document.getElementById("gate");

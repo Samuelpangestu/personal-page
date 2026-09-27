@@ -157,7 +157,7 @@
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
     a.href = url;
-    a.download = "rsvp-raka-kirana.csv";
+    a.download = "rsvp-samuel-ledy.csv";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

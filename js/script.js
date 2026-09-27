@@ -16,25 +16,48 @@
     return name ? decodeURIComponent(name).replace(/\+/g, " ") : "Tamu Undangan";
   }
   var guestName = getGuestName();
-  ["guestName", "headerGuestName", "chipGuestName", "homeGuestName"].forEach(function (id) {
+  ["headerGuestName", "chipGuestName", "chipGuestName2", "homeGuestName", "lockGuestName"].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.textContent = guestName;
   });
 
-  // ---------- Opening gate ----------
-  var openBtn = document.getElementById("openBtn");
-  var openGate = document.getElementById("openGate");
+  // ---------- Lock screen clock ----------
+  var lockDate = document.getElementById("lockDate");
+  var lockTime = document.getElementById("lockTime");
+  var DAY_NAMES = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+  var MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+  function tickClock() {
+    var now = new Date();
+    lockDate.textContent = DAY_NAMES[now.getDay()] + ", " + now.getDate() + " " + MONTH_NAMES[now.getMonth()];
+    lockTime.textContent = pad(now.getHours()) + ":" + pad(now.getMinutes());
+  }
+  tickClock();
+  setInterval(tickClock, 1000);
+
+  // ---------- Opening flow (lock screen -> chat) ----------
+  var lockScreen = document.getElementById("lockScreen");
   var chatShell = document.getElementById("chatShell");
-  var bottomNav = document.getElementById("bottomNav");
+  var composeBar = document.getElementById("composeBar");
   var bgMusic = document.getElementById("bgMusic");
   var musicToggle = document.getElementById("musicToggle");
 
-  openBtn.addEventListener("click", function () {
+  function openInvitation() {
     chatShell.classList.remove("locked");
-    openGate.style.opacity = "0";
-    openGate.style.pointerEvents = "none";
-    setTimeout(function () { openGate.style.display = "none"; }, 400);
-    bottomNav.classList.add("show");
+    lockScreen.style.opacity = "0";
+    lockScreen.style.pointerEvents = "none";
+    setTimeout(function () { lockScreen.style.display = "none"; }, 400);
+    composeBar.classList.add("show");
+
+    var participants = document.querySelector(".header-participants");
+    if (participants) {
+      var original = participants.textContent;
+      participants.textContent = "Kirana sedang mengetik...";
+      participants.classList.add("typing-status");
+      setTimeout(function () {
+        participants.textContent = original;
+        participants.classList.remove("typing-status");
+      }, 2200);
+    }
 
     bgMusic.play().then(function () {
       musicToggle.classList.add("playing");
@@ -42,8 +65,10 @@
     }).catch(function () {
       // Autoplay blocked; user can tap the music button manually.
     });
-  });
-  openGate.style.transition = "opacity .4s ease";
+  }
+  lockScreen.style.transition = "opacity .4s ease";
+  document.getElementById("notifRaka").addEventListener("click", openInvitation);
+  document.getElementById("notifKirana").addEventListener("click", openInvitation);
 
   // ---------- Music toggle ----------
   musicToggle.addEventListener("click", function () {
@@ -112,6 +137,8 @@
 
   function pad(n) { return String(n).padStart(2, "0"); }
 
+  var pinnedDays = document.getElementById("pinnedDays");
+
   function tickCountdown() {
     var diff = WEDDING_DATE.getTime() - Date.now();
     if (diff < 0) diff = 0;
@@ -123,9 +150,14 @@
     elHours.textContent = pad(hours);
     elMins.textContent = pad(mins);
     elSecs.textContent = pad(secs);
+    if (pinnedDays) pinnedDays.textContent = days;
   }
   tickCountdown();
   setInterval(tickCountdown, 1000);
+
+  document.getElementById("pinnedBar").addEventListener("click", function () {
+    document.getElementById("countdown").scrollIntoView({ behavior: "smooth" });
+  });
 
   // ---------- Add to calendar (.ics download), generic for all events ----------
   document.querySelectorAll(".btn-calendar").forEach(function (btn) {
@@ -289,31 +321,54 @@
 
   renderWishes();
 
-  // ---------- Bottom nav: click to scroll + active state on scroll ----------
-  var navLinks = Array.prototype.slice.call(bottomNav.querySelectorAll("a"));
+  // ---------- Quick-jump menu (opened from compose bar's + button) ----------
+  var jumpMenu = document.getElementById("jumpMenu");
+  var jumpMenuToggle = document.getElementById("jumpMenuToggle");
+  var navLinks = Array.prototype.slice.call(jumpMenu.querySelectorAll("a"));
   var navSections = navLinks.map(function (link) {
     var sel = link.getAttribute("data-target");
     return { link: link, el: document.querySelector(sel) };
   }).filter(function (n) { return n.el; });
+
+  jumpMenuToggle.addEventListener("click", function () {
+    var isOpen = jumpMenu.classList.toggle("show");
+    jumpMenuToggle.setAttribute("aria-expanded", String(isOpen));
+    jumpMenu.setAttribute("aria-hidden", String(!isOpen));
+  });
 
   navLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
       e.preventDefault();
       var targetEl = document.querySelector(link.getAttribute("data-target"));
       if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
+      jumpMenu.classList.remove("show");
+      jumpMenuToggle.setAttribute("aria-expanded", "false");
+      jumpMenu.setAttribute("aria-hidden", "true");
     });
   });
 
+  var chatFeed = document.getElementById("chatFeed");
   function updateActiveNav() {
-    var scrollPos = window.scrollY + window.innerHeight / 3;
+    var feedRect = chatFeed.getBoundingClientRect();
+    var scrollPos = feedRect.top + feedRect.height / 3;
     var current = navSections[0];
     navSections.forEach(function (n) {
-      if (n.el.offsetTop <= scrollPos) current = n;
+      if (n.el.getBoundingClientRect().top <= scrollPos) current = n;
     });
     navLinks.forEach(function (l) { l.classList.remove("active"); });
     if (current) current.link.classList.add("active");
   }
-  window.addEventListener("scroll", updateActiveNav, { passive: true });
+  chatFeed.addEventListener("scroll", updateActiveNav, { passive: true });
+
+  // ---------- Fake compose bar -> jumps to RSVP ----------
+  function goToRsvp() {
+    var rsvpSection = document.getElementById("rsvp");
+    if (rsvpSection) rsvpSection.scrollIntoView({ behavior: "smooth" });
+    var nameInput = document.getElementById("rsvpName");
+    if (nameInput) setTimeout(function () { nameInput.focus(); }, 400);
+  }
+  document.getElementById("composeInput").addEventListener("click", goToRsvp);
+  document.getElementById("composeSend").addEventListener("click", goToRsvp);
 
   // ---------- Scroll reveal ----------
   var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));

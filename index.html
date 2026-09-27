@@ -51,11 +51,17 @@
       </span>
     </header>
 
+    <!-- Pinned countdown bar (tap to jump to full countdown card) -->
+    <button class="pinned-bar" type="button" id="pinnedBar" aria-label="Lompat ke hitung mundur">
+      <span class="pinned-icon">📌</span>
+      <span>⏳ Hitung mundur · <strong id="pinnedDays">0</strong> hari lagi menuju hari H</span>
+    </button>
+
     <!-- System chips -->
     <div class="chat-chips">
-      <span class="chip chip-lock">🔒 Pesan ini khusus untukmu</span>
-      <span class="chip">Grup dibuat oleh Raka</span>
-      <span class="chip"><span id="chipGuestName">Tamu</span> ditambahkan ke grup</span>
+      <span class="chip chip-lock">🔒 Undangan ini dikirim khusus untuk <span id="chipGuestName">Tamu</span></span>
+      <span class="chip">Raka membuat grup &ldquo;Raka &amp; Kirana 💍&rdquo;</span>
+      <span class="chip">Kirana menambahkan <span id="chipGuestName2">Tamu</span></span>
       <span class="chip chip-date">Hari ini</span>
     </div>
 
@@ -68,14 +74,15 @@
           <span class="avatar">R</span>
           <div class="bubble bubble-typing"><span></span><span></span><span></span></div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble">
             <p class="sender sender-groom">Raka</p>
             <p>Hai <strong id="homeGuestName">Tamu Undangan</strong> 👋 makasih ya udah gabung di grup kecil kami.</p>
+            <span class="msg-time">09.00</span>
           </div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card">
             <div class="hero-photo"></div>
@@ -94,6 +101,7 @@
               <button class="reaction-pill" type="button" data-emoji="🥹">🥹 <span class="r-count">5</span></button>
               <button class="btn-share" type="button" id="shareBtn">Bagikan</button>
             </div>
+            <span class="msg-time">09.00</span>
           </div>
         </div>
       </section>
@@ -123,7 +131,7 @@
             <p>Kenalan dulu... 🌸</p>
           </div>
         </div>
-        <div class="msg bride">
+        <div class="msg bride grouped">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble bubble-card profile-card">
             <div class="profile-photo profile-bride"></div>
@@ -141,7 +149,7 @@
             <p>Dan ini aku... 🤵</p>
           </div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card profile-card">
             <div class="profile-photo profile-groom"></div>
@@ -183,7 +191,7 @@
           <div class="bubble"><p class="card-title">Rangkaian Acara</p></div>
         </div>
 
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card event-card">
             <p class="event-name">Akad Nikah</p>
@@ -202,7 +210,7 @@
           </div>
         </div>
 
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card event-card">
             <p class="event-name">Resepsi</p>
@@ -221,7 +229,7 @@
           </div>
         </div>
 
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card event-card">
             <p class="event-name">Resepsi Keluarga</p>
@@ -248,7 +256,7 @@
           <div class="bubble"><p class="card-title">Our Story 💛</p></div>
         </div>
 
-        <div class="msg bride">
+        <div class="msg bride grouped">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble bubble-forward story-card">
             <p class="forward-label">↪ Kenangan · 2019</p>
@@ -258,7 +266,7 @@
           </div>
         </div>
 
-        <div class="msg bride">
+        <div class="msg bride grouped">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble bubble-forward story-card">
             <p class="forward-label">↪ Kenangan · 2021</p>
@@ -268,7 +276,7 @@
           </div>
         </div>
 
-        <div class="msg bride">
+        <div class="msg bride grouped">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble bubble-forward story-card">
             <p class="forward-label">↪ Kenangan · 2026</p>
@@ -285,7 +293,7 @@
           <span class="avatar">R</span>
           <div class="bubble"><p>Dress code-nya, biar kompak ya 👗🤵</p></div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card">
             <div class="swatch-row">
@@ -304,7 +312,7 @@
           <span class="avatar avatar-bride">K</span>
           <div class="bubble"><p>Beberapa foto kami 📸</p></div>
         </div>
-        <div class="msg bride">
+        <div class="msg bride grouped">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble bubble-card gallery-card">
             <div class="gallery-mosaic" id="galleryMosaic">
@@ -332,7 +340,7 @@
           <span class="avatar">R</span>
           <div class="bubble"><p>🎁 Tanda kasih. Doa restumu sudah lebih dari cukup, tapi kalau ingin memberi, ini infonya ya.</p></div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card gift-card">
             <p class="gift-bank-name">Bank Central Asia</p>
@@ -341,7 +349,7 @@
             <button class="btn-copy" type="button" data-value="1234567890">Salin</button>
           </div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble bubble-card gift-card">
             <p class="gift-bank-name">Alamat Kirim Kado</p>
@@ -372,7 +380,7 @@
           </div>
         </div>
 
-        <div class="msg bride">
+        <div class="msg bride grouped">
           <span class="avatar avatar-bride">K</span>
           <div class="bubble"><p>💬 Ucapan &amp; doa</p></div>
         </div>
@@ -413,7 +421,7 @@
             </p>
           </div>
         </div>
-        <div class="msg groom">
+        <div class="msg groom grouped">
           <span class="avatar">R</span>
           <div class="bubble">
             <p>Wassalamu'alaikum Warahmatullahi Wabarakatuh 🤍</p>
@@ -425,24 +433,52 @@
 
     </main>
 
-    <!-- Bottom nav -->
-    <nav class="bottom-nav" id="bottomNav" aria-label="Navigasi cepat">
-      <a href="#home" data-target="#home" class="active">Home</a>
-      <a href="#profiles" data-target="#profiles">Mempelai</a>
-      <a href="#events" data-target="#events">Acara</a>
-      <a href="#gallery" data-target="#gallery">Galeri</a>
-      <a href="#rsvp" data-target="#rsvp">RSVP</a>
-    </nav>
+    <!-- Quick-jump menu (opened via the compose bar's + button) -->
+    <div class="jump-menu" id="jumpMenu" aria-hidden="true">
+      <a href="#home" data-target="#home" class="active">🏠<span>Home</span></a>
+      <a href="#profiles" data-target="#profiles">💑<span>Mempelai</span></a>
+      <a href="#events" data-target="#events">📅<span>Acara</span></a>
+      <a href="#gallery" data-target="#gallery">📸<span>Galeri</span></a>
+      <a href="#rsvp" data-target="#rsvp">✅<span>RSVP</span></a>
+    </div>
+
+    <!-- Fake WhatsApp-style compose bar: decorative but wired to jump to RSVP -->
+    <div class="compose-bar" id="composeBar">
+      <button class="compose-plus" type="button" id="jumpMenuToggle" aria-label="Buka menu navigasi cepat" aria-expanded="false">+</button>
+      <button class="compose-input" type="button" id="composeInput">Balas kehadiran...</button>
+      <button class="compose-icon" type="button" aria-label="Ambil foto" disabled>📷</button>
+      <button class="compose-send" type="button" id="composeSend" aria-label="Isi konfirmasi kehadiran">➤</button>
+    </div>
   </div>
 
-  <!-- ===== OPENING GATE ===== -->
-  <div class="open-gate" id="openGate">
-    <div class="gate-card">
-      <div class="gate-avatar">💍</div>
-      <p class="gate-title">Raka &amp; Kirana 💍</p>
-      <p class="gate-sub">Kepada Yth. Bapak/Ibu/Saudara/i</p>
-      <p class="gate-guest" id="guestName">Tamu Undangan</p>
-      <button class="btn-open" id="openBtn" type="button">Buka pesan dari Raka &amp; Kirana 💍</button>
+  <!-- ===== LOCK SCREEN LANDING ===== -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-bg"></div>
+    <div class="lock-overlay">
+      <span class="lock-icon" aria-hidden="true">🔒</span>
+      <p class="lock-date" id="lockDate">Senin, 1 Jan</p>
+      <p class="lock-time" id="lockTime">00:00</p>
+
+      <div class="lock-notifs">
+        <button class="lock-notif" type="button" id="notifRaka" aria-label="Buka pesan dari Raka">
+          <span class="notif-avatar">R</span>
+          <span class="notif-body">
+            <span class="notif-row1"><strong>Raka</strong><span class="notif-time">sekarang</span></span>
+            <span class="notif-group">Raka &amp; Kirana 💍</span>
+            <span class="notif-text">Hai <span id="lockGuestName">Tamu Undangan</span>, kamu kami tambahkan ke grup undangan kami 💌</span>
+          </span>
+        </button>
+        <button class="lock-notif" type="button" id="notifKirana" aria-label="Buka pesan dari Kirana">
+          <span class="notif-avatar avatar-bride">K</span>
+          <span class="notif-body">
+            <span class="notif-row1"><strong>Kirana</strong><span class="notif-time">1 mnt lalu</span></span>
+            <span class="notif-group">Raka &amp; Kirana 💍</span>
+            <span class="notif-text">Mohon maaf bila ada kesalahan penulisan nama atau gelar ya 🙏</span>
+          </span>
+        </button>
+      </div>
+
+      <p class="lock-hint">Ketuk pesan untuk membuka undangan ↑</p>
     </div>
   </div>
 

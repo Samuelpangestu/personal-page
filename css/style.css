@@ -374,6 +374,10 @@ button, input, textarea, select{ font-family:inherit; }
 
 /* ===== VERSE / FORWARD ===== */
 .bubble-forward{ border-left:3px solid var(--accent-2); }
+/* The tail-curl pseudo-elements extend past the bubble's own box and cut
+   across this border, creating a jagged corner - the colored border is
+   already a clear "forwarded" marker on its own, so skip the tail here. */
+.bubble-forward::before, .bubble-forward::after{ display:none; }
 .forward-label{ font-size:11.5px; color:var(--muted); margin-bottom:6px; }
 .verse-quote{
   font-family:var(--font-ui);
@@ -597,8 +601,6 @@ button, input, textarea, select{ font-family:inherit; }
 
 /* ===== CLOSING ===== */
 .closing-signature{ font-family:var(--font-ui); font-weight:700; font-size:19px; margin-top:6px; }
-.admin-link-wrap{ text-align:center; margin-top:16px; }
-.admin-link{ font-size:11.5px; color:var(--muted); text-decoration:underline; }
 
 /* ===== PINNED MESSAGE (tap to cycle + jump) ===== */
 .pinned-bar{

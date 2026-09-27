@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var WEDDING_DATE = new Date("2026-12-21T08:00:00+07:00");
+  var WEDDING_DATE = new Date("2026-12-21T09:00:00+07:00");
 
   // ---------- Loader ----------
   window.addEventListener("load", function () {
@@ -323,7 +323,7 @@
   // ---------- Pinned message: tap cycles to the next item and jumps to it ----------
   var pinnedItems = [
     { icon: "⏳", target: "#countdown", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
-    { icon: "📍", target: "#events", text: function () { return "Lokasi · Akad Nikah, Graha Kencana"; } },
+    { icon: "📍", target: "#events", text: function () { return "Lokasi · Pemberkatan, Semarang"; } },
     { icon: "🎁", target: "#gift", text: function () { return "Tanda kasih · BCA · 1234567890"; } },
     { icon: "💌", target: "#rsvp", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
   ];

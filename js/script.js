@@ -330,10 +330,18 @@
   var pinnedIndex = 0;
   var pinnedBar = document.getElementById("pinnedBar");
   var pinnedText = document.getElementById("pinnedText");
+  var pinnedDots = document.getElementById("pinnedDots");
+  pinnedItems.forEach(function () {
+    var dot = document.createElement("span");
+    dot.className = "dot";
+    pinnedDots.appendChild(dot);
+  });
+  var pinnedDotEls = Array.prototype.slice.call(pinnedDots.querySelectorAll(".dot"));
 
   function renderPinned() {
     var item = pinnedItems[pinnedIndex];
     pinnedText.innerHTML = item.text();
+    pinnedDotEls.forEach(function (dot, i) { dot.classList.toggle("active", i === pinnedIndex); });
   }
   renderPinned();
 

@@ -622,12 +622,21 @@ button, input, textarea, select{ font-family:inherit; }
   width:3px;
   background:var(--accent);
 }
-.pinned-pin-glyph{ flex:0 0 auto; color:var(--muted); transform:rotate(45deg); }
-.pinned-icon{ flex:0 0 auto; }
+.pinned-pin-glyph{ flex:0 0 auto; color:var(--muted); }
 .pinned-text{
   overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
   min-width:0;
 }
+.pinned-dots{
+  flex:0 0 auto;
+  display:flex; align-items:center; gap:3px;
+}
+.pinned-dots .dot{
+  width:4px; height:4px;
+  border-radius:50%;
+  background:var(--divider);
+}
+.pinned-dots .dot.active{ background:var(--accent); }
 
 /* ===== MESSAGE GROUPING & TIMESTAMPS ===== */
 .msg.grouped .avatar{ visibility:hidden; }

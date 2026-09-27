@@ -31,7 +31,7 @@
 
       <button class="status-avatar" type="button" id="statusAvatarBtn" aria-label="Lihat info grup">
         <span class="avatar-ring">
-          <span class="avatar-inner">💍</span>
+          <span class="avatar-inner" aria-hidden="true"></span>
         </span>
       </button>
 
@@ -54,13 +54,12 @@
     <!-- Pinned message: tap cycles to the next pinned item and jumps to it in the chat -->
     <button class="pinned-bar" type="button" id="pinnedBar" aria-label="Pesan disematkan: lompat ke hitung mundur, tap lagi untuk pesan disematkan lainnya">
       <svg class="pinned-pin-glyph" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 2.5l7 7-3 3-1.5-.5-4 4 .5 5.5-2 2-4-6-5 5-1-1 5-5-6-4 2-2 5.5.5 4-4-.5-1.5 3-3Z" fill="currentColor"/></svg>
-      <span class="pinned-icon" id="pinnedIcon">⏳</span>
       <span class="pinned-text" id="pinnedText">Hitung mundur · <strong>0</strong> hari lagi menuju hari H</span>
     </button>
 
     <!-- System chips -->
     <div class="chat-chips">
-      <span class="chip chip-lock">🔒 Undangan ini dikirim khusus untuk <span id="chipGuestName">Tamu</span></span>
+      <span class="chip chip-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg> Undangan ini dikirim khusus untuk <span id="chipGuestName">Tamu</span></span>
       <span class="chip">Samuel membuat grup &ldquo;Samuel &amp; Ledy 💍&rdquo;</span>
       <span class="chip">Ledy menambahkan <span id="chipGuestName2">Tamu</span></span>
       <span class="chip chip-date">Hari ini</span>
@@ -72,10 +71,6 @@
       <!-- HOME -->
       <section class="feed-section reveal" id="home">
         <div class="msg groom">
-          <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-typing"><span></span><span></span><span></span></div>
-        </div>
-        <div class="msg groom grouped">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble">
             <p class="sender sender-groom">Samuel</p>
@@ -94,7 +89,7 @@
               dan memberikan doa restu di hari bahagia kami.
             </p>
             <div class="music-row">
-              <span class="music-note">🎵</span>
+              <svg class="music-note" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
               <span class="music-track">Perfect — Ed Sheeran (akustik)</span>
             </div>
             <div class="reaction-row">
@@ -114,11 +109,13 @@
           <div class="bubble bubble-forward">
             <p class="forward-label">↪ Diteruskan</p>
             <blockquote class="verse-quote">
-              "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
-              pasangan hidup dari jenismu sendiri, supaya kamu cenderung dan merasa
-              tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."
+              "Kasih itu sabar; kasih itu murah hati; ia tidak cemburu. Ia tidak memegahkan
+              diri dan tidak sombong. Ia tidak melakukan yang tidak sopan dan tidak mencari
+              keuntungan diri sendiri. Ia tidak pemarah dan tidak menyimpan kesalahan orang
+              lain. Ia menutupi segala sesuatu, percaya segala sesuatu, mengharapkan segala
+              sesuatu, sabar menanggung segala sesuatu."
             </blockquote>
-            <p class="verse-source">QS. Ar-Rum : 21</p>
+            <p class="verse-source">1 Korintus 13:4-7</p>
           </div>
         </div>
       </section>
@@ -165,8 +162,8 @@
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble bubble-card">
-            <p class="pinned-label">📌 Disematkan</p>
-            <p class="card-title">⏳ Hitung Mundur</p>
+            <p class="pinned-label"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 2.5l7 7-3 3-1.5-.5-4 4 .5 5.5-2 2-4-6-5 5-1-1 5-5-6-4 2-2 5.5.5 4-4-.5-1.5 3-3Z" fill="currentColor"/></svg> Disematkan</p>
+            <p class="card-title">Hitung Mundur</p>
             <div class="countdown-grid">
               <div class="cd-tile"><span id="cd-days">00</span><small>Hari</small></div>
               <div class="cd-tile"><span id="cd-hours">00</span><small>Jam</small></div>
@@ -233,7 +230,7 @@
       <section class="feed-section reveal" id="story">
         <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble"><p class="card-title">Our Story 💛</p></div>
+          <div class="bubble"><p class="card-title">Our Story</p></div>
         </div>
 
         <div class="msg bride grouped">
@@ -271,7 +268,7 @@
       <section class="feed-section reveal" id="dresscode">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble"><p>Dress code-nya, biar kompak ya 👗🤵</p></div>
+          <div class="bubble"><p>Dress code-nya, biar kompak ya</p></div>
         </div>
         <div class="msg groom grouped">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
@@ -318,7 +315,7 @@
       <section class="feed-section reveal" id="gift">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble"><p>🎁 Tanda kasih. Doa restumu sudah lebih dari cukup, tapi kalau ingin memberi, ini infonya ya.</p></div>
+          <div class="bubble"><p>Tanda kasih. Doa restumu sudah lebih dari cukup, tapi kalau ingin memberi, ini infonya ya.</p></div>
         </div>
         <div class="msg groom grouped">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
@@ -404,9 +401,13 @@
         <div class="msg groom grouped">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble">
-            <p>Wassalamu'alaikum Warahmatullahi Wabarakatuh 🤍</p>
+            <p>Tuhan Yesus memberkati 🤍</p>
             <p class="closing-signature">Samuel &amp; Ledy</p>
           </div>
+        </div>
+        <div class="msg bride">
+          <span class="avatar avatar-bride" aria-label="Ledy"></span>
+          <div class="bubble bubble-typing"><span></span><span></span><span></span></div>
         </div>
         <p class="admin-link-wrap"><a class="admin-link" href="admin.html" target="_blank" rel="noopener">Panitia? Buka dashboard</a></p>
       </section>
@@ -415,11 +416,26 @@
 
     <!-- Quick-jump menu (opened via the compose bar's + button) -->
     <div class="jump-menu" id="jumpMenu" aria-hidden="true">
-      <a href="#home" data-target="#home" class="active">🏠<span>Home</span></a>
-      <a href="#profiles" data-target="#profiles">💑<span>Mempelai</span></a>
-      <a href="#events" data-target="#events">📅<span>Acara</span></a>
-      <a href="#gallery" data-target="#gallery">📸<span>Galeri</span></a>
-      <a href="#rsvp" data-target="#rsvp">✅<span>RSVP</span></a>
+      <a href="#home" data-target="#home" class="active">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <span>Home</span>
+      </a>
+      <a href="#profiles" data-target="#profiles">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="9" r="2.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c.5-3 2.7-5 5.5-5s5 2 5.5 5M14 15.5c2.2.2 3.8 1.8 4.2 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span>Mempelai</span>
+      </a>
+      <a href="#events" data-target="#events">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M4 9.5h16M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span>Acara</span>
+      </a>
+      <a href="#gallery" data-target="#gallery">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M4 16.5l4.5-4 3 2.7 4-3.7 5 5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <span>Galeri</span>
+      </a>
+      <a href="#rsvp" data-target="#rsvp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>RSVP</span>
+      </a>
     </div>
 
     <!-- Fake WhatsApp-style compose bar: decorative but wired to jump to RSVP -->
@@ -444,10 +460,10 @@
       <button class="pill pill-back" type="button" id="storyClose" aria-label="Tutup story">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <span class="story-avatar">💍</span>
+      <span class="story-avatar" aria-hidden="true"></span>
       <span class="story-title">
         <strong>Samuel &amp; Ledy 💍</strong>
-        <span id="storyCounter">Status · 1 dari 8</span>
+        <span id="storyCounter">Status · 1 dari 5</span>
       </span>
     </header>
     <div class="story-view-photo" id="storyPhoto"></div>
@@ -490,7 +506,7 @@
       <section class="gi-card">
         <p class="gi-label">Acara</p>
         <div class="gi-event-row">
-          <span class="gi-pin">📍</span>
+          <span class="gi-pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.7"/></svg></span>
           <span class="gi-event-text">
             <span class="gi-event-name">Pemberkatan</span>
             <span class="gi-event-when">Senin, 21 Des 2026 · 09.00–11.00 WIB</span>
@@ -498,7 +514,7 @@
           <a class="gi-map-link" href="https://www.google.com/maps?sca_esv=f9132ac85e259377&biw=1450&bih=903&output=search&q=gereja+athanasius+agung+karangpanas+semarang+gmap&source=lnms&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cTs4PJElQ4Z4ROUfAdKhH1h8_bE4W8bMuyk4xKV8xDJdhm28rlX4lrlQzJ9R7IHXLD08Dqi9xfjdWhhWpO2Xo7LGpulUWMXdRmzMVLiDUKbbyzRTWAgzpXHdEj2FzDkHyVIUNdHPGq87aiVxmR6Bsu6188VKy4IbKWcxjUWHN15xUc7ug_QWEr7w6XBA9A3IyJ0qV8Q&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener">Peta</a>
         </div>
         <div class="gi-event-row">
-          <span class="gi-pin">📍</span>
+          <span class="gi-pin"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.7"/></svg></span>
           <span class="gi-event-text">
             <span class="gi-event-name">Resepsi</span>
             <span class="gi-event-when">Senin, 21 Des 2026 · 13.00–15.00 WIB</span>

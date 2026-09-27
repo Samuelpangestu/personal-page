@@ -322,19 +322,17 @@
 
   // ---------- Pinned message: tap cycles to the next item and jumps to it ----------
   var pinnedItems = [
-    { icon: "⏳", target: "#countdown", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
-    { icon: "📍", target: "#events", text: function () { return "Lokasi · Pemberkatan, Semarang"; } },
-    { icon: "🎁", target: "#gift", text: function () { return "Tanda kasih · BCA · 1234567890"; } },
-    { icon: "💌", target: "#rsvp", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
+    { target: "#countdown", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
+    { target: "#events", text: function () { return "Lokasi · Pemberkatan, Semarang"; } },
+    { target: "#gift", text: function () { return "Tanda kasih · BCA · 1234567890"; } },
+    { target: "#rsvp", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
   ];
   var pinnedIndex = 0;
   var pinnedBar = document.getElementById("pinnedBar");
-  var pinnedIcon = document.getElementById("pinnedIcon");
   var pinnedText = document.getElementById("pinnedText");
 
   function renderPinned() {
     var item = pinnedItems[pinnedIndex];
-    pinnedIcon.textContent = item.icon;
     pinnedText.innerHTML = item.text();
   }
   renderPinned();
@@ -359,7 +357,10 @@
     if (gallerySection) gallerySection.scrollIntoView({ behavior: "smooth" });
   });
 
-  // ---------- Add to calendar (.ics download), generic for all events ----------
+  // ---------- Add to calendar: open the .ics directly in the native calendar app ----------
+  function icsEscape(text) {
+    return String(text).replace(/([,;])/g, "\\$1");
+  }
   document.querySelectorAll(".btn-calendar").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var summary = btn.getAttribute("data-summary") || "Pernikahan Samuel & Ledy";
@@ -371,24 +372,19 @@
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
         "BEGIN:VEVENT",
-        "SUMMARY:" + summary,
+        "SUMMARY:" + icsEscape(summary),
         "DTSTART:" + start,
         "DTEND:" + end,
-        "LOCATION:" + location,
-        "DESCRIPTION:" + summary,
+        "LOCATION:" + icsEscape(location),
+        "DESCRIPTION:" + icsEscape(summary),
         "END:VEVENT",
         "END:VCALENDAR"
       ].join("\r\n");
 
-      var blob = new Blob([ics], { type: "text/calendar" });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement("a");
-      a.href = url;
-      a.download = summary.replace(/\s+/g, "-") + ".ics";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
+      // Navigating directly to a data: URI (rather than an <a download> blob
+      // link) is what makes iOS Safari present the native "Add Event" sheet
+      // immediately instead of just saving a .ics file to Files.
+      window.location.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
     });
   });
 

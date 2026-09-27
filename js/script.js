@@ -16,10 +16,26 @@
     return name ? decodeURIComponent(name).replace(/\+/g, " ") : "Tamu Undangan";
   }
   var guestName = getGuestName();
-  ["headerGuestName", "chipGuestName", "chipGuestName2", "homeGuestName", "lockGuestName"].forEach(function (id) {
+  ["headerGuestName", "chipGuestName", "chipGuestName2", "homeGuestName", "lockGuestName", "giGuestName"].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.textContent = guestName;
   });
+  var giGuestAvatar = document.getElementById("giGuestAvatar");
+  if (giGuestAvatar) giGuestAvatar.textContent = guestName.charAt(0).toUpperCase();
+
+  // ---------- Group info panel ----------
+  var groupInfo = document.getElementById("groupInfo");
+  function openGroupInfo() {
+    groupInfo.classList.add("show");
+    groupInfo.setAttribute("aria-hidden", "false");
+  }
+  function closeGroupInfo() {
+    groupInfo.classList.remove("show");
+    groupInfo.setAttribute("aria-hidden", "true");
+  }
+  document.getElementById("statusAvatarBtn").addEventListener("click", openGroupInfo);
+  document.getElementById("headerInfoBtn").addEventListener("click", openGroupInfo);
+  document.getElementById("groupInfoBack").addEventListener("click", closeGroupInfo);
 
   // ---------- Lock screen clock ----------
   var lockDate = document.getElementById("lockDate");
@@ -411,7 +427,7 @@
     lightboxCaption.textContent = galleryCaptions[currentPhotoIndex];
   }
 
-  document.querySelectorAll("#galleryMosaic .g-item").forEach(function (item) {
+  document.querySelectorAll("#galleryMosaic .g-item, #giMediaGrid .g-item").forEach(function (item) {
     item.addEventListener("click", function () {
       showPhoto(parseInt(item.getAttribute("data-index"), 10) || 0);
       lightbox.classList.add("show");

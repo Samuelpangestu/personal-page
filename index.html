@@ -29,13 +29,13 @@
         <span>1</span>
       </button>
 
-      <button class="status-avatar" type="button" aria-label="Lihat info grup">
+      <button class="status-avatar" type="button" id="statusAvatarBtn" aria-label="Lihat info grup">
         <span class="avatar-ring">
           <span class="avatar-inner">💍</span>
         </span>
       </button>
 
-      <button class="header-info" type="button" aria-label="Info grup Raka dan Kirana">
+      <button class="header-info" type="button" id="headerInfoBtn" aria-label="Info grup Raka dan Kirana">
         <span class="header-title">Raka &amp; Kirana 💍</span>
         <span class="header-participants">Raka, Kirana, <span id="headerGuestName">Tamu</span></span>
       </button>
@@ -448,6 +448,98 @@
       <button class="compose-input" type="button" id="composeInput">Balas kehadiran...</button>
       <button class="compose-icon" type="button" aria-label="Ambil foto" disabled>📷</button>
       <button class="compose-send" type="button" id="composeSend" aria-label="Isi konfirmasi kehadiran">➤</button>
+    </div>
+  </div>
+
+  <!-- ===== GROUP INFO PANEL ===== -->
+  <div class="group-info" id="groupInfo" aria-hidden="true">
+    <header class="group-info-header">
+      <button class="pill pill-back" type="button" id="groupInfoBack" aria-label="Kembali ke chat">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span>Info grup</span>
+    </header>
+
+    <div class="group-info-body">
+      <div class="group-info-photo"></div>
+      <p class="group-info-name">Raka &amp; Kirana 💍</p>
+      <p class="group-info-count">Grup · 3 anggota</p>
+
+      <section class="gi-card">
+        <p class="gi-label">Deskripsi</p>
+        <p class="gi-date">Senin, 21 Desember 2026</p>
+        <p class="gi-desc">Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu di hari bahagia kami.</p>
+        <p class="gi-meta">Dibuat oleh Raka</p>
+      </section>
+
+      <section class="gi-card">
+        <p class="gi-label gi-label-row">Media, tautan, dan dokumen <span>8</span></p>
+        <div class="gi-media-grid" id="giMediaGrid">
+          <button class="g-item g1" type="button" aria-label="Lihat foto 1" data-index="0"></button>
+          <button class="g-item g2" type="button" aria-label="Lihat foto 2" data-index="1"></button>
+          <button class="g-item g3" type="button" aria-label="Lihat foto 3" data-index="2"></button>
+          <button class="g-item g1" type="button" aria-label="Lihat foto 4" data-index="3"></button>
+          <button class="g-item g2" type="button" aria-label="Lihat foto 5" data-index="4"></button>
+          <button class="g-item g3" type="button" aria-label="Lihat foto 6" data-index="5"></button>
+          <button class="g-item g1" type="button" aria-label="Lihat foto 7" data-index="0"></button>
+          <button class="g-item g2" type="button" aria-label="Lihat foto 8" data-index="1"></button>
+        </div>
+      </section>
+
+      <section class="gi-card">
+        <p class="gi-label">Acara</p>
+        <div class="gi-event-row">
+          <span class="gi-pin">📍</span>
+          <span class="gi-event-text">
+            <span class="gi-event-name">Akad Nikah</span>
+            <span class="gi-event-when">Senin, 21 Des 2026 · 08.00–10.00 WIB</span>
+          </span>
+          <a class="gi-map-link" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Peta</a>
+        </div>
+        <div class="gi-event-row">
+          <span class="gi-pin">📍</span>
+          <span class="gi-event-text">
+            <span class="gi-event-name">Resepsi</span>
+            <span class="gi-event-when">Senin, 21 Des 2026 · 11.00–14.00 WIB</span>
+          </span>
+          <a class="gi-map-link" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Peta</a>
+        </div>
+        <div class="gi-event-row">
+          <span class="gi-pin">📍</span>
+          <span class="gi-event-text">
+            <span class="gi-event-name">Resepsi Keluarga</span>
+            <span class="gi-event-when">Minggu, 20 Des 2026 · 18.00–21.00 WIB</span>
+          </span>
+          <a class="gi-map-link" href="https://maps.google.com/?q=Graha+Kencana+Jakarta" target="_blank" rel="noopener">Peta</a>
+        </div>
+      </section>
+
+      <section class="gi-card">
+        <p class="gi-label">3 anggota</p>
+        <div class="gi-member-row">
+          <span class="avatar avatar-bride">K</span>
+          <span class="gi-member-text">
+            <span class="gi-member-name">Kirana Ayu Lestari</span>
+            <span class="gi-member-role">Mempelai Wanita</span>
+          </span>
+          <span class="gi-badge">Admin Grup</span>
+        </div>
+        <div class="gi-member-row">
+          <span class="avatar">R</span>
+          <span class="gi-member-text">
+            <span class="gi-member-name">Raka Aditya Pratama</span>
+            <span class="gi-member-role">Mempelai Pria</span>
+          </span>
+          <span class="gi-badge">Admin Grup</span>
+        </div>
+        <div class="gi-member-row">
+          <span class="avatar" style="background:#7a6a55" id="giGuestAvatar">T</span>
+          <span class="gi-member-text">
+            <span class="gi-member-name" id="giGuestName">Tamu Undangan</span>
+            <span class="gi-member-role">Tamu</span>
+          </span>
+        </div>
+      </section>
     </div>
   </div>
 

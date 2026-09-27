@@ -606,9 +606,7 @@ button, input, textarea, select{ font-family:inherit; }
 
 /* ===== GROUP INFO PANEL ===== */
 .group-info{
-  position:fixed; inset:0;
-  max-width:var(--max-w);
-  margin:0 auto;
+  position:absolute; inset:0;
   z-index:60;
   background:var(--wall);
   display:flex; flex-direction:column;
@@ -689,9 +687,7 @@ button, input, textarea, select{ font-family:inherit; }
 
 /* ===== LOCK SCREEN LANDING ===== */
 .lock-screen{
-  position:fixed; inset:0;
-  max-width:var(--max-w);
-  margin:0 auto;
+  position:absolute; inset:0;
   z-index:40;
   overflow:hidden;
   background:var(--lock-bg);

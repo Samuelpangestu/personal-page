@@ -12,6 +12,11 @@
 </head>
 <body>
 
+<div class="loader" id="loader">
+  <div class="loader-ring"></div>
+  <p>Memuat Undangan...</p>
+</div>
+
 <div class="frame" id="frame">
 
   <!-- ===== COVER ===== -->
@@ -39,7 +44,7 @@
   <div class="content" id="content">
 
     <!-- HERO / QUOTE -->
-    <section class="screen hero">
+    <section class="screen hero reveal">
       <div class="section-ornament"></div>
       <p class="hero-label">We Are Getting Married</p>
       <h2 class="hero-names">Raka <span>&</span> Kirana</h2>
@@ -52,7 +57,7 @@
     </section>
 
     <!-- COUNTDOWN -->
-    <section class="screen countdown-section">
+    <section class="screen countdown-section reveal">
       <p class="section-eyebrow">Menuju Hari Bahagia</p>
       <h3 class="section-title">Save The Date</h3>
       <div class="countdown" id="countdown">
@@ -65,7 +70,7 @@
     </section>
 
     <!-- COUPLE -->
-    <section class="screen couple-section">
+    <section class="screen couple-section reveal">
       <p class="section-eyebrow">Mempelai</p>
       <h3 class="section-title">Kedua Mempelai</h3>
 
@@ -87,7 +92,7 @@
     </section>
 
     <!-- LOVE STORY -->
-    <section class="screen story-section">
+    <section class="screen story-section reveal">
       <p class="section-eyebrow">Perjalanan Kami</p>
       <h3 class="section-title">Love Story</h3>
 
@@ -116,7 +121,7 @@
     </section>
 
     <!-- EVENT -->
-    <section class="screen event-section">
+    <section class="screen event-section reveal">
       <p class="section-eyebrow">Save The Date</p>
       <h3 class="section-title">Acara Pernikahan</h3>
 
@@ -142,21 +147,28 @@
     </section>
 
     <!-- GALLERY -->
-    <section class="screen gallery-section">
+    <section class="screen gallery-section reveal">
       <p class="section-eyebrow">Our Moments</p>
       <h3 class="section-title">Galeri</h3>
       <div class="gallery-grid">
-        <div class="g-item g1"></div>
-        <div class="g-item g2"></div>
-        <div class="g-item g3"></div>
-        <div class="g-item g4"></div>
-        <div class="g-item g5"></div>
-        <div class="g-item g6"></div>
+        <div class="g-item g1" data-caption="Prewedding di taman kota"></div>
+        <div class="g-item g2" data-caption="Momen lamaran"></div>
+        <div class="g-item g3" data-caption="Liburan bersama"></div>
+        <div class="g-item g4" data-caption="Hari jadi kedua"></div>
+        <div class="g-item g5" data-caption="Bertemu keluarga"></div>
+        <div class="g-item g6" data-caption="Menuju hari bahagia"></div>
       </div>
     </section>
 
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
+      <div class="lightbox-photo" id="lightboxPhoto"></div>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+
     <!-- GIFT -->
-    <section class="screen gift-section">
+    <section class="screen gift-section reveal">
       <p class="section-eyebrow">Wedding Gift</p>
       <h3 class="section-title">Kirim Hadiah</h3>
       <p class="gift-note">
@@ -182,7 +194,7 @@
     </section>
 
     <!-- RSVP & WISHES -->
-    <section class="screen rsvp-section">
+    <section class="screen rsvp-section reveal">
       <p class="section-eyebrow">Konfirmasi Kehadiran</p>
       <h3 class="section-title">RSVP &amp; Ucapan</h3>
 
@@ -201,10 +213,12 @@
       <div class="wishes-list" id="wishesList">
         <p class="wishes-empty" id="wishesEmpty">Jadilah yang pertama memberikan ucapan &amp; doa.</p>
       </div>
+
+      <a class="admin-link" href="admin.html" target="_blank" rel="noopener">Panitia? Buka Dashboard</a>
     </section>
 
     <!-- CLOSING -->
-    <section class="screen closing-section">
+    <section class="screen closing-section reveal">
       <div class="cover-ornament top"></div>
       <p class="hero-label">Terima Kasih</p>
       <h3 class="hero-names">Raka <span>&</span> Kirana</h3>
@@ -239,6 +253,12 @@
   <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 
+<script>
+  // Opsional: tempel URL Google Apps Script Web App di sini agar RSVP
+  // tersimpan terpusat (lintas perangkat) ke Google Sheets, bukan hanya
+  // localStorage di perangkat masing-masing tamu. Kosongkan jika belum ada.
+  window.RSVP_WEBHOOK_URL = "";
+</script>
 <script src="js/script.js"></script>
 </body>
 </html>

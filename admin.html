@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Panitia — Raka & Kirana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+<!-- ===== LOGIN GATE ===== -->
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <p class="gate-eyebrow">Dashboard Panitia</p>
+    <h1 class="gate-title">Raka &amp; Kirana</h1>
+    <p class="gate-note">Masukkan kata sandi panitia untuk melihat data RSVP &amp; ucapan tamu.</p>
+    <form id="gateForm">
+      <input type="password" id="gatePassword" placeholder="Kata sandi" autocomplete="current-password" required>
+      <button type="submit">Masuk</button>
+    </form>
+    <p class="gate-error" id="gateError">Kata sandi salah, coba lagi.</p>
+    <p class="gate-hint">Kata sandi default: <code>panitia2026</code> — ganti di <code>js/admin.js</code>.</p>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div class="dashboard" id="dashboard">
+
+  <header class="dash-header">
+    <div>
+      <p class="dash-eyebrow">Dashboard Panitia</p>
+      <h1 class="dash-title">Raka &amp; Kirana</h1>
+    </div>
+    <button class="btn-logout" id="logoutBtn">Keluar</button>
+  </header>
+
+  <div class="notice" id="localNotice">
+    <strong>Catatan:</strong> Data di bawah tersimpan lokal di browser ini (localStorage).
+    Data RSVP yang diisi tamu dari perangkat lain <u>tidak</u> otomatis muncul di sini kecuali kamu
+    menghubungkan <code>RSVP_WEBHOOK_URL</code> di <code>index.html</code> ke Google Sheets / backend terpusat.
+  </div>
+
+  <section class="stats-grid">
+    <div class="stat-card">
+      <span class="stat-num" id="statTotal">0</span>
+      <span class="stat-label">Total Respon</span>
+    </div>
+    <div class="stat-card stat-hadir">
+      <span class="stat-num" id="statHadir">0</span>
+      <span class="stat-label">Hadir</span>
+    </div>
+    <div class="stat-card stat-tidak">
+      <span class="stat-num" id="statTidak">0</span>
+      <span class="stat-label">Tidak Hadir</span>
+    </div>
+    <div class="stat-card stat-ragu">
+      <span class="stat-num" id="statRagu">0</span>
+      <span class="stat-label">Ragu</span>
+    </div>
+  </section>
+
+  <section class="toolbar">
+    <input type="text" id="searchInput" placeholder="Cari nama atau ucapan...">
+    <select id="filterStatus">
+      <option value="">Semua Status</option>
+      <option value="Hadir">Hadir</option>
+      <option value="Tidak Hadir">Tidak Hadir</option>
+      <option value="Ragu">Ragu</option>
+    </select>
+    <button class="btn-export" id="exportBtn">Export CSV</button>
+  </section>
+
+  <section class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Status</th>
+          <th>Ucapan</th>
+          <th>Waktu</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+    <p class="table-empty" id="tableEmpty">Belum ada data RSVP.</p>
+  </section>
+
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

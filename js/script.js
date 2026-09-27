@@ -3,6 +3,12 @@
 
   var WEDDING_DATE = new Date("2026-12-21T08:00:00+07:00");
 
+  // ---------- Loader ----------
+  window.addEventListener("load", function () {
+    var loader = document.getElementById("loader");
+    setTimeout(function () { loader.classList.add("hide"); }, 600);
+  });
+
   // ---------- Guest name from ?to= query param ----------
   function getGuestName() {
     var params = new URLSearchParams(window.location.search);
@@ -165,17 +171,31 @@
     var message = document.getElementById("rsvpMessage").value.trim();
     if (!name || !status || !message) return;
 
+    var entry = { name: name, status: status, message: message, ts: Date.now() };
     var wishes = loadWishes();
-    wishes.push({ name: name, status: status, message: message, ts: Date.now() });
+    wishes.push(entry);
     saveWishes(wishes);
     renderWishes();
     rsvpForm.reset();
+
+    if (window.RSVP_WEBHOOK_URL) {
+      fetch(window.RSVP_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify(entry)
+      }).catch(function () {});
+    }
   });
 
   renderWishes();
 
-  // ---------- Bottom nav active state + smooth scroll ----------
+  // ---------- Bottom nav: click to scroll + active state on scroll ----------
   var navLinks = Array.prototype.slice.call(bottomNav.querySelectorAll("a"));
+  var navSections = navLinks.map(function (link) {
+    var sel = link.getAttribute("data-target");
+    return { link: link, el: sel === "cover" ? document.getElementById("cover") : document.querySelector(sel) };
+  }).filter(function (n) { return n.el; });
 
   navLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
@@ -183,8 +203,53 @@
       var targetSel = link.getAttribute("data-target");
       var targetEl = targetSel === "cover" ? document.getElementById("cover") : document.querySelector(targetSel);
       if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
-      navLinks.forEach(function (l) { l.classList.remove("active"); });
-      link.classList.add("active");
     });
+  });
+
+  function updateActiveNav() {
+    var scrollPos = window.scrollY + window.innerHeight / 3;
+    var current = navSections[0];
+    navSections.forEach(function (n) {
+      if (n.el.offsetTop <= scrollPos) current = n;
+    });
+    navLinks.forEach(function (l) { l.classList.remove("active"); });
+    current.link.classList.add("active");
+  }
+  window.addEventListener("scroll", updateActiveNav, { passive: true });
+
+  // ---------- Scroll reveal ----------
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+  if ("IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { observer.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add("in-view"); });
+  }
+
+  // ---------- Gallery lightbox ----------
+  var lightbox = document.getElementById("lightbox");
+  var lightboxPhoto = document.getElementById("lightboxPhoto");
+  var lightboxCaption = document.getElementById("lightboxCaption");
+  var lightboxClose = document.getElementById("lightboxClose");
+
+  document.querySelectorAll(".g-item").forEach(function (item) {
+    item.addEventListener("click", function () {
+      lightboxPhoto.className = "lightbox-photo " + Array.prototype.slice.call(item.classList).filter(function (c) { return c !== "g-item"; }).join(" ");
+      lightboxCaption.textContent = item.getAttribute("data-caption") || "";
+      lightbox.classList.add("show");
+    });
+  });
+
+  function closeLightbox() { lightbox.classList.remove("show"); }
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
   });
 })();

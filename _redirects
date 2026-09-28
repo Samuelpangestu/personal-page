@@ -1,3 +1,5 @@
 /weddingsamuelledy/css/* /css/:splat 200
 /weddingsamuelledy/js/* /js/:splat 200
 /weddingsamuelledy/assets/* /assets/:splat 200
+/weddingsamuelledy /weddingsamuelledy/index.html 200
+/weddingsamuelledy/ /weddingsamuelledy/index.html 200

@@ -190,6 +190,8 @@
   lockScreen.addEventListener("pointerdown", startMusic, { once: true });
 
   function openInvitation() {
+    chatFeed.scrollTop = 0;
+    window.scrollTo(0, 0);
     chatShell.classList.remove("locked");
     lockScreen.style.opacity = "0";
     lockScreen.style.pointerEvents = "none";
@@ -225,6 +227,7 @@
   }
 
   lockScreen.addEventListener("touchstart", function (e) { swipeStart(e.touches[0].clientY); }, { passive: true });
+  lockScreen.addEventListener("touchmove", function (e) { e.preventDefault(); }, { passive: false });
   lockScreen.addEventListener("touchend", function (e) { swipeEnd(e.changedTouches[0].clientY); });
 
   // Listen on document (not via setPointerCapture) so a mouse/trackpad drag

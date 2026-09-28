@@ -166,6 +166,7 @@
   // ---------- Opening flow (lock screen -> chat) ----------
   var lockScreen = document.getElementById("lockScreen");
   var chatShell = document.getElementById("chatShell");
+  var chatFeed = document.getElementById("chatFeed");
   var composeBar = document.getElementById("composeBar");
   var bgMusic = document.getElementById("bgMusic");
   var musicToggle = document.getElementById("musicToggle");
@@ -177,6 +178,10 @@
     }).catch(function () {
       // Browsers require a user gesture before unmuted audio can start.
     });
+  }
+
+  function scrollChatTo(targetEl) {
+    chatFeed.scrollTo({ top: Math.max(0, targetEl.offsetTop - 8), behavior: "smooth" });
   }
 
   // Try immediately, then retry on the first landing-page gesture for browsers
@@ -337,25 +342,19 @@
   var pinnedIndex = 0;
   var pinnedBar = document.getElementById("pinnedBar");
   var pinnedText = document.getElementById("pinnedText");
-  var pinnedDots = document.getElementById("pinnedDots");
-  pinnedItems.forEach(function () {
-    var dot = document.createElement("span");
-    dot.className = "dot";
-    pinnedDots.appendChild(dot);
-  });
-  var pinnedDotEls = Array.prototype.slice.call(pinnedDots.querySelectorAll(".dot"));
+  var pinnedCount = document.getElementById("pinnedCount");
 
   function renderPinned() {
     var item = pinnedItems[pinnedIndex];
     pinnedText.innerHTML = item.text();
-    pinnedDotEls.forEach(function (dot, i) { dot.classList.toggle("active", i === pinnedIndex); });
+    pinnedCount.textContent = (pinnedIndex + 1) + "/" + pinnedItems.length;
   }
   renderPinned();
 
   pinnedBar.addEventListener("click", function () {
     var item = pinnedItems[pinnedIndex];
     var targetEl = document.querySelector(item.target);
-    if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
+    if (targetEl) scrollChatTo(targetEl);
     pinnedIndex = (pinnedIndex + 1) % pinnedItems.length;
     renderPinned();
   });
@@ -369,7 +368,7 @@
   // ---------- Compose bar camera icon -> jump to gallery ----------
   document.getElementById("composeCamera").addEventListener("click", function () {
     var gallerySection = document.getElementById("gallery");
-    if (gallerySection) gallerySection.scrollIntoView({ behavior: "smooth" });
+    if (gallerySection) scrollChatTo(gallerySection);
   });
 
   // ---------- Add to calendar: open the .ics directly in the native calendar app ----------
@@ -551,14 +550,13 @@
     link.addEventListener("click", function (e) {
       e.preventDefault();
       var targetEl = document.querySelector(link.getAttribute("data-target"));
-      if (targetEl) targetEl.scrollIntoView({ behavior: "smooth" });
+      if (targetEl) scrollChatTo(targetEl);
       jumpMenu.classList.remove("show");
       jumpMenuToggle.setAttribute("aria-expanded", "false");
       jumpMenu.setAttribute("aria-hidden", "true");
     });
   });
 
-  var chatFeed = document.getElementById("chatFeed");
   function updateActiveNav() {
     var feedRect = chatFeed.getBoundingClientRect();
     var scrollPos = feedRect.top + feedRect.height / 3;
@@ -574,7 +572,7 @@
   // ---------- Fake compose bar -> jumps to RSVP ----------
   function goToRsvp() {
     var rsvpSection = document.getElementById("rsvp");
-    if (rsvpSection) rsvpSection.scrollIntoView({ behavior: "smooth" });
+    if (rsvpSection) scrollChatTo(rsvpSection);
     var nameInput = document.getElementById("rsvpName");
     if (nameInput) setTimeout(function () { nameInput.focus(); }, 400);
   }

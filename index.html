@@ -53,9 +53,10 @@
 
     <!-- Pinned message: tap cycles to the next pinned item and jumps to it in the chat -->
     <button class="pinned-bar" type="button" id="pinnedBar" aria-label="Pesan disematkan: lompat ke hitung mundur, tap lagi untuk pesan disematkan lainnya">
-      <svg class="pinned-pin-glyph" width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 2.5l7 7-3 3-1.5-.5-4 4 .5 5.5-2 2-4-6-5 5-1-1 5-5-6-4 2-2 5.5.5 4-4-.5-1.5 3-3Z" fill="currentColor"/></svg>
+      <span class="pinned-marker" aria-hidden="true"><svg class="pinned-pin-glyph" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14.5 2.5l7 7-3 3-1.5-.5-4 4 .5 5.5-2 2-4-6-5 5-1-1 5-5-6-4 2-2 5.5.5 4-4-.5-1.5 3-3Z" fill="currentColor"/></svg></span>
       <span class="pinned-text" id="pinnedText">Hitung mundur · <strong>0</strong> hari lagi menuju hari H</span>
-      <span class="pinned-dots" id="pinnedDots" aria-hidden="true"></span>
+      <span class="pinned-count" id="pinnedCount" aria-hidden="true">1/4</span>
+      <svg class="pinned-next" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
 
     <!-- System chips -->
@@ -110,13 +111,10 @@
           <div class="bubble bubble-forward">
             <p class="forward-label">↪ Diteruskan</p>
             <blockquote class="verse-quote">
-              "Kasih itu sabar; kasih itu murah hati; ia tidak cemburu. Ia tidak memegahkan
-              diri dan tidak sombong. Ia tidak melakukan yang tidak sopan dan tidak mencari
-              keuntungan diri sendiri. Ia tidak pemarah dan tidak menyimpan kesalahan orang
-              lain. Ia menutupi segala sesuatu, percaya segala sesuatu, mengharapkan segala
-              sesuatu, sabar menanggung segala sesuatu."
+              "Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah
+              dipersatukan Allah, tidak boleh diceraikan manusia."
             </blockquote>
-            <p class="verse-source">1 Korintus 13:4-7</p>
+            <p class="verse-source">Matius 19:6</p>
           </div>
         </div>
       </section>

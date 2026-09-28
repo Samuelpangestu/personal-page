@@ -32,6 +32,7 @@
   --couple-photo-3: url('../assets/couple-3.jpg');
   --couple-photo-4: url('../assets/couple-4.jpg');
   --couple-photo-5: url('../assets/couple-5.jpg');
+  --lock-photo: url('../assets/couple-3.jpg');
   --card-shadow: 0 1px 0.5px rgba(11,20,26,.13);
   --radius-card: 18px;
   --font-ui: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -290,22 +291,20 @@ button, input, textarea, select{ font-family:inherit; }
 .bubble p{ margin:0; }
 .bubble p + p{ margin-top:6px; }
 
-/* WhatsApp-style bubble tail: only on the last bubble of a consecutive group */
+/* WhatsApp-style bubble tail: only on the last bubble of a consecutive group.
+   A single bubble-colored piece with a circular mask cut out of its outer
+   corner - not a second background-colored piece trying to match the page
+   behind it, which broke (a visible seam) against the doodle-pattern
+   wallpaper. The mask reveals whatever is actually behind it instead. */
 .msg:not(:has(+ .msg.grouped)) .bubble::before{
   content:"";
   position:absolute;
-  bottom:0; left:-7px;
-  width:12px; height:14px;
+  bottom:0; left:-8px;
+  width:11px; height:14px;
   background:var(--bubble-in);
   border-bottom-right-radius:16px 13px;
-}
-.msg:not(:has(+ .msg.grouped)) .bubble::after{
-  content:"";
-  position:absolute;
-  bottom:0; left:-15px;
-  width:9px; height:14px;
-  background:var(--wall);
-  border-bottom-right-radius:10px 12px;
+  -webkit-mask-image:radial-gradient(circle 9px at 0 0, transparent 99%, #000 100%);
+  mask-image:radial-gradient(circle 9px at 0 0, transparent 99%, #000 100%);
 }
 
 .sender{ font-size:14px; font-weight:600; margin-bottom:2px; }
@@ -377,7 +376,7 @@ button, input, textarea, select{ font-family:inherit; }
 /* The tail-curl pseudo-elements extend past the bubble's own box and cut
    across this border, creating a jagged corner - the colored border is
    already a clear "forwarded" marker on its own, so skip the tail here. */
-.bubble-forward::before, .bubble-forward::after{ display:none; }
+.bubble-forward::before{ display:none; }
 .forward-label{ font-size:11.5px; color:var(--muted); margin-bottom:6px; }
 .verse-quote{
   font-family:var(--font-ui);
@@ -819,7 +818,7 @@ button, input, textarea, select{ font-family:inherit; }
   position:absolute; inset:0;
   background:
     linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.75)),
-    var(--couple-photo, none) center/cover,
+    var(--lock-photo, none) center/cover,
     linear-gradient(160deg, #3a3a3a, #0b0b0b);
 }
 

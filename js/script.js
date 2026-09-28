@@ -170,6 +170,20 @@
   var bgMusic = document.getElementById("bgMusic");
   var musicToggle = document.getElementById("musicToggle");
 
+  function startMusic() {
+    return bgMusic.play().then(function () {
+      musicToggle.classList.add("playing");
+      musicToggle.setAttribute("aria-pressed", "true");
+    }).catch(function () {
+      // Browsers require a user gesture before unmuted audio can start.
+    });
+  }
+
+  // Try immediately, then retry on the first landing-page gesture for browsers
+  // that block unmuted autoplay.
+  startMusic();
+  lockScreen.addEventListener("pointerdown", startMusic, { once: true });
+
   function openInvitation() {
     chatShell.classList.remove("locked");
     lockScreen.style.opacity = "0";
@@ -188,12 +202,7 @@
       }, 2200);
     }
 
-    bgMusic.play().then(function () {
-      musicToggle.classList.add("playing");
-      musicToggle.setAttribute("aria-pressed", "true");
-    }).catch(function () {
-      // Autoplay blocked; user can tap the music button manually.
-    });
+    startMusic();
   }
   lockScreen.style.transition = "opacity .4s ease";
   document.getElementById("notifSamuel").addEventListener("click", openInvitation);
@@ -240,9 +249,7 @@
   // ---------- Music toggle ----------
   musicToggle.addEventListener("click", function () {
     if (bgMusic.paused) {
-      bgMusic.play().catch(function () {});
-      musicToggle.classList.add("playing");
-      musicToggle.setAttribute("aria-pressed", "true");
+      startMusic();
     } else {
       bgMusic.pause();
       musicToggle.classList.remove("playing");

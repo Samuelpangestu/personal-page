@@ -59,7 +59,7 @@ kalau environment-mu tidak memblokirnya.
 ## Struktur Repo
 
 ```
-index.html        # Halaman undangan utama (single-page, mobile-first)
+weddingsamuelledy/index.html  # Halaman undangan utama (single-page, mobile-first)
 admin.html        # Dashboard panitia sederhana (password gate)
 css/style.css     # Style undangan utama (design tokens di :root)
 css/admin.css     # Style dashboard
@@ -99,3 +99,23 @@ warna baru di tempat lain.
   temuanmu.
 - Update file ini (`AGENTS.md`) kalau ada keputusan/batasan baru yang
   perlu diketahui agent berikutnya.
+
+## Keputusan fidelity WhatsApp iOS (2026-09-28)
+
+- Sumber kebenaran visual: screenshot WhatsApp iOS dark dari owner (iPhone
+  393pt). Ukuran di `css/style.css` diberi komentar pt dari screenshot itu
+  (header 44+10 di bawah safe-area, pinned 52, composer 48 + safe-area,
+  bubble radius 18, lebar media 290, avatar 28, input 30, tombol aksi 32).
+- Tidak ada Google Fonts lagi: pakai font sistem (SF Pro di iPhone).
+- Dokumen tidak pernah scroll (`body{position:fixed}`); hanya `.chat-feed`.
+  JS menyalin `visualViewport` ke `--app-h`/`--app-top` supaya header &
+  composer tidak terdorong saat toolbar Safari / keyboard berubah.
+- Pengelompokan pesan dihitung JS (`groupMessages`): nama pengirim di bubble
+  pertama satu run, avatar + tail di bubble terakhir. Jangan tulis `.sender`
+  manual di HTML.
+- Ucapan yang dikirim tamu dirender sebagai pesan keluar (hijau, centang
+  biru) karena localStorage per-perangkat = tulisan tamu itu sendiri.
+- Musik hanya mulai dari gesture pembuka (swipe/tap notifikasi), tanpa
+  atribut `autoplay`.
+- Tidak ada animasi reveal per section; motion hanya untuk perpindahan state
+  (unlock, pinned berganti, panel info, highlight setelah lompat pinned).

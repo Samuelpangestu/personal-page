@@ -1,458 +1,526 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="is-locked">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#000000" id="themeColor">
+<meta name="color-scheme" content="light dark">
 <base href="/weddingsamuelledy/">
 <title>The Wedding of Samuel & Ledy</title>
 <meta name="description" content="Undangan pernikahan digital Samuel & Ledy — gaya percakapan grup chat">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="loader" id="loader">
+<div class="loader" id="loader" aria-hidden="true">
   <div class="loader-ring"></div>
-  <p>Memuat percakapan...</p>
 </div>
 
 <div class="frame" id="frame">
 
-  <!-- ===== CHAT SHELL (locked/blurred until opened) ===== -->
+  <!-- ===== CHAT SHELL (sits under the lock screen until opened) ===== -->
   <div class="chat-shell locked" id="chatShell">
 
-    <!-- Sticky chat header -->
-    <header class="chat-header">
-      <button class="pill pill-back" type="button" id="mainBackBtn" aria-label="Kunci kembali undangan">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span>1</span>
-      </button>
+    <!-- Header + pinned bar: one translucent bar, chat scrolls underneath -->
+    <div class="chat-top" id="chatTop">
+      <header class="chat-header">
+        <button class="glass-btn back-btn" type="button" id="mainBackBtn" aria-label="Kunci kembali undangan">
+          <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="M10 2 2 10l8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>1</span>
+        </button>
 
-      <button class="status-avatar" type="button" id="statusAvatarBtn" aria-label="Lihat info grup">
-        <span class="avatar-ring">
-          <span class="avatar-inner" aria-hidden="true"></span>
+        <button class="status-avatar" type="button" id="statusAvatarBtn" aria-label="Lihat status Samuel dan Ledy">
+          <span class="avatar-ring">
+            <span class="avatar-inner" aria-hidden="true"></span>
+          </span>
+        </button>
+
+        <button class="header-info" type="button" id="headerInfoBtn" aria-label="Info grup Samuel dan Ledy">
+          <span class="header-title">Samuel &amp; Ledy 💍</span>
+          <span class="header-participants">Samuel, Ledy, <span id="headerGuestName">Tamu</span></span>
+        </button>
+
+        <div class="glass-btn header-actions">
+          <button class="bar-btn" type="button" id="liveBtn" aria-label="Info live streaming">
+            <svg width="26" height="18" viewBox="0 0 26 18" fill="none" aria-hidden="true"><rect x="1" y="1.5" width="16" height="15" rx="3.5" stroke="currentColor" stroke-width="1.9"/><path d="M17 7.2 24 3v12l-7-4.2" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="bar-btn" type="button" id="musicToggle" aria-label="Putar musik latar" aria-pressed="false">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l11-2v13" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="1.9"/><circle cx="17" cy="16" r="3" stroke="currentColor" stroke-width="1.9"/></svg>
+          </button>
+          <span class="tooltip" id="liveTooltip" role="status">Link live streaming akan dibagikan H-1 acara.</span>
+        </div>
+      </header>
+
+      <!-- Pinned messages: tap jumps to the one shown, then advances to the next -->
+      <button class="pinned-bar" type="button" id="pinnedBar" aria-label="Pesan disematkan">
+        <span class="pinned-track" id="pinnedTrack" aria-hidden="true"></span>
+        <span class="pinned-thumb" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 2.75h8l-1.2 6.1 3.2 3.4v1.95h-5.2V21L12 22.5l-.8-1.5v-6.8H6v-1.95l3.2-3.4L8 2.75Z" fill="currentColor"/></svg>
         </span>
+        <span class="pinned-window"><span class="pinned-text" id="pinnedText">Hitung mundur · <strong>0</strong> hari lagi menuju hari H</span></span>
+        <span class="pinned-count" id="pinnedCount" aria-hidden="true">1/4</span>
       </button>
-
-      <button class="header-info" type="button" id="headerInfoBtn" aria-label="Info grup Samuel dan Ledy">
-        <span class="header-title">Samuel &amp; Ledy 💍</span>
-        <span class="header-participants">Samuel, Ledy, <span id="headerGuestName">Tamu</span></span>
-      </button>
-
-      <span class="header-actions">
-        <button class="pill pill-icon" type="button" id="liveBtn" aria-label="Info live streaming">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 10l5-3v10l-5-3" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><rect x="3" y="6" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2"/></svg>
-          <span class="tooltip" id="liveTooltip" role="status">Link live streaming akan dibagikan H-1 acara ✨</span>
-        </button>
-        <button class="pill pill-icon wide" type="button" id="musicToggle" aria-label="Putar musik latar" aria-pressed="false">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l10-2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="16" r="3" stroke="currentColor" stroke-width="2"/></svg>
-        </button>
-      </span>
-    </header>
-
-    <!-- Pinned message: tap cycles to the next pinned item and jumps to it in the chat -->
-    <button class="pinned-bar" type="button" id="pinnedBar" aria-label="Pesan disematkan: lompat ke hitung mundur, tap lagi untuk pesan disematkan lainnya">
-      <span class="pinned-marker" aria-hidden="true"><svg class="pinned-pin-glyph" width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14.5 2.5l7 7-3 3-1.5-.5-4 4 .5 5.5-2 2-4-6-5 5-1-1 5-5-6-4 2-2 5.5.5 4-4-.5-1.5 3-3Z" fill="currentColor"/></svg></span>
-      <span class="pinned-text" id="pinnedText">Hitung mundur · <strong>0</strong> hari lagi menuju hari H</span>
-      <span class="pinned-count" id="pinnedCount" aria-hidden="true">1/4</span>
-      <svg class="pinned-next" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-
-    <!-- System chips -->
-    <div class="chat-chips">
-      <span class="chip chip-lock"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg> Undangan ini dikirim khusus untuk <span id="chipGuestName">Tamu</span></span>
-      <span class="chip">Samuel membuat grup &ldquo;Samuel &amp; Ledy 💍&rdquo;</span>
-      <span class="chip">Ledy menambahkan <span id="chipGuestName2">Tamu</span></span>
-      <span class="chip chip-date">Hari ini</span>
     </div>
 
     <!-- ===== CHAT FEED ===== -->
     <main class="chat-feed" id="chatFeed">
 
+      <!-- System messages -->
+      <div class="system-stack">
+        <span class="sys sys-date">Hari ini</span>
+        <span class="sys sys-lock"><svg width="10" height="11" viewBox="0 0 20 22" fill="none" aria-hidden="true"><rect x="2" y="9" width="16" height="12" rx="2.5" fill="currentColor"/><path d="M5.5 9V6.5a4.5 4.5 0 0 1 9 0V9" stroke="currentColor" stroke-width="2.4"/></svg> Undangan ini dikirim khusus untuk <span id="chipGuestName">Tamu</span></span>
+        <span class="sys">Samuel membuat grup &ldquo;Samuel &amp; Ledy 💍&rdquo;</span>
+        <span class="sys">Ledy menambahkan <span id="chipGuestName2">Tamu</span></span>
+      </div>
+
       <!-- HOME -->
-      <section class="feed-section reveal" id="home">
+      <section class="feed-section" id="home">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble">
-            <p class="sender sender-groom">Samuel</p>
             <p>Hai <strong id="homeGuestName">Tamu Undangan</strong> 👋 makasih ya udah gabung di grup kecil kami.</p>
             <span class="msg-time">09.00</span>
           </div>
         </div>
-        <div class="msg groom grouped">
+        <div class="msg groom has-reactions">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card">
-            <div class="hero-photo"></div>
-            <p class="hero-couple">Samuel &amp; Ledy</p>
-            <p class="hero-date">21 Desember 2026</p>
-            <p class="hero-invite">
-              Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir
-              dan memberikan doa restu di hari bahagia kami.
-            </p>
-            <div class="music-row">
-              <svg class="music-note" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
-              <span class="music-track">Karena Kamu Cuma Satu — Naif</span>
+          <div class="bubble media">
+            <div class="b-photo hero-photo" role="img" aria-label="Foto Samuel dan Ledy"></div>
+            <div class="b-caption">
+              <p class="hero-couple">Samuel &amp; Ledy</p>
+              <p class="hero-date">21 Desember 2026</p>
+              <p class="hero-invite">Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan memberikan doa restu di hari bahagia kami.</p>
+              <div class="music-row">
+                <svg class="music-note" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18V5l11-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm11-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                <span class="music-track">Karena Kamu Cuma Satu — Naif</span>
+              </div>
+              <span class="msg-time">09.00</span>
             </div>
-            <div class="reaction-row">
+            <div class="reactions">
               <button class="reaction-pill" type="button" data-emoji="❤️">❤️ <span class="r-count">12</span></button>
               <button class="reaction-pill" type="button" data-emoji="🥹">🥹 <span class="r-count">5</span></button>
-              <button class="btn-share" type="button" id="shareBtn">Bagikan</button>
             </div>
-            <span class="msg-time">09.00</span>
           </div>
+          <button class="forward-btn" type="button" id="shareBtn" aria-label="Bagikan undangan">
+            <svg width="16" height="14" viewBox="0 0 20 17" fill="none" aria-hidden="true"><path d="M11.5 1v4C4.6 5.6 1.5 10 1 16c2-3.4 5-5 10.5-5v4.5L19 8.2 11.5 1Z" fill="currentColor"/></svg>
+          </button>
         </div>
       </section>
 
       <!-- VERSE -->
-      <section class="feed-section reveal" id="verse">
+      <section class="feed-section" id="verse">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-forward">
-            <p class="forward-label">↪ Diteruskan</p>
-            <blockquote class="verse-quote">
-              "Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah
-              dipersatukan Allah, tidak boleh diceraikan manusia."
-            </blockquote>
+          <div class="bubble">
+            <p class="forward-label"><svg width="13" height="11" viewBox="0 0 20 17" fill="none" aria-hidden="true"><path d="M11.5 1v4C4.6 5.6 1.5 10 1 16c2-3.4 5-5 10.5-5v4.5L19 8.2 11.5 1Z" fill="currentColor"/></svg>Diteruskan</p>
+            <p class="verse-quote">"Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia."</p>
             <p class="verse-source">Matius 19:6</p>
+            <span class="msg-time">09.01</span>
           </div>
         </div>
       </section>
 
       <!-- PROFILES -->
-      <section class="feed-section reveal" id="profiles">
+      <section class="feed-section" id="profiles">
         <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
           <div class="bubble">
-            <p class="sender sender-bride">Ledy</p>
             <p>Kenalan dulu... 🌸</p>
+            <span class="msg-time">09.02</span>
           </div>
         </div>
-        <div class="msg bride grouped">
+        <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble bubble-card profile-card">
-            <div class="profile-photo profile-bride"></div>
-            <p class="profile-name">Agatha Ledy Tamara</p>
-            <p class="profile-role">Mempelai Wanita</p>
-            <p class="profile-parents">Anak kedua dari Bapak Victricius Warnadi &amp; Ibu Maria Magdalena Suhartini</p>
+          <div class="bubble media">
+            <div class="b-photo profile-photo profile-bride" role="img" aria-label="Foto Agatha Ledy Tamara"></div>
+            <div class="b-caption">
+              <p class="profile-name">Agatha Ledy Tamara</p>
+              <p class="profile-role">Mempelai Wanita</p>
+              <p class="profile-parents">Anak kedua dari Bapak Victricius Warnadi &amp; Ibu Maria Magdalena Suhartini</p>
+              <span class="msg-time">09.02</span>
+            </div>
           </div>
         </div>
 
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble">
-            <p class="sender sender-groom">Samuel</p>
             <p>Dan ini aku... 🤵</p>
+            <span class="msg-time">09.03</span>
           </div>
         </div>
-        <div class="msg groom grouped">
+        <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card profile-card">
-            <div class="profile-photo profile-groom"></div>
-            <p class="profile-name">Samuel Pangestu G Tobing</p>
-            <p class="profile-role">Mempelai Pria</p>
-            <p class="profile-parents">Anak pertama dari (Alm) Bapak Pardamean Victorius Lumban Tobing &amp; Ibu Olopan Sibarani</p>
+          <div class="bubble media">
+            <div class="b-photo profile-photo profile-groom" role="img" aria-label="Foto Samuel Pangestu G Tobing"></div>
+            <div class="b-caption">
+              <p class="profile-name">Samuel Pangestu G Tobing</p>
+              <p class="profile-role">Mempelai Pria</p>
+              <p class="profile-parents">Anak pertama dari (Alm) Bapak Pardamean Victorius Lumban Tobing &amp; Ibu Olopan Sibarani</p>
+              <span class="msg-time">09.03</span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- COUNTDOWN -->
-      <section class="feed-section reveal" id="countdown">
+      <!-- COUNTDOWN (pinned 1/4) -->
+      <section class="feed-section" id="countdown">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card">
-            <p class="pinned-label"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M14.5 2.5l7 7-3 3-1.5-.5-4 4 .5 5.5-2 2-4-6-5 5-1-1 5-5-6-4 2-2 5.5.5 4-4-.5-1.5 3-3Z" fill="currentColor"/></svg> Disematkan</p>
-            <p class="card-title">Hitung Mundur</p>
-            <div class="countdown-grid">
-              <div class="cd-tile"><span id="cd-days">00</span><small>Hari</small></div>
-              <div class="cd-tile"><span id="cd-hours">00</span><small>Jam</small></div>
-              <div class="cd-tile"><span id="cd-mins">00</span><small>Menit</small></div>
-              <div class="cd-tile"><span id="cd-secs">00</span><small>Detik</small></div>
+          <div class="bubble bubble-wide">
+            <div class="b-body">
+              <p class="card-title">Hitung Mundur</p>
+              <div class="countdown-grid">
+                <div class="cd-tile"><span id="cd-days">00</span><small>Hari</small></div>
+                <div class="cd-tile"><span id="cd-hours">00</span><small>Jam</small></div>
+                <div class="cd-tile"><span id="cd-mins">00</span><small>Menit</small></div>
+                <div class="cd-tile"><span id="cd-secs">00</span><small>Detik</small></div>
+              </div>
+              <span class="msg-time msg-time-block"><svg class="time-pin" width="10" height="10" viewBox="0 0 24 24" fill="none" aria-label="Disematkan"><path d="M8 2.75h8l-1.2 6.1 3.2 3.4v1.95h-5.2V21L12 22.5l-.8-1.5v-6.8H6v-1.95l3.2-3.4L8 2.75Z" fill="currentColor"/></svg>09.04</span>
             </div>
-            <button class="btn-calendar" type="button"
+            <button class="b-action btn-calendar" type="button"
               data-summary="Pernikahan Samuel & Ledy"
               data-location="Gereja Katolik Santo Athanasius Agung Karangpanas, Semarang"
-              data-start="20261221T020000Z" data-end="20261221T080000Z">
-              + Tambah ke kalender
-            </button>
+              data-start="20261221T020000Z" data-end="20261221T080000Z">Tambah ke kalender</button>
           </div>
         </div>
       </section>
 
-      <!-- EVENTS -->
-      <section class="feed-section reveal" id="events">
+      <!-- EVENTS (Pemberkatan pinned 2/4) -->
+      <section class="feed-section" id="events">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble"><p class="card-title">Rangkaian Acara</p></div>
-        </div>
-
-        <div class="msg groom grouped">
-          <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card event-card">
-            <p class="event-name">Pemberkatan</p>
-            <p class="event-when">Senin, 21 Desember 2026 · 09.00–11.00 WIB</p>
-            <p class="event-where">Gereja Katolik Santo Athanasius Agung Karangpanas, Semarang</p>
-            <div class="map-preview" aria-hidden="true"><span class="map-pin"></span></div>
-            <div class="event-actions">
-              <a class="btn-mini" href="https://www.google.com/maps?sca_esv=f9132ac85e259377&biw=1450&bih=903&output=search&q=gereja+athanasius+agung+karangpanas+semarang+gmap&source=lnms&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cTs4PJElQ4Z4ROUfAdKhH1h8_bE4W8bMuyk4xKV8xDJdhm28rlX4lrlQzJ9R7IHXLD08Dqi9xfjdWhhWpO2Xo7LGpulUWMXdRmzMVLiDUKbbyzRTWAgzpXHdEj2FzDkHyVIUNdHPGq87aiVxmR6Bsu6188VKy4IbKWcxjUWHN15xUc7ug_QWEr7w6XBA9A3IyJ0qV8Q&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener">Buka peta</a>
-              <button class="btn-mini btn-calendar" type="button"
-                data-summary="Pemberkatan Samuel & Ledy"
-                data-location="Gereja Katolik Santo Athanasius Agung Karangpanas, Semarang"
-                data-start="20261221T020000Z" data-end="20261221T040000Z">
-                Tambah ke kalender
-              </button>
-            </div>
+          <div class="bubble">
+            <p><strong>Rangkaian Acara</strong></p>
+            <span class="msg-time">09.05</span>
           </div>
         </div>
 
-        <div class="msg groom grouped">
+        <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card event-card">
-            <p class="event-name">Resepsi</p>
-            <p class="event-when">Senin, 21 Desember 2026 · 13.00–15.00 WIB</p>
-            <p class="event-where">Hotel Candi Indah Convention, Semarang</p>
-            <div class="map-preview" aria-hidden="true"><span class="map-pin"></span></div>
-            <div class="event-actions">
-              <a class="btn-mini" href="https://www.google.com/maps/place/Hotel+Candi+Indah+Convention+Semarang/@-7.0223978,110.4198539,1069m/data=!3m2!1e3!4b1!4m9!3m8!1s0x2e708b86e7d83867:0x3feb3e9d93aa206c!5m2!4m1!1i2!8m2!3d-7.0224031!4d110.4224288!16s%2Fg%2F1hc16ywvw?entry=ttu" target="_blank" rel="noopener">Buka peta</a>
-              <button class="btn-mini btn-calendar" type="button"
-                data-summary="Resepsi Samuel & Ledy"
-                data-location="Hotel Candi Indah Convention, Semarang"
-                data-start="20261221T060000Z" data-end="20261221T080000Z">
-                Tambah ke kalender
-              </button>
+          <div class="bubble media bubble-wide">
+            <div class="b-photo map-preview" aria-hidden="true"><span class="map-pin"></span></div>
+            <div class="b-caption">
+              <p class="event-name">Pemberkatan</p>
+              <p class="event-when">Senin, 21 Desember 2026 · 09.00–11.00 WIB</p>
+              <p class="event-where">Gereja Katolik Santo Athanasius Agung Karangpanas, Semarang</p>
+              <span class="msg-time"><svg class="time-pin" width="10" height="10" viewBox="0 0 24 24" fill="none" aria-label="Disematkan"><path d="M8 2.75h8l-1.2 6.1 3.2 3.4v1.95h-5.2V21L12 22.5l-.8-1.5v-6.8H6v-1.95l3.2-3.4L8 2.75Z" fill="currentColor"/></svg>09.05</span>
             </div>
+            <a class="b-action" href="https://www.google.com/maps?sca_esv=f9132ac85e259377&biw=1450&bih=903&output=search&q=gereja+athanasius+agung+karangpanas+semarang+gmap&source=lnms&fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cTs4PJElQ4Z4ROUfAdKhH1h8_bE4W8bMuyk4xKV8xDJdhm28rlX4lrlQzJ9R7IHXLD08Dqi9xfjdWhhWpO2Xo7LGpulUWMXdRmzMVLiDUKbbyzRTWAgzpXHdEj2FzDkHyVIUNdHPGq87aiVxmR6Bsu6188VKy4IbKWcxjUWHN15xUc7ug_QWEr7w6XBA9A3IyJ0qV8Q&entry=mc&ved=1t:200715&ictx=111" target="_blank" rel="noopener">Buka peta</a>
+            <button class="b-action btn-calendar" type="button"
+              data-summary="Pemberkatan Samuel & Ledy"
+              data-location="Gereja Katolik Santo Athanasius Agung Karangpanas, Semarang"
+              data-start="20261221T020000Z" data-end="20261221T040000Z">Tambah ke kalender</button>
+          </div>
+        </div>
+
+        <div class="msg groom">
+          <span class="avatar avatar-groom" aria-label="Samuel"></span>
+          <div class="bubble media bubble-wide">
+            <div class="b-photo map-preview" aria-hidden="true"><span class="map-pin"></span></div>
+            <div class="b-caption">
+              <p class="event-name">Resepsi</p>
+              <p class="event-when">Senin, 21 Desember 2026 · 13.00–15.00 WIB</p>
+              <p class="event-where">Hotel Candi Indah Convention, Semarang</p>
+              <span class="msg-time">09.05</span>
+            </div>
+            <a class="b-action" href="https://www.google.com/maps/place/Hotel+Candi+Indah+Convention+Semarang/@-7.0223978,110.4198539,1069m/data=!3m2!1e3!4b1!4m9!3m8!1s0x2e708b86e7d83867:0x3feb3e9d93aa206c!5m2!4m1!1i2!8m2!3d-7.0224031!4d110.4224288!16s%2Fg%2F1hc16ywvw?entry=ttu" target="_blank" rel="noopener">Buka peta</a>
+            <button class="b-action btn-calendar" type="button"
+              data-summary="Resepsi Samuel & Ledy"
+              data-location="Hotel Candi Indah Convention, Semarang"
+              data-start="20261221T060000Z" data-end="20261221T080000Z">Tambah ke kalender</button>
           </div>
         </div>
       </section>
 
       <!-- STORY -->
-      <section class="feed-section reveal" id="story">
+      <section class="feed-section" id="story">
         <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble"><p class="card-title">Our Story</p></div>
-        </div>
-
-        <div class="msg bride grouped">
-          <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble bubble-forward story-card">
-            <p class="forward-label">↪ Kenangan · 2019</p>
-            <div class="story-photo g2"></div>
-            <p class="story-title">Pertama Bertemu</p>
-            <p>Dipertemukan pertama kali di sebuah acara kampus yang tidak pernah kami duga akan mengubah jalan hidup kami.</p>
+          <div class="bubble">
+            <p><strong>Our Story</strong></p>
+            <span class="msg-time">09.07</span>
           </div>
         </div>
 
-        <div class="msg bride grouped">
+        <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble bubble-forward story-card">
-            <p class="forward-label">↪ Kenangan · 2021</p>
-            <div class="story-photo g4"></div>
-            <p class="story-title">Menjalin Hubungan</p>
-            <p>Setelah dua tahun saling mengenal, kami memutuskan melangkah bersama dalam hubungan yang serius.</p>
+          <div class="bubble media">
+            <div class="b-photo story-photo g2" role="img" aria-label="Kenangan 2019"></div>
+            <div class="b-caption">
+              <p class="story-meta">Kenangan · 2019</p>
+              <p class="story-title">Pertama Bertemu</p>
+              <p>Dipertemukan pertama kali di sebuah acara kampus yang tidak pernah kami duga akan mengubah jalan hidup kami.</p>
+              <span class="msg-time">09.07</span>
+            </div>
           </div>
         </div>
 
-        <div class="msg bride grouped">
+        <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble bubble-forward story-card">
-            <p class="forward-label">↪ Kenangan · 2026</p>
-            <div class="story-photo g1"></div>
-            <p class="story-title">Lamaran &amp; Hari Bahagia</p>
-            <p>Samuel melamar Ledy disaksikan kedua keluarga besar — awal babak baru menuju hari pernikahan kami.</p>
+          <div class="bubble media">
+            <div class="b-photo story-photo g4" role="img" aria-label="Kenangan 2021"></div>
+            <div class="b-caption">
+              <p class="story-meta">Kenangan · 2021</p>
+              <p class="story-title">Menjalin Hubungan</p>
+              <p>Setelah dua tahun saling mengenal, kami memutuskan melangkah bersama dalam hubungan yang serius.</p>
+              <span class="msg-time">09.07</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="msg bride">
+          <span class="avatar avatar-bride" aria-label="Ledy"></span>
+          <div class="bubble media">
+            <div class="b-photo story-photo g1" role="img" aria-label="Kenangan 2026"></div>
+            <div class="b-caption">
+              <p class="story-meta">Kenangan · 2026</p>
+              <p class="story-title">Lamaran &amp; Hari Bahagia</p>
+              <p>Samuel melamar Ledy disaksikan kedua keluarga besar — awal babak baru menuju hari pernikahan kami.</p>
+              <span class="msg-time">09.08</span>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- DRESS CODE -->
-      <section class="feed-section reveal" id="dresscode">
+      <section class="feed-section" id="dresscode">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble"><p>Dress code-nya, biar kompak ya</p></div>
+          <div class="bubble">
+            <p>Dress code-nya, biar kompak ya</p>
+            <span class="msg-time">09.08</span>
+          </div>
         </div>
-        <div class="msg groom grouped">
+        <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card">
+          <div class="bubble">
             <div class="swatch-row">
-              <span class="swatch" style="background:#F3EEDD" title="Ivory"></span>
-              <span class="swatch" style="background:#B0E0E6" title="Powder Blue"></span>
-              <span class="swatch" style="background:#F7E7CE" title="Champagne"></span>
+              <span class="swatch"><span class="swatch-dot" style="background:#F3EEDD"></span>Ivory</span>
+              <span class="swatch"><span class="swatch-dot" style="background:#B0E0E6"></span>Powder Blue</span>
+              <span class="swatch"><span class="swatch-dot" style="background:#F7E7CE"></span>Champagne</span>
             </div>
+            <span class="msg-time msg-time-block">09.08</span>
           </div>
         </div>
       </section>
 
       <!-- GALLERY -->
-      <section class="feed-section reveal" id="gallery">
+      <section class="feed-section" id="gallery">
         <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble"><p>Beberapa foto kami 📸</p></div>
+          <div class="bubble">
+            <p>Beberapa foto kami 📸</p>
+            <span class="msg-time">09.09</span>
+          </div>
         </div>
-        <div class="msg bride grouped">
+        <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble bubble-card gallery-card">
+          <div class="bubble media album">
             <div class="gallery-mosaic" id="galleryMosaic">
               <button class="g-item g1" type="button" aria-label="Lihat foto 1" data-index="0"></button>
               <button class="g-item g2" type="button" aria-label="Lihat foto 2" data-index="1"></button>
               <button class="g-item g3" type="button" aria-label="Lihat foto 3" data-index="2"></button>
-              <button class="g-item g-more" type="button" id="galleryMore" aria-label="Lihat 2 foto lainnya" data-index="3">+2</button>
+              <button class="g-item g4 g-more" type="button" id="galleryMore" aria-label="Lihat 2 foto lainnya" data-index="3"><span>+2</span></button>
             </div>
+            <span class="msg-time on-media">09.09</span>
           </div>
         </div>
       </section>
 
-      <!-- LIGHTBOX -->
-      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeri foto">
-        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Tutup galeri">&times;</button>
-        <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Foto sebelumnya">&#8249;</button>
-        <div class="lightbox-photo" id="lightboxPhoto"></div>
-        <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Foto berikutnya">&#8250;</button>
-        <p class="lightbox-caption" id="lightboxCaption"></p>
-      </div>
-
-      <!-- GIFT -->
-      <section class="feed-section reveal" id="gift">
+      <!-- GIFT (BCA pinned 3/4) -->
+      <section class="feed-section" id="gift">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble"><p>Tanda kasih. Doa restumu sudah lebih dari cukup, tapi kalau ingin memberi, ini infonya ya.</p></div>
-        </div>
-        <div class="msg groom grouped">
-          <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card gift-card">
-            <p class="gift-bank-name">Bank Central Asia</p>
-            <p class="gift-bank-number">1234567890</p>
-            <p class="gift-bank-holder">a.n. Samuel Pangestu G Tobing</p>
-            <button class="btn-copy" type="button" data-value="1234567890">Salin</button>
+          <div class="bubble">
+            <p>Tanda kasih. Doa restumu sudah lebih dari cukup, tapi kalau ingin memberi, ini infonya ya.</p>
+            <span class="msg-time">09.10</span>
           </div>
         </div>
-        <div class="msg groom grouped">
+        <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card gift-card">
-            <p class="gift-bank-name">Alamat Kirim Kado</p>
-            <p class="gift-address">Jl. Melati Indah No. 12, Jakarta Selatan, DKI Jakarta 12210</p>
-            <button class="btn-copy" type="button" data-value="Jl. Melati Indah No. 12, Jakarta Selatan, DKI Jakarta 12210">Salin</button>
+          <div class="bubble bubble-wide">
+            <div class="b-body">
+              <p class="gift-bank-name">Bank Central Asia</p>
+              <p class="gift-bank-number">1234567890</p>
+              <p class="gift-bank-holder">a.n. Samuel Pangestu G Tobing</p>
+              <span class="msg-time"><svg class="time-pin" width="10" height="10" viewBox="0 0 24 24" fill="none" aria-label="Disematkan"><path d="M8 2.75h8l-1.2 6.1 3.2 3.4v1.95h-5.2V21L12 22.5l-.8-1.5v-6.8H6v-1.95l3.2-3.4L8 2.75Z" fill="currentColor"/></svg>09.10</span>
+            </div>
+            <button class="b-action btn-copy" type="button" data-value="1234567890">Salin</button>
+          </div>
+        </div>
+        <div class="msg groom">
+          <span class="avatar avatar-groom" aria-label="Samuel"></span>
+          <div class="bubble bubble-wide">
+            <div class="b-body">
+              <p class="gift-bank-name">Alamat Kirim Kado</p>
+              <p class="gift-address">Jl. Melati Indah No. 12, Jakarta Selatan, DKI Jakarta 12210</p>
+              <span class="msg-time">09.10</span>
+            </div>
+            <button class="b-action btn-copy" type="button" data-value="Jl. Melati Indah No. 12, Jakarta Selatan, DKI Jakarta 12210">Salin</button>
           </div>
         </div>
       </section>
 
-      <!-- RSVP -->
-      <section class="feed-section reveal" id="rsvp">
+      <!-- RSVP (poll pinned 4/4) -->
+      <section class="feed-section" id="rsvp">
         <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble bubble-card attendance-card">
-            <p class="card-title">Attendance</p>
-            <p class="deadline-note">Mohon konfirmasi sebelum 10 Desember 2026 ya 🙏</p>
-            <div class="attendance-choices">
-              <button class="choice-btn" type="button" data-status="Hadir" id="choiceHadir">Hadir 🙌</button>
-              <button class="choice-btn" type="button" data-status="Tidak Hadir" id="choiceTidak">Berhalangan</button>
-            </div>
-            <div class="guest-count-row" id="guestCountRow" hidden>
-              <label for="guestCount">Jumlah tamu (maks. 2)</label>
-              <select id="guestCount">
-                <option value="1">1 orang</option>
-                <option value="2">2 orang</option>
-              </select>
+          <div class="bubble bubble-wide attendance-card">
+            <div class="b-body">
+              <p class="poll-question">Attendance</p>
+              <p class="deadline-note">Mohon konfirmasi sebelum 10 Desember 2026 ya 🙏</p>
+              <div class="attendance-choices">
+                <button class="choice-btn" type="button" data-status="Hadir" id="choiceHadir" aria-pressed="false">
+                  <span class="poll-radio" aria-hidden="true"></span>
+                  <span class="poll-label">Hadir 🙌</span>
+                  <span class="poll-votes" aria-hidden="true"></span>
+                  <span class="poll-bar" aria-hidden="true"></span>
+                </button>
+                <button class="choice-btn" type="button" data-status="Tidak Hadir" id="choiceTidak" aria-pressed="false">
+                  <span class="poll-radio" aria-hidden="true"></span>
+                  <span class="poll-label">Berhalangan</span>
+                  <span class="poll-votes" aria-hidden="true"></span>
+                  <span class="poll-bar" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="guest-count-row" id="guestCountRow" hidden>
+                <label for="guestCount">Jumlah tamu (maks. 2)</label>
+                <select id="guestCount">
+                  <option value="1">1 orang</option>
+                  <option value="2">2 orang</option>
+                </select>
+              </div>
+              <span class="msg-time msg-time-block"><svg class="time-pin" width="10" height="10" viewBox="0 0 24 24" fill="none" aria-label="Disematkan"><path d="M8 2.75h8l-1.2 6.1 3.2 3.4v1.95h-5.2V21L12 22.5l-.8-1.5v-6.8H6v-1.95l3.2-3.4L8 2.75Z" fill="currentColor"/></svg>09.11</span>
             </div>
           </div>
         </div>
 
-        <div class="msg bride grouped">
+        <div class="msg bride">
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
-          <div class="bubble"><p>💬 Ucapan &amp; doa</p></div>
+          <div class="bubble">
+            <p>💬 Ucapan &amp; doa</p>
+            <span class="msg-time">09.11</span>
+          </div>
         </div>
 
-        <form class="bubble bubble-card rsvp-form" id="rsvpForm">
-          <input type="text" id="rsvpName" placeholder="Nama kamu" required>
-          <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan dan doa..." required></textarea>
-          <button type="submit" class="btn-send">Kirim</button>
-          <p class="rsvp-error" id="rsvpError" role="alert">Pilih dulu status kehadiran di atas ya.</p>
-        </form>
+        <div class="msg bride">
+          <span class="avatar avatar-bride" aria-label="Ledy"></span>
+          <form class="bubble bubble-wide rsvp-form" id="rsvpForm">
+            <div class="b-body">
+              <input type="text" id="rsvpName" placeholder="Nama kamu" autocomplete="name" required>
+              <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan dan doa..." required></textarea>
+              <p class="rsvp-error" id="rsvpError" role="alert">Pilih dulu status kehadiran di atas ya.</p>
+            </div>
+            <button type="submit" class="b-action btn-send">Kirim</button>
+          </form>
+        </div>
 
         <div class="wishes-list" id="wishesList">
-          <p class="wishes-empty" id="wishesEmpty">Jadilah yang pertama memberikan ucapan &amp; doa.</p>
+          <p class="wishes-empty" id="wishesEmpty"><span class="sys">Jadilah yang pertama memberikan ucapan &amp; doa.</span></p>
         </div>
       </section>
 
       <!-- LOVE NOTE -->
-      <section class="feed-section reveal" id="lovenote">
-        <div class="msg groom">
+      <section class="feed-section" id="lovenote">
+        <div class="msg groom has-reactions">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
-          <div class="bubble bubble-card">
-            <p class="lovenote-text">
-              "Terima kasih sudah jadi bagian penting perjalanan kami. Sampai jumpa di hari bahagia kami ya." — Samuel
-            </p>
-            <button class="reaction-pill" type="button" data-emoji="❤️">❤️ <span class="r-count">8</span></button>
+          <div class="bubble">
+            <p>"Terima kasih sudah jadi bagian penting perjalanan kami. Sampai jumpa di hari bahagia kami ya." — Samuel</p>
+            <span class="msg-time">09.12</span>
+            <div class="reactions">
+              <button class="reaction-pill" type="button" data-emoji="❤️">❤️ <span class="r-count">8</span></button>
+            </div>
           </div>
         </div>
       </section>
 
       <!-- CLOSING -->
-      <section class="feed-section reveal" id="closing">
+      <section class="feed-section" id="closing">
         <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble">
-            <p>
-              Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i
-              berkenan hadir dan memberikan doa restu.
-            </p>
+            <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.</p>
+            <span class="msg-time">09.12</span>
           </div>
         </div>
-        <div class="msg groom grouped">
+        <div class="msg groom">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
           <div class="bubble">
             <p>Tuhan Yesus memberkati 🤍</p>
             <p class="closing-signature">Samuel &amp; Ledy</p>
+            <span class="msg-time">09.12</span>
           </div>
         </div>
       </section>
 
     </main>
 
-    <!-- Quick-jump menu (opened via the compose bar's + button) -->
-    <div class="jump-menu" id="jumpMenu" aria-hidden="true">
+    <!-- Attachment-style menu (opened via the composer's + button) -->
+    <nav class="jump-menu" id="jumpMenu" aria-hidden="true" aria-label="Lompat ke bagian">
       <a href="#home" data-target="#home" class="active">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 11.5 12 4l8 7.5M6 10v9a1 1 0 0 0 1 1h4v-6h2v6h4a1 1 0 0 0 1-1v-9" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></svg>
         <span>Home</span>
       </a>
       <a href="#profiles" data-target="#profiles">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="9" r="2.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c.5-3 2.7-5 5.5-5s5 2 5.5 5M14 15.5c2.2.2 3.8 1.8 4.2 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3" stroke="currentColor" stroke-width="1.7"/><circle cx="16" cy="9" r="2.4" stroke="currentColor" stroke-width="1.7"/><path d="M3.5 19c.5-3 2.7-5 5.5-5s5 2 5.5 5M14 15.5c2.2.2 3.8 1.8 4.2 3.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
         <span>Mempelai</span>
       </a>
       <a href="#events" data-target="#events">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M4 9.5h16M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M4 9.5h16M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
         <span>Acara</span>
       </a>
       <a href="#gallery" data-target="#gallery">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M4 16.5l4.5-4 3 2.7 4-3.7 5 5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3.5" y="5.5" width="17" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><circle cx="9" cy="10.5" r="1.6" stroke="currentColor" stroke-width="1.5"/><path d="M4 16.5l4.5-4 3 2.7 4-3.7 5 5" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
         <span>Galeri</span>
       </a>
       <a href="#rsvp" data-target="#rsvp">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <span>RSVP</span>
       </a>
-    </div>
+    </nav>
 
-    <!-- Fake WhatsApp-style compose bar: decorative but wired to jump to RSVP -->
+    <!-- Composer: decorative input, wired to jump to RSVP -->
     <div class="compose-bar" id="composeBar">
-      <button class="compose-plus" type="button" id="jumpMenuToggle" aria-label="Buka menu navigasi cepat" aria-expanded="false">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <button class="bar-btn compose-plus" type="button" id="jumpMenuToggle" aria-label="Buka menu navigasi cepat" aria-expanded="false" aria-controls="jumpMenu">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 1v18M1 10h18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
       </button>
-      <button class="compose-input" type="button" id="composeInput">Balas kehadiran...</button>
-      <button class="compose-icon" type="button" id="composeCamera" aria-label="Lihat galeri foto">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8a2 2 0 0 1 2-2h1.2l.8-1.6A1 1 0 0 1 8.9 4h6.2a1 1 0 0 1 .9.6L16.8 6H18a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.7"/></svg>
+      <button class="compose-input" type="button" id="composeInput">
+        <span class="compose-placeholder">Balas kehadiran...</span>
+        <svg class="compose-sticker" width="19" height="19" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M18.25 10.5V6A4.25 4.25 0 0 0 14 1.75H6A4.25 4.25 0 0 0 1.75 6v8A4.25 4.25 0 0 0 6 18.25h4.5M18.25 10.5l-7.75 7.75M18.25 10.5H14a3.5 3.5 0 0 0-3.5 3.5v4.25" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="bar-btn compose-icon" type="button" id="composeCamera" aria-label="Lihat galeri foto">
+        <svg width="24" height="20" viewBox="0 0 24 20" fill="none" aria-hidden="true"><path d="M2 6.5A2.5 2.5 0 0 1 4.5 4h2.3l1.4-2.1A2 2 0 0 1 9.9 1h4.2a2 2 0 0 1 1.7.9L17.2 4h2.3A2.5 2.5 0 0 1 22 6.5v9a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.5v-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10.8" r="3.8" stroke="currentColor" stroke-width="1.6"/><circle cx="18.3" cy="7.3" r=".9" fill="currentColor"/></svg>
       </button>
       <button class="compose-send" type="button" id="composeSend" aria-label="Isi konfirmasi kehadiran">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 11 21 3l-6 18-4-8-8-2Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3.4 20.4 21.5 12 3.4 3.6l-.1 6.5 12.2 1.9-12.2 1.9.1 6.5Z" fill="currentColor"/></svg>
       </button>
     </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeri foto">
+    <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Tutup galeri">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 2l12 12M14 2 2 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Foto sebelumnya">
+      <svg width="10" height="18" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="M10 2 2 10l8 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="lightbox-photo" id="lightboxPhoto"></div>
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Foto berikutnya">
+      <svg width="10" height="18" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="m2 2 8 8-8 8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <p class="lightbox-caption" id="lightboxCaption"></p>
   </div>
 
   <!-- ===== STORY VIEWER ===== -->
   <div class="story-viewer" id="storyViewer" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Story foto Samuel dan Ledy">
     <div class="story-progress" id="storyProgress"></div>
     <header class="story-header">
-      <button class="pill pill-back" type="button" id="storyClose" aria-label="Tutup story">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button class="story-close" type="button" id="storyClose" aria-label="Tutup story">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="M10 2 2 10l8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <span class="story-avatar" aria-hidden="true"></span>
       <span class="story-title">
@@ -468,10 +536,10 @@
   <!-- ===== GROUP INFO PANEL ===== -->
   <div class="group-info" id="groupInfo" aria-hidden="true">
     <header class="group-info-header">
-      <button class="pill pill-back" type="button" id="groupInfoBack" aria-label="Kembali ke chat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button class="glass-btn back-btn" type="button" id="groupInfoBack" aria-label="Kembali ke chat">
+        <svg width="12" height="20" viewBox="0 0 12 20" fill="none" aria-hidden="true"><path d="M10 2 2 10l8 8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
-      <span>Info grup</span>
+      <span class="group-info-heading">Info grup</span>
     </header>
 
     <div class="group-info-body">
@@ -525,7 +593,7 @@
             <span class="gi-member-name">Agatha Ledy Tamara</span>
             <span class="gi-member-role">Mempelai Wanita</span>
           </span>
-          <span class="gi-badge">Admin Grup</span>
+          <span class="gi-badge">Admin</span>
         </div>
         <div class="gi-member-row">
           <span class="avatar avatar-groom" aria-label="Samuel"></span>
@@ -533,10 +601,10 @@
             <span class="gi-member-name">Samuel Pangestu G Tobing</span>
             <span class="gi-member-role">Mempelai Pria</span>
           </span>
-          <span class="gi-badge">Admin Grup</span>
+          <span class="gi-badge">Admin</span>
         </div>
         <div class="gi-member-row">
-          <span class="avatar" style="background:#7a6a55" id="giGuestAvatar">T</span>
+          <span class="avatar avatar-guest" id="giGuestAvatar">T</span>
           <span class="gi-member-text">
             <span class="gi-member-name" id="giGuestName">Tamu Undangan</span>
             <span class="gi-member-role">Tamu</span>
@@ -546,35 +614,35 @@
     </div>
   </div>
 
-  <!-- ===== LOCK SCREEN LANDING (iOS-style) ===== -->
+  <!-- ===== LOCK SCREEN (iOS-style) ===== -->
   <div class="lock-screen" id="lockScreen">
     <div class="lock-bg"></div>
 
-    <!-- iOS status bar -->
+    <!-- Drawn only in the desktop preview frame; on a phone the real status bar shows through -->
     <div class="ios-statusbar" aria-hidden="true">
       <span class="ios-statusbar-time" id="statusBarTime">20.28</span>
       <span class="ios-dynamic-island"></span>
       <span class="ios-statusbar-icons">
-        <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.3" y="4" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="8.6" y="2" width="3" height="9" rx="0.5" fill="currentColor"/><rect x="12.9" y="0" width="3" height="11" rx="0.5" fill="currentColor" opacity=".4"/></svg>
+        <svg width="17" height="11" viewBox="0 0 16 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="0.7" fill="currentColor"/><rect x="4.3" y="4" width="3" height="7" rx="0.7" fill="currentColor"/><rect x="8.6" y="2" width="3" height="9" rx="0.7" fill="currentColor"/><rect x="12.9" y="0" width="3" height="11" rx="0.7" fill="currentColor" opacity=".4"/></svg>
         <svg width="15" height="11" viewBox="0 0 16 12" fill="none"><path d="M8 10.2a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" fill="currentColor"/><path d="M4.8 6.9a4.6 4.6 0 0 1 6.4 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M2.2 4.3a8.4 8.4 0 0 1 11.6 0" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-        <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.5" stroke="currentColor" stroke-width="1"/><rect x="21.5" y="4" width="1.5" height="4" rx="0.7" fill="currentColor"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.3" fill="currentColor"/></svg>
+        <svg width="25" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="2.8" stroke="currentColor" stroke-width="1" opacity=".5"/><rect x="21.5" y="4" width="1.5" height="4" rx="0.7" fill="currentColor" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/></svg>
       </span>
     </div>
 
     <div class="lock-overlay">
-      <svg class="lock-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" stroke-width="2"/>
-        <path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/>
+      <svg class="lock-icon" width="14" height="18" viewBox="0 0 20 26" fill="none" aria-hidden="true">
+        <rect x="1.5" y="11" width="17" height="13.5" rx="3" fill="currentColor"/>
+        <path d="M5 11V7a5 5 0 0 1 10 0v4" stroke="currentColor" stroke-width="2.6"/>
       </svg>
-      <p class="lock-date" id="lockDate">Senin, 1 Jan</p>
-      <p class="lock-time" id="lockTime">00:00</p>
+      <p class="lock-date" id="lockDate">Senin, 1 Januari</p>
+      <p class="lock-time" id="lockTime">00.00</p>
 
       <div class="lock-notif-stack">
         <button class="lock-notif" type="button" id="notifSamuel" aria-label="Buka pesan dari Samuel">
           <span class="notif-avatar-wrap">
             <span class="notif-avatar" aria-hidden="true"></span>
             <span class="notif-app-icon" aria-hidden="true">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z" fill="var(--on-accent)"/><path d="M8.5 8c.3-.7 1-.6 1.4 0 .3.5.7 1.1.3 1.7-.6.9-1 .8-.5 1.7.5.9 1.5 1.8 2.4 2.2.8.4.8 0 1.6-.6.6-.5 1.2 0 1.6.4.4.4.9.9.7 1.4-.3.9-1.6 1.3-2.5 1.1-1.8-.4-3.6-1.6-4.8-3-1.1-1.3-1.7-2.8-1.1-4.4Z" fill="var(--accent)"/></svg>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z" fill="var(--on-accent)"/><path d="M8.5 8c.3-.7 1-.6 1.4 0 .3.5.7 1.1.3 1.7-.6.9-1 .8-.5 1.7.5.9 1.5 1.8 2.4 2.2.8.4.8 0 1.6-.6.6-.5 1.2 0 1.6.4.4.4.9.9.7 1.4-.3.9-1.6 1.3-2.5 1.1-1.8-.4-3.6-1.6-4.8-3-1.1-1.3-1.7-2.8-1.1-4.4Z" fill="var(--wa-green)"/></svg>
             </span>
           </span>
           <span class="notif-body">
@@ -586,7 +654,7 @@
           <span class="notif-avatar-wrap">
             <span class="notif-avatar avatar-bride" aria-hidden="true"></span>
             <span class="notif-app-icon" aria-hidden="true">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z" fill="var(--on-accent)"/><path d="M8.5 8c.3-.7 1-.6 1.4 0 .3.5.7 1.1.3 1.7-.6.9-1 .8-.5 1.7.5.9 1.5 1.8 2.4 2.2.8.4.8 0 1.6-.6.6-.5 1.2 0 1.6.4.4.4.9.9.7 1.4-.3.9-1.6 1.3-2.5 1.1-1.8-.4-3.6-1.6-4.8-3-1.1-1.3-1.7-2.8-1.1-4.4Z" fill="var(--accent)"/></svg>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M12 2a9 9 0 0 0-7.8 13.5L3 22l6.7-1.2A9 9 0 1 0 12 2Z" fill="var(--on-accent)"/><path d="M8.5 8c.3-.7 1-.6 1.4 0 .3.5.7 1.1.3 1.7-.6.9-1 .8-.5 1.7.5.9 1.5 1.8 2.4 2.2.8.4.8 0 1.6-.6.6-.5 1.2 0 1.6.4.4.4.9.9.7 1.4-.3.9-1.6 1.3-2.5 1.1-1.8-.4-3.6-1.6-4.8-3-1.1-1.3-1.7-2.8-1.1-4.4Z" fill="var(--wa-green)"/></svg>
             </span>
           </span>
           <span class="notif-body">
@@ -595,29 +663,23 @@
           </span>
         </button>
       </div>
-
-      <div class="lock-swipe-zone" id="lockSwipeZone" aria-hidden="true">
-        <span class="lock-swipe-chevron">&#8963;</span>
-        <p class="lock-hint">Geser ke atas untuk membuka undangan</p>
-      </div>
     </div>
 
-    <!-- iOS bottom bar: flashlight, focus label, camera (decorative) -->
     <div class="ios-bottombar" aria-hidden="true">
       <span class="ios-bottom-icon">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M9 2h6l-1 7h3l-8 13 2-9H8l1-11Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <svg width="16" height="22" viewBox="0 0 16 22" fill="none"><path d="M2 1.5h12v3.2l-2.6 3.7V20a1 1 0 0 1-1 1H5.6a1 1 0 0 1-1-1V8.4L2 4.7V1.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M2 4.7h12" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="12.5" r="1.2" fill="currentColor"/></svg>
       </span>
-      <span class="ios-focus-label">Undangan Pernikahan</span>
+      <span class="lock-hint">Geser ke atas untuk membuka</span>
       <span class="ios-bottom-icon">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M4 8a2 2 0 0 1 2-2h1.2l.8-1.6A1 1 0 0 1 8.9 4h6.2a1 1 0 0 1 .9.6L16.8 6H18a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.2" stroke="currentColor" stroke-width="1.6"/></svg>
+        <svg width="22" height="18" viewBox="0 0 24 20" fill="none"><path d="M2 6.5A2.5 2.5 0 0 1 4.5 4h2.3l1.4-2.1A2 2 0 0 1 9.9 1h4.2a2 2 0 0 1 1.7.9L17.2 4h2.3A2.5 2.5 0 0 1 22 6.5v9a2.5 2.5 0 0 1-2.5 2.5h-15A2.5 2.5 0 0 1 2 15.5v-9Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="10.8" r="3.8" stroke="currentColor" stroke-width="1.6"/></svg>
       </span>
     </div>
-    <span class="lock-home-indicator"></span>
+    <span class="lock-home-indicator" aria-hidden="true"></span>
   </div>
 
 </div>
 
-<audio id="bgMusic" loop autoplay preload="metadata">
+<audio id="bgMusic" loop preload="metadata">
   <source src="assets/music.mp3" type="audio/mpeg">
 </audio>
 

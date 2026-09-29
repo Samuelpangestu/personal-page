@@ -65,7 +65,7 @@ css/style.css     # Style undangan utama (design tokens di :root)
 css/admin.css     # Style dashboard
 js/script.js      # Interaksi undangan: countdown, RSVP, lightbox, dst
 js/admin.js       # Logic dashboard: baca localStorage, stats, CSV export
-assets/           # Taruh foto asli / music.mp3 di sini
+assets/           # Taruh foto asli / music.m4a di sini
 ```
 
 Design tokens (warna, font) ada di `:root` pada `css/style.css` — ubah di

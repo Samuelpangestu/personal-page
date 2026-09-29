@@ -495,7 +495,7 @@
   var pinnedItems = [
     { target: "#countdown", label: "hitung mundur", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
     { target: "#events .msg:nth-of-type(2)", label: "lokasi pemberkatan", text: function () { return "Lokasi · Pemberkatan, Semarang"; } },
-    { target: "#gift .msg:nth-of-type(2)", label: "tanda kasih", text: function () { return "Tanda kasih · BCA · 1234567890"; } },
+    { target: "#gift .msg:nth-of-type(2)", label: "tanda kasih", text: function () { return "Tanda kasih · Jago · 105147598203"; } },
     { target: "#rsvp", label: "konfirmasi kehadiran", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
   ];
   var pinnedIndex = 0;

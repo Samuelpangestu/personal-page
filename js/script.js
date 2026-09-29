@@ -30,6 +30,16 @@
     vv.addEventListener("resize", syncViewport);
     vv.addEventListener("scroll", syncViewport);
     syncViewport();
+    // On some browsers (notably in-app WebViews, e.g. a link opened directly
+    // from a WhatsApp chat) visualViewport.height isn't fully settled at the
+    // moment this script runs, and nothing re-corrects --app-h until a later
+    // scroll/resize fires - which only happens once the user interacts. That
+    // leaves the very first screen (the lock screen) rendered against a
+    // stale/wrong height until then. Re-sync a few times shortly after load
+    // to catch that settling automatically, without needing user input.
+    [50, 200, 500, 1200].forEach(function (delay) {
+      setTimeout(syncViewport, delay);
+    });
   }
   window.addEventListener("scroll", function () {
     if (!isTextFieldFocused() && (window.scrollY || window.pageYOffset)) window.scrollTo(0, 0);

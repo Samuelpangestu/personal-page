@@ -1285,7 +1285,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
 }
 
 /* ===== DESKTOP PREVIEW FRAME ===== */
-@media (min-width:481px){
+@media (min-width:481px) and (hover:hover) and (pointer:fine){
   .frame{
     margin:24px 0;
     border-radius:18px;
@@ -1297,7 +1297,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
 }
 
 /* ===== PHONE ===== */
-@media (max-width:480px){
+@media (max-width:480px), (hover:none) and (pointer:coarse){
   /* Behind Safari's floating toolbar the page background shows: match it to
      the surface above it (composer in chat, black on the lock screen). */
   html{ background:var(--bar-solid); }

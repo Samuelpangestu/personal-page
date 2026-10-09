@@ -729,8 +729,13 @@
       fetch(window.RSVP_WEBHOOK_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify(entry)
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          name: entry.name,
+          status: entry.status,
+          count: entry.count || "",
+          message: entry.message
+        }).toString()
       }).catch(function () {});
     }
   });

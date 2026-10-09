@@ -1,59 +1,61 @@
-# Claude for Startups — Draf Jawaban Aplikasi (QAPilot)
+# Claude for Startups — Draft Application Answers (QAPilot)
 
-Draf jawaban untuk form aplikasi Anthropic Claude for Startups, disesuaikan
-dengan pivot produk ke **QAPilot** — AI assistant untuk tim QA/engineering
-(generasi API test, penulisan skenario Gherkin, triase kegagalan CI),
-dibangun di atas Claude.
+Draft answers for the Anthropic Claude for Startups application form,
+rewritten around the product pivot to **QAPilot** — an AI assistant for
+QA/engineering teams (API test generation, Gherkin scenario writing, CI
+failure triage), built on Claude.
 
-Catatan kejujuran: status perusahaan sengaja ditulis apa adanya (belum
-berbadan hukum, tahap ide) — bukan dibuat-buat — karena brief aplikasi
-sebelumnya mengidentifikasi fabrikasi fakta legal sebagai kemungkinan
-penyebab penolakan.
+Honesty note: the company status is deliberately stated as-is (not yet
+incorporated, idea stage) rather than fabricated — the application brief
+identified fabricating legal facts as a likely reason the earlier
+application was rejected.
 
 ---
 
 **Company founding date**
-> Belum resmi berbadan hukum — saat ini masih tahap ide dan pre-incorporation.
-> Pendirian usaha (kemungkinan PT Perorangan) direncanakan setelah validasi
-> awal produk dengan calon pengguna QA/engineering.
+> Not yet legally incorporated — currently at the idea / pre-incorporation
+> stage. Formal registration (likely as an Indonesian PT Perorangan) is
+> planned once the product gets initial validation from QA/engineering
+> users.
 
 **Funding round / investors**
-> Bootstrapped, belum ada funding eksternal maupun investor. Pengembangan
-> saat ini didanai sendiri sambil memvalidasi kebutuhan pasar sebelum
-> mencari pendanaan lebih lanjut.
+> Bootstrapped, no external funding or investors yet. Development is
+> currently self-funded while validating market need before pursuing
+> further funding.
 
 **How are you building this**
-> Dikerjakan solo oleh satu founder, dengan Claude Code sebagai alat bantu
-> utama di seluruh siklus pengembangan — mulai dari desain arsitektur,
-> penulisan kode, sampai iterasi cepat berdasarkan feedback.
+> Built solo by a single founder, using Claude Code as the primary tool
+> across the whole development cycle — from architecture decisions to
+> writing code to fast iteration based on feedback.
 
 **What support do you need from Anthropic**
-> Akses API/kredit untuk eksperimen lebih luas, panduan best-practice
-> membangun tool agentic berbasis Claude untuk use-case testing, dan
-> exposure ke komunitas/startup lain yang membangun di atas Claude.
+> API access/credits for broader experimentation, guidance on best
+> practices for building agentic Claude-based tools for the testing
+> use case, and exposure to the community of other startups building on
+> Claude.
 
 **% of AI spend on Anthropic**
-> Mendekati 100% — Claude adalah satu-satunya model AI yang dipakai, baik
-> untuk membangun produk maupun untuk workflow pengembangan sehari-hari
-> (termasuk situs ini).
+> Close to 100% — Claude is the only AI model used, both for building the
+> product itself and for the day-to-day development workflow (including
+> this website).
 
 **What are you building on Claude**
-> QAPilot: asisten AI untuk tim QA dan engineering yang menyusun draf API
-> test, skenario Gherkin, dan triase kegagalan CI dari konteks repo yang
-> ada — dibangun di atas Claude sebagai reasoning engine.
+> QAPilot: an AI assistant for QA and engineering teams that drafts API
+> tests, Gherkin scenarios, and CI failure triage summaries from existing
+> repo context — built on Claude as the reasoning engine.
 
 **Website**
 > https://samuelpgt.com/profile
 
 **LinkedIn**
-> TODO — belum diisi, tambahkan URL profil LinkedIn sebelum submit (atau
-> kosongkan kalau tidak mau dicantumkan).
+> TODO — not filled in yet, add your LinkedIn profile URL before
+> submitting (or leave blank if you'd rather not include it).
 
 ---
 
-## TODO sebelum submit
+## TODO before submitting
 
-- [ ] Konfirmasi atau ganti nama produk "QAPilot" (masih placeholder, lihat `profile/index.html`)
-- [ ] Isi atau kosongkan field LinkedIn di atas
-- [ ] Putuskan jalur pendirian badan usaha (PT Perorangan via OSS, atau tetap pre-incorporation untuk submit kali ini)
-- [ ] Buka https://samuelpgt.com/profile langsung untuk verifikasi tampilan sebelum dicantumkan di form
+- [ ] Confirm or replace the "QAPilot" product name (still a placeholder — see `profile/index.html`)
+- [ ] Fill in or leave blank the LinkedIn field above
+- [ ] Decide on the incorporation path (PT Perorangan via OSS, or stay pre-incorporation for this submission)
+- [ ] Open https://samuelpgt.com/profile yourself to verify it renders correctly before putting the link in the form

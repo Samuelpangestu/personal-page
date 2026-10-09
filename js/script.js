@@ -725,20 +725,37 @@
     var rows = wishesList.querySelectorAll(".msg");
     if (rows.length) scrollChatTo(rows[rows.length - 1]);
 
-    if (window.RSVP_WEBHOOK_URL) {
-      fetch(window.RSVP_WEBHOOK_URL, {
-        method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-          name: entry.name,
-          status: entry.status,
-          count: entry.count || "",
-          message: entry.message
-        }).toString()
-      }).catch(function () {});
-    }
+    submitRsvpToWebhook(entry);
   });
+
+  function submitRsvpToWebhook(entry) {
+    if (!window.RSVP_WEBHOOK_URL) return;
+
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = window.RSVP_WEBHOOK_URL;
+    form.target = "rsvpWebhookFrame";
+    form.hidden = true;
+
+    var fields = {
+      name: entry.name,
+      status: entry.status,
+      count: entry.count || "",
+      message: entry.message
+    };
+
+    Object.keys(fields).forEach(function (name) {
+      var input = document.createElement("input");
+      input.type = "hidden";
+      input.name = name;
+      input.value = fields[name];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+  }
 
   renderWishes();
 

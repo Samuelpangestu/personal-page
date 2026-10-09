@@ -1,16 +1,17 @@
 (function () {
   "use strict";
 
-  var navPill = document.getElementById("navPill");
+  var topbar = document.getElementById("topbar");
   var menuBtn = document.getElementById("navMenuBtn");
-  if (menuBtn && navPill) {
+  var mobileMenu = document.getElementById("mobileMenu");
+  if (menuBtn && topbar && mobileMenu) {
     menuBtn.addEventListener("click", function () {
-      var open = navPill.classList.toggle("menu-open");
+      var open = topbar.classList.toggle("menu-open");
       menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
     });
-    navPill.querySelectorAll(".nav-links a").forEach(function (link) {
+    mobileMenu.querySelectorAll("a").forEach(function (link) {
       link.addEventListener("click", function () {
-        navPill.classList.remove("menu-open");
+        topbar.classList.remove("menu-open");
         menuBtn.setAttribute("aria-expanded", "false");
       });
     });
@@ -24,7 +25,7 @@
       if (navigator.clipboard) {
         navigator.clipboard.writeText(address).then(function () {
           var original = emailLink.textContent;
-          emailLink.textContent = "Disalin: " + address;
+          emailLink.textContent = "Disalin!";
           setTimeout(function () { emailLink.textContent = original; }, 1800);
         });
       }

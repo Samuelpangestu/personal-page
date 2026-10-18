@@ -1,5 +1,12 @@
 # AGENTS.md — Konteks untuk AI Agent Lain
 
+## Konteks wedding planner Samuel & Ledy
+
+Untuk tugas terkait persiapan pernikahan dan integrasi undangan, baca
+[WEDDING_KNOWLEDGE.md](WEDDING_KNOWLEDGE.md). File tersebut merupakan versi publik;
+angka, jadwal operasional, dan data keluarga harus dikonfirmasi dari sumber
+privat yang diberikan pengguna. Jangan menambahkan data privat ke repo ini.
+
 Repo ini berisi **website undangan pernikahan digital** (Raka & Kirana),
 static site (HTML/CSS/JS, tanpa build step, tanpa backend).
 

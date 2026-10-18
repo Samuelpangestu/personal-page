@@ -1,4 +1,6 @@
-var SPREADSHEET_ID = "1jBOSVG5hpwS1YXkMMIICwJ9Jd4bGJpuOOc9wlfCEmSg";
+// Repo ini publik: isi ID planner hanya di editor Apps Script, jangan di-commit.
+// Kosong = pakai spreadsheet induk (script dibuat dari Extensions > Apps Script).
+var SPREADSHEET_ID = "";
 var SHEET_NAME = "RSVP";
 var HEADERS = ["Waktu", "Nama", "Kehadiran", "Jumlah Tamu", "Ucapan & Doa"];
 
@@ -12,7 +14,9 @@ function doPost(e) {
   try {
     lock.waitLock(10000);
 
-    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var ss = SPREADSHEET_ID
+      ? SpreadsheetApp.openById(SPREADSHEET_ID)
+      : SpreadsheetApp.getActiveSpreadsheet();
     var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
 
     ensureHeaders(sheet);

@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var WEDDING_DATE = new Date("2026-12-21T09:00:00+07:00");
+  var WEDDING_DATE = new Date("2027-01-16T09:00:00+07:00");
   var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 

@@ -1,5 +1,5 @@
 var SPREADSHEET_ID = "1jBOSVG5hpwS1YXkMMIICwJ9Jd4bGJpuOOc9wlfCEmSg";
-var SHEET_ID = 1448202939;
+var SHEET_NAME = "RSVP";
 var HEADERS = ["Waktu", "Nama", "Kehadiran", "Jumlah Tamu", "Ucapan & Doa"];
 
 function doGet() {
@@ -12,8 +12,8 @@ function doPost(e) {
   try {
     lock.waitLock(10000);
 
-    var sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetById(SHEET_ID);
-    if (!sheet) throw new Error("Sheet tab not found");
+    var ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+    var sheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
 
     ensureHeaders(sheet);
 

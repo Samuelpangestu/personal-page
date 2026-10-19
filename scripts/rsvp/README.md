@@ -1,5 +1,17 @@
 # RSVP terpusat
 
+Link undangan umum untuk dibagikan kepada banyak penerima tanpa baris Tamu:
+
+- Gereja: `/weddingsamuelledy/invitation?acara=gereja`
+- Resepsi: `/weddingsamuelledy/invitation?acara=resepsi`
+- Gereja dan resepsi: `/weddingsamuelledy/invitation?acara=semua`
+
+Nama pada formulir penerima baru kosong agar diisi sendiri; jawaban tersimpan
+dipulihkan pada browser yang sama. Tidak diperlukan nama contoh atau ID dari
+sheet. Ketiganya memakai form yang sama, dengan ucapan opsional selalu terlihat
+dan tanpa tenggat RSVP. Link pribadi `?guest=` tetap mengikuti nama dan jenis
+undangan dari Sheets, mengabaikan parameter `acara` yang ditambahkan.
+
 Alur: formulir → `/weddingsamuelledy/api/rsvp` pada Cloudflare Worker → Apps Script → tab `RSVP` pada planner pasangan.
 
 Browser hanya menerima jawaban miliknya. Tidak tersedia endpoint daftar tamu publik. URL Apps Script dan shared secret disimpan sebagai Worker secrets `RSVP_WEBHOOK_URL` dan `RSVP_SECRET`; ID spreadsheet dan secret penerima berada di Script Properties atau konfigurasi privat Apps Script. Jangan memasukkannya ke Git atau aset situs.

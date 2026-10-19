@@ -207,7 +207,12 @@ warna baru di tempat lain.
   (`gereja`/`resepsi`/`semua`) bersama nama; Worker menghapus elemen
   `[data-event]` yang tidak berlaku dari HTML (bukan sekadar disembunyikan).
 - Link tanpa `?guest=` (link umum/rame-rame, termasuk `index.html` langsung)
-  selalu Gereja saja. Link pribadi tetap satu per tamu; jenisnya dari kolom M.
+  memilih acara dengan `?acara=gereja`, `?acara=resepsi`, atau `?acara=semua`.
+  Tanpa pilihan atau nilai tidak dikenal = Gereja. Link pribadi tetap satu
+  per tamu; jenisnya dari kolom M dan tidak dapat ditimpa parameter acara.
+- Tiga link umum tidak mengambil nama dari daftar Tamu; nama penerima baru
+  pada form kosong. Jika sudah RSVP pada browser yang sama, nama responsnya
+  dipulihkan. Ucapan opsional selalu terlihat di bawah nama pada ketiga jenis.
 - Kartu acara dan baris info grup memakai `data-event`. Hitung mundur, tombol
   kalender hitung mundur, dan pin "Lokasi" mengikuti kartu yang tersisa.
   Resepsi: Hotel Candi Indah Convention, 13.00–15.00 (konfirmasi pengguna).

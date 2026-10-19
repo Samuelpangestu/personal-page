@@ -213,7 +213,7 @@ test('guest type column M picks the event cards, defaulting to church', () => {
     assert.equal(g.call(query).events, events, cell);
   }
 });
-test('pages keep only invited event cards; links without a guest ID show church only', async () => {
+test('personal links follow Sheets and public links select only their requested events', async () => {
   const actualRewriter = globalThis.HTMLRewriter;
   globalThis.HTMLRewriter = FakeRewriter();
   const pageEnv = {...env, ASSETS: {fetch: () => new Response('<html></html>', {headers: {'Content-Type': 'text/html'}})}};
@@ -226,6 +226,7 @@ test('pages keep only invited event cards; links without a guest ID show church 
     assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'gereja'}), 'gereja');
     assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'resepsi'}), 'resepsi');
     assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'semua'}), 'gereja,resepsi');
+    assert.equal(await open(personal + '&acara=semua', {ok: true, name: 'Budi', events: 'gereja'}), 'gereja');
     // Older Apps Script without the events field, or an unexpected value, fails closed to church.
     assert.equal(await open(personal, {ok: true, name: 'Budi'}), 'gereja');
     assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'toString'}), 'gereja');
@@ -233,6 +234,11 @@ test('pages keep only invited event cards; links without a guest ID show church 
     for (const path of ['/weddingsamuelledy', '/weddingsamuelledy/', '/weddingsamuelledy/index.html',
       '/weddingsamuelledy/invitation', '/weddingsamuelledy/invitation/?to=Budi']) {
       assert.equal(await (await worker.fetch(new Request('https://invite.test' + path), pageEnv)).text(), 'gereja', path);
+    }
+    for (const [selection, expected] of [['gereja', 'gereja'], ['resepsi', 'resepsi'],
+      ['semua', 'gereja,resepsi'], ['unknown', 'gereja'], ['toString', 'gereja']]) {
+      const path = '/weddingsamuelledy/invitation?acara=' + selection;
+      assert.equal(await (await worker.fetch(new Request('https://invite.test' + path), pageEnv)).text(), expected, selection);
     }
     assert.equal(await (await worker.fetch(new Request('https://invite.test/weddingsamuelledy/css/style.css'), env)).text(), 'asset');
   } finally { globalThis.HTMLRewriter = actualRewriter; }

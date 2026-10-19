@@ -1,6 +1,6 @@
 const COOKIE = 'sl_rsvp';
 const INVITE_PATHS = ['/weddingsamuelledy', '/weddingsamuelledy/', '/weddingsamuelledy/index.html', '/weddingsamuelledy/invitation', '/weddingsamuelledy/invitation/'];
-// Which event cards each guest type keeps. Links without a guest ID are public, so church only.
+// Personal links follow Sheets; public links select an event with ?acara=.
 const EVENT_SETS = {gereja: ['gereja'], resepsi: ['resepsi'], semua: ['gereja', 'resepsi']};
 
 function reply(value, status = 200, id) {
@@ -14,7 +14,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (INVITE_PATHS.includes(url.pathname)) {
-      return url.searchParams.has('guest') ? guestPage(request, env, url.searchParams.get('guest')) : publicPage(request, env);
+      return url.searchParams.has('guest') ? guestPage(request, env, url.searchParams.get('guest')) : publicPage(request, env, url.searchParams.get('acara'));
     }
     if (url.pathname !== '/weddingsamuelledy/api/rsvp') return env.ASSETS.fetch(request);
     if (!['GET', 'POST'].includes(request.method)) return reply({ok: false}, 405);
@@ -82,10 +82,11 @@ async function guestPage(request, env, guestId) {
   }
 }
 
-async function publicPage(request, env) {
+async function publicPage(request, env, requestedEvents) {
   const page = await env.ASSETS.fetch(request);
   if (!page.headers.get('Content-Type')?.includes('text/html')) return page;
-  return withEvents(new HTMLRewriter(), 'gereja').transform(page);
+  const events = Object.hasOwn(EVENT_SETS, requestedEvents) ? requestedEvents : 'gereja';
+  return withEvents(new HTMLRewriter(), events).transform(page);
 }
 
 // Uninvited event cards are removed from the HTML itself, not just hidden.

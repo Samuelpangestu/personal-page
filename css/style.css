@@ -1310,7 +1310,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
 }
 
 /* ===== DESKTOP PREVIEW FRAME ===== */
-@media (min-width:481px) and (hover:hover) and (pointer:fine){
+@media (min-width:481px) and (min-aspect-ratio:1/1) and (hover:hover) and (pointer:fine){
   .frame{
     margin:24px 0;
     border-radius:18px;
@@ -1324,7 +1324,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   .ios-statusbar + .lock-overlay{ padding-top:10px; }
 }
 
-@media (min-width:481px) and (max-height:850px) and (hover:hover) and (pointer:fine){
+@media (min-width:481px) and (min-aspect-ratio:1/1) and (max-height:850px) and (hover:hover) and (pointer:fine){
   .ios-statusbar{ height:44px; padding:2px 20px 0; font-size:14px; }
   .ios-dynamic-island{ top:8px; width:100px; height:28px; }
   .ios-statusbar + .lock-overlay{ padding-top:4px; }
@@ -1346,7 +1346,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   .lock-home-indicator{ width:100px; height:4px; }
 }
 
-@media (min-width:481px) and (max-height:560px) and (hover:hover) and (pointer:fine){
+@media (min-width:481px) and (min-aspect-ratio:1/1) and (max-height:560px) and (hover:hover) and (pointer:fine){
   .lock-notif-stack{ gap:4px; margin-bottom:6px; }
   .lock-notif{ min-height:44px; padding:5px 8px; }
   .notif-row1{ font-size:12px; line-height:14px; }
@@ -1356,7 +1356,8 @@ a:focus-visible, button:focus-visible, select:focus-visible{
 }
 
 /* ===== PHONE ===== */
-@media (max-width:480px), (hover:none) and (pointer:coarse){
+/* Portrait browsers may report desktop input capabilities on Android. */
+@media (max-width:480px), (max-aspect-ratio:1/1), (hover:none) and (pointer:coarse){
   /* Behind Safari's floating toolbar the page background shows: match it to
      the surface above it (composer in chat, black on the lock screen). */
   html{ background:var(--bar-solid); }

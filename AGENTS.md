@@ -242,3 +242,7 @@ warna baru di tempat lain.
 
 - Urutan awal chat: salam, bubble pengantar undangan, foto dengan nama/tanggal/lagu, lalu ayat Alkitab. Kalimat pengantar tidak diulang di caption foto.
 - Setelah story dibuka, ring hijau avatar menjadi transparan tanpa mengubah ukuran foto. Status dilihat disimpan di localStorage browser; jika penyimpanan diblokir, ring tetap hilang selama halaman terbuka. Story tetap dapat dibuka ulang.
+
+## Android portrait cover
+
+- Portrait viewports use the full-width phone layout even when a browser reports desktop hover/pointer capabilities. The framed desktop preview requires a landscape viewport as well as mouse input; do not rely on touch detection alone.

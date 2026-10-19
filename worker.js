@@ -10,6 +10,7 @@ function reply(value, status = 200, id) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (['/weddingsamuelledy', '/weddingsamuelledy/'].includes(url.pathname) && url.searchParams.has('guest')) return guestPage(request, env, url.searchParams.get('guest'));
     if (url.pathname !== '/weddingsamuelledy/api/rsvp') return env.ASSETS.fetch(request);
     if (!['GET', 'POST'].includes(request.method)) return reply({ok: false}, 405);
     if (request.method === 'POST' && request.headers.get('Origin') !== url.origin) return reply({ok: false}, 403);
@@ -47,3 +48,30 @@ export default {
     }
   }
 };
+
+async function guestPage(request, env, guestId) {
+  const headers = {'Cache-Control': 'private, no-store', 'Content-Type': 'text/plain; charset=utf-8', 'X-Robots-Tag': 'noindex, nofollow'};
+  if (!/^[a-f0-9]{32}$/.test(guestId || '')) return new Response('Link undangan tidak valid.', {status: 404, headers});
+  try {
+    if (!env.RSVP_WEBHOOK_URL || !env.RSVP_SECRET) throw new Error('Missing config');
+    const response = await fetch(env.RSVP_WEBHOOK_URL, {method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action: 'guest', guestId, secret: env.RSVP_SECRET}),
+      signal: AbortSignal.timeout(20000), redirect: 'follow'});
+    const result = await response.json();
+    if (!response.ok || result.ok !== true) throw new Error('Lookup failed');
+    if (result.name === null) return new Response('Undangan tidak ditemukan. Hubungi Samuel atau Ledy.', {status: 404, headers});
+    if (typeof result.name !== 'string' || !result.name.trim() || result.name.length > 120) throw new Error('Invalid name');
+    const page = await env.ASSETS.fetch(request);
+    if (!page.ok || !page.headers.get('Content-Type')?.includes('text/html')) throw new Error('Page unavailable');
+    const personalized = new HTMLRewriter().on('html', {
+      element(element) { element.setAttribute('data-guest-name', result.name); }
+    }).transform(page);
+    const output = new Response(personalized.body, personalized);
+    output.headers.set('Cache-Control', 'private, no-store');
+    output.headers.set('X-Robots-Tag', 'noindex, nofollow');
+    return output;
+  } catch {
+    return new Response('Undangan belum dapat dimuat. Silakan muat ulang sebentar lagi.', {status: 503, headers});
+  }
+}

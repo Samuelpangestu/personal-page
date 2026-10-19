@@ -162,3 +162,18 @@ warna baru di tempat lain.
   notifikasi lebih ringkas agar wajah pada foto cover tetap terlihat.
 - Aturan ponsel tetap memakai seluruh viewport; jangan menerapkan batas lebar
   desktop ke perangkat sentuh.
+
+## Link tetap per tamu
+
+- Tab Tamu memakai B (nama), K (link), L (ID acak tetap, disembunyikan).
+  ID literal telah dialokasikan pada baris yang tersedia sampai 1000. Jangan
+  mengganti ID saat nama dikoreksi; tamu berbeda memakai baris baru dengan ID
+  berbeda. Tambahan baris di luar kapasitas ini perlu ID baru dan rumus link.
+- Gunakan filter seluruh A:L untuk pengurutan; jangan mengurutkan nama saja.
+  K memakai rumus per baris, bukan spill, agar ID ikut berpindah bersama nama.
+- URL `?guest=<id>` dibaca Worker pada setiap pembukaan. Apps Script hanya
+  mengembalikan nama untuk satu ID. HTMLRewriter meneruskannya ke script.js;
+  hasil tidak disimpan cache. ID hilang/duplikat dan kegagalan lookup tidak
+  boleh menampilkan nama tebakan. Link `?to=` lama tetap didukung.
+- Ini hanya personalisasi nama. Identitas RSVP tetap cookie dan batas dua
+  orang tetap berlaku; jangan menganggap ID undangan sebagai login tamu.

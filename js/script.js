@@ -62,6 +62,7 @@
 
   // ---------- Guest name from ?to= query param ----------
   function getGuestName() {
+    if (root.dataset.guestName) return root.dataset.guestName;
     var params = new URLSearchParams(window.location.search);
     var name = params.get("to") || params.get("nama");
     return name ? decodeURIComponent(name).replace(/\+/g, " ") : "Tamu Undangan";

@@ -7,6 +7,7 @@ function doPost(e) {
     var props = PropertiesService.getScriptProperties();
     var secret = props.getProperty('RSVP_SECRET') || (typeof RSVP_CONFIG !== 'undefined' && RSVP_CONFIG.secret);
     if (!secret || body.secret !== secret) throw new Error('Unauthorized');
+    if (body.action === 'guest') return jsonRsvp_(lookupGuest_(body, props));
     if (!/^[a-f0-9]{64}$/.test(body.key || '')) throw new Error('Invalid guest');
     if (body.action !== 'read' && body.action !== 'save') throw new Error('Invalid action');
     if (body.action === 'save') validateRsvp_(body);
@@ -60,4 +61,15 @@ function authorizeRsvp() {
 
 function jsonRsvp_(value) {
   return ContentService.createTextOutput(JSON.stringify(value)).setMimeType(ContentService.MimeType.JSON);
+}
+
+function lookupGuest_(body, props) {
+  if (!/^[a-f0-9]{32}$/.test(body.guestId || '')) throw new Error('Invalid guest ID');
+  var sheet = SpreadsheetApp.openById(props.getProperty('SPREADSHEET_ID') || RSVP_CONFIG.spreadsheetId).getSheetByName('Tamu');
+  if (!sheet) throw new Error('Guest sheet not configured');
+  var rows = sheet.getLastRow() >= 6 ? sheet.getRange(6, 2, sheet.getLastRow() - 5, 11).getValues() : [];
+  var matches = rows.filter(function (row) { return row[10] === body.guestId; });
+  if (matches.length > 1) throw new Error('Duplicate guest ID');
+  var name = matches.length ? String(matches[0][0]).trim() : '';
+  return {ok: true, name: name || null};
 }

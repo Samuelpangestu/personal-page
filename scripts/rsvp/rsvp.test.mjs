@@ -54,7 +54,7 @@ test('worker returns failure for unavailable config, upstream rejection, invalid
   }
 });
 
-function gasContext() {
+function gasContext(guests = []) {
   const rows = [['Waktu', 'Nama', 'Kehadiran', 'Jumlah', 'Ucapan', 'Key', 'Nama undangan', 'Dibuat', 'Sumber']];
   let released = 0;
   const sheet = {getLastRow: () => rows.length, getRange: (r, c, h, w) => ({
@@ -64,7 +64,7 @@ function gasContext() {
   const context = vm.createContext({console: {error() {}}, Date, Number, JSON,
     LockService: {getScriptLock: () => ({waitLock() {}, releaseLock() {released++;}})},
     PropertiesService: {getScriptProperties: () => ({getProperty: key => ({RSVP_SECRET: 'test-only-secret', SPREADSHEET_ID: 'fake-sheet'})[key]})},
-    SpreadsheetApp: {openById: () => ({getSheetByName: () => sheet}), flush() {}},
+    SpreadsheetApp: {openById: () => ({getSheetByName: name => name === 'Tamu' ? {getLastRow: () => guests.length + 5, getRange: () => ({getValues: () => guests})} : sheet}), flush() {}},
     ContentService: {MimeType: {JSON: 'json'}, createTextOutput: text => ({setMimeType: () => JSON.parse(text)})}
   });
   vm.runInContext(gas, context);
@@ -134,4 +134,54 @@ test('browser client accepts confirmed response and rejects HTTP, logical and ne
     globalThis.fetch = async () => response();
     await assert.rejects(client.save(entry), /belum tersimpan/);
   }
+});
+
+const guestId = 'c'.repeat(32);
+test('stable guest lookup follows rename, reorder and additions without exposing the registry', () => {
+  const guests = [['Budi & Ani', ...Array(9).fill(''), guestId]];
+  const g = gasContext(guests);
+  const query = {action: 'guest', guestId, secret: 'test-only-secret'};
+  assert.deepEqual(JSON.parse(JSON.stringify(g.call(query))), {ok: true, name: 'Budi & Ani'});
+  guests[0][0] = 'Bapak Budi & Ibu Ani';
+  guests.unshift(['Nama lain', ...Array(9).fill(''), 'd'.repeat(32)]);
+  assert.equal(g.call(query).name, 'Bapak Budi & Ibu Ani');
+  const secondId = 'e'.repeat(32);
+  guests.push(['Tamu baru', ...Array(9).fill(''), secondId]);
+  assert.equal(g.call({...query, guestId: secondId}).name, 'Tamu baru');
+  guests[1][0] = '';
+  assert.equal(g.call(query).name, null);
+  assert.equal(g.call({...query, guestId: 'f'.repeat(32)}).name, null);
+  assert.equal(g.call({...query, secret: 'wrong'}).ok, false);
+  assert.equal(g.call({...query, guestId: 'bad'}).ok, false);
+  guests.push(['Duplikat', ...Array(9).fill(''), guestId]);
+  assert.equal(g.call(query).ok, false);
+  assert.equal(g.rows.length, 1);
+});
+test('stable pages use a fresh name, prevent shared caching, and fail closed on lookup errors', async () => {
+  const actualRewriter = globalThis.HTMLRewriter;
+  const names = [];
+  globalThis.HTMLRewriter = class {
+    on(selector, handler) { assert.equal(selector, 'html'); this.handler = handler; return this; }
+    transform(response) { this.handler.element({setAttribute(key, value) { assert.equal(key, 'data-guest-name'); names.push(value); }}); return response; }
+  };
+  const pageEnv = {...env, ASSETS: {fetch: () => new Response('<html></html>', {headers: {'Content-Type': 'text/html'}})}};
+  const request = new Request('https://invite.test/weddingsamuelledy/?guest=' + guestId + '&to=Wrong');
+  try {
+    globalThis.fetch = async (_url, options) => {
+      assert.deepEqual(JSON.parse(options.body), {action: 'guest', guestId, secret: env.RSVP_SECRET});
+      return Response.json({ok: true, name: 'Budi & Ani'});
+    };
+    const response = await worker.fetch(request, pageEnv);
+    assert.equal(response.status, 200);
+    assert.equal(response.headers.get('Cache-Control'), 'private, no-store');
+    assert.deepEqual(names, ['Budi & Ani']);
+    globalThis.fetch = async () => Response.json({ok: true, name: 'Nama Baru'});
+    assert.equal((await worker.fetch(request, pageEnv)).status, 200);
+    assert.equal(names[1], 'Nama Baru');
+    globalThis.fetch = async () => Response.json({ok: true, name: null});
+    assert.equal((await worker.fetch(request, pageEnv)).status, 404);
+    globalThis.fetch = async () => { throw new Error('offline'); };
+    assert.equal((await worker.fetch(request, pageEnv)).status, 503);
+    assert.equal((await worker.fetch(new Request('https://invite.test/weddingsamuelledy/?guest=bad'), pageEnv)).status, 404);
+  } finally { globalThis.HTMLRewriter = actualRewriter; }
 });

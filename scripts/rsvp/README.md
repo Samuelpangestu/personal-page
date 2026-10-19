@@ -23,3 +23,22 @@ Akses ke data Sheets mengikuti pengaturan berbagi planner. Endpoint website tida
 Formulir mendahulukan nama, pilihan hadir/berhalangan, dan jumlah orang. Tombol “Simpan kehadiran” bekerja meskipun bagian ucapan tidak pernah dibuka. Bagian ucapan menggunakan disclosure native dan bisa ditambahkan kemudian pada respons yang sama. Status tersimpan dan jumlah orang ditampilkan dalam satu baris setelah konfirmasi server; waktu simpan tetap tercatat di Sheets; pilihan dan isian dipulihkan setelah reload tanpa menimpa perubahan yang sudah diketik saat pemuatan.
 
 Design Read: mempertahankan percakapan WhatsApp iOS yang sudah ada. Focal point satu tombol simpan kehadiran; ucapan memakai disclosure agar konfirmasi cepat. ENERGY 1 / RHYTHM 2 / MOTION 1; tidak menambah animasi. Label, tenggat, jumlah termasuk diri sendiri dan satu status singkat mempunyai fungsi informasi. Petunjuk berulang, waktu simpan di UI, serta bubble kehadiran tanpa ucapan dihilangkan sesuai preferensi pengguna; waktu tetap tersedia di Sheets. Tidak menampilkan angka suara dekoratif sebagai statistik tamu.
+
+## Link tamu tetap
+
+`?guest=<32 karakter hex acak>` mengambil nama terkini dari tab Tamu pada
+setiap permintaan dokumen, termasuk reload. Worker membaca melalui action
+`guest` Apps Script yang dilindungi secret yang sama, lalu menambahkan nama
+sebagai atribut HTML melalui HTMLRewriter. Daftar tamu tidak dikirim ke browser.
+Halaman personal memakai `private, no-store`; saat lookup gagal, halaman
+meminta tamu mencoba lagi, tanpa memakai nama lama atau nama dari query lain.
+
+Tab Tamu: B = nama, K = link per baris, L = ID literal tersembunyi. Baris
+6–1000 sudah mempunyai ID unik dan rumus, termasuk baris kosong. Isi nama pada
+baris kosong untuk tamu baru, koreksi nama pada baris yang sama untuk tamu lama.
+Gunakan filter A:L saat mengurutkan. Jangan pakai ulang ID tamu yang dihapus
+untuk orang berbeda. Jika kapasitas diperluas, buat ID acak baru untuk baris
+baru, jangan menyalin ID lama. Link `?to=` yang telanjur dikirim tetap bekerja
+sebagai nama tetap; bagikan link `?guest=` untuk perubahan nama otomatis.
+
+RSVP dan jumlah pendamping tidak berubah oleh fitur ini.

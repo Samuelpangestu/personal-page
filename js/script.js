@@ -478,7 +478,7 @@
   shareBtn.addEventListener("click", function () {
     var shareData = {
       title: "Undangan Pernikahan Samuel & Ledy",
-      text: "Kamu diundang ke pernikahan Samuel & Ledy!",
+      text: "Dengan hormat, kami mengundang Bapak/Ibu/Saudara/i ke pernikahan Samuel & Ledy.",
       url: window.location.href
     };
     if (navigator.share) {
@@ -548,7 +548,7 @@
     { target: "#countdown", label: "hitung mundur", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
     { target: "#events .msg[data-event]", label: "lokasi acara", text: function () { return "Lokasi · " + firstEventName + ", Semarang"; } },
     { target: "#gift .msg:nth-of-type(2)", label: "tanda kasih", text: function () { return "Tanda kasih · Jago · 105147598203"; } },
-    { target: "#rsvp", label: "konfirmasi kehadiran", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
+    { target: "#rsvp", label: "konfirmasi kehadiran", text: function () { return "Mohon konfirmasi kehadiran"; } }
   ];
   var pinnedIndex = 0;
   var pinnedBar = document.getElementById("pinnedBar");

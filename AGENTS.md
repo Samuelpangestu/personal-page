@@ -218,3 +218,11 @@ warna baru di tempat lain.
   Hanya elemen yang ada saat load diberi `.anim`; ucapan yang dirender
   kemudian tidak pernah tersembunyi. Nonaktif pada reduced motion.
 - Ucapan & doa terbuka secara default; tenggat RSVP tidak ditampilkan.
+
+## Bahasa undangan
+
+- Gunakan bahasa Indonesia hangat dan sedikit formal di invitation,
+  announcement, notifikasi pembuka, label RSVP, serta teks berbagi.
+- Hindari sapaan "kamu", "aku", "makasih", dan partikel santai seperti "ya".
+  Gunakan "Bapak/Ibu/Saudara/i", "saya", atau kalimat netral sesuai konteks.
+- Nama tamu tetap dinamis. Jangan mengubah ucapan yang ditulis tamu.

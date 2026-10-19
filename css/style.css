@@ -1380,3 +1380,15 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   .ios-statusbar, .lock-home-indicator{ display:none; }
   .lock-overlay{ padding-top:calc(max(env(safe-area-inset-top), 20px) + 10px); }
 }
+
+/* Keep the corrected phone layout when its keyboard reduces viewport height. */
+html.phone-scaled .frame{
+  position:fixed; top:0; left:0; right:0;
+  max-width:none; margin:0; border-radius:0; box-shadow:none;
+  zoom:var(--phone-scale);
+  height:calc(100vh / var(--phone-scale));
+  height:calc(min(100dvh, var(--app-h, 100dvh)) / var(--phone-scale));
+  transform:translate3d(0, calc(var(--app-top, 0px) / var(--phone-scale)), 0);
+}
+html.phone-scaled .ios-statusbar, html.phone-scaled .lock-home-indicator{ display:none; }
+html.phone-scaled .lock-overlay{ padding-top:calc(max(env(safe-area-inset-top), 20px) + 10px); }

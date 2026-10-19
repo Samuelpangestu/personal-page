@@ -37,8 +37,9 @@
     // Android desktop mode can shrink a 980px layout onto a phone screen.
     var phoneWidth = Math.min(window.screen.width, window.outerWidth || window.screen.width);
     phoneScale = navigator.maxTouchPoints > 0 && phoneWidth > 0 && phoneWidth <= 600 &&
-      window.innerHeight > window.innerWidth && window.innerWidth > phoneWidth * 1.25 ? window.innerWidth / phoneWidth : 1;
+      window.innerWidth > phoneWidth * 1.25 ? window.innerWidth / phoneWidth : 1;
     root.style.setProperty("--phone-scale", phoneScale);
+    root.classList.toggle("phone-scaled", phoneScale > 1);
     if (!vv) return;
     root.style.setProperty("--app-h", Math.round(vv.height) + "px");
     root.style.setProperty("--app-top", Math.max(0, Math.round(vv.offsetTop)) + "px");

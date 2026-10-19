@@ -154,3 +154,11 @@ warna baru di tempat lain.
   setelah reload agar perubahan jumlah tidak menghapus ucapan lama.
 - Rekap Sheets membedakan hadir tanpa/dengan ucapan; keduanya tetap masuk
   total hadir. Pertahankan batas dua orang sampai pemilik mengubahnya.
+
+## Proporsi desktop undangan
+
+- Lebar frame desktop mengikuti tinggi viewport agar tetap potret pada laptop
+  dengan toolbar atau display scaling Windows. Pada jendela pendek, jam dan
+  notifikasi lebih ringkas agar wajah pada foto cover tetap terlihat.
+- Aturan ponsel tetap memakai seluruh viewport; jangan menerapkan batas lebar
+  desktop ke perangkat sentuh.

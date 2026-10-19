@@ -320,6 +320,7 @@ button{ -webkit-tap-highlight-color:transparent; }
   color:var(--ink);
   cursor:pointer;
 }
+.bar-btn[hidden]{ display:none; }
 #musicToggle.playing{ color:var(--accent); }
 
 .tooltip{

@@ -756,7 +756,7 @@ button{ -webkit-tap-highlight-color:transparent; }
 .attendance-choices{ display:flex; flex-direction:column; margin-top:6px; }
 .choice-btn{
   display:grid;
-  grid-template-columns:26px 1fr auto;
+  grid-template-columns:26px 1fr;
   align-items:center;
   row-gap:6px;
   width:100%;
@@ -776,31 +776,13 @@ button{ -webkit-tap-highlight-color:transparent; }
   display:grid; place-items:center;
   transition:background-color .15s var(--ease-out), box-shadow .15s var(--ease-out);
 }
-.choice-btn.selected .poll-radio{ background:var(--wa-green); box-shadow:none; }
+.choice-btn.selected .poll-radio{ background:var(--wa-green); box-shadow:inset 0 0 0 1.5px var(--ink); }
 .choice-btn.selected .poll-radio::after{
   content:"";
   width:10px; height:5px;
-  border:solid #FFFFFF; border-width:0 0 2px 2px;
+  border:solid #111B21; border-width:0 0 2px 2px;
   transform:translateY(-1px) rotate(-45deg);
 }
-.poll-votes{ font-size:14px; color:var(--text-secondary); font-variant-numeric:tabular-nums; }
-.choice-btn.selected .poll-votes::after{ content:"1"; }
-.poll-bar{
-  grid-column:2 / 4;
-  position:relative;
-  height:5px;
-  border-radius:3px;
-  background:var(--inset);
-  overflow:hidden;
-}
-.poll-bar::after{
-  content:"";
-  position:absolute; inset:0 100% 0 0;
-  background:var(--wa-green);
-  border-radius:3px;
-  transition:right .3s var(--ease-out);
-}
-.choice-btn.selected .poll-bar::after{ right:0; }
 .guest-count-row{
   display:flex; align-items:center; justify-content:space-between; gap:8px;
   margin-top:4px;
@@ -809,13 +791,14 @@ button{ -webkit-tap-highlight-color:transparent; }
 .guest-count-row[hidden]{ display:none; }
 .guest-count-row select{
   appearance:none; -webkit-appearance:none;
-  height:32px;
+  min-height:44px;
   padding:0 12px;
   border:none;
   border-radius:8px;
   background:var(--field-bg);
   color:var(--ink);
   font-size:16px;
+  box-shadow:inset 0 0 0 1px var(--text-secondary);
 }
 
 .rsvp-form .b-body{ display:flex; flex-direction:column; gap:8px; padding-top:2px; }
@@ -830,11 +813,24 @@ button{ -webkit-tap-highlight-color:transparent; }
   color:var(--ink);
   resize:none;
   outline:none;
+  box-shadow:inset 0 0 0 1px var(--text-secondary);
 }
 .rsvp-form input::placeholder, .rsvp-form textarea::placeholder{ color:var(--placeholder); }
 .rsvp-error{ display:none; color:var(--error); font-size:13px; }
 .rsvp-error.show{ display:block; }
 .btn-send{ font-weight:600; }
+.attendance-card .b-body{ padding-top:8px; }
+.attendance-card label{ font-size:14px; }
+.bubble p.rsvp-note{ margin-top:0; font-size:13px; line-height:1.45; color:var(--text-secondary); }
+.rsvp-saved{ border-left:3px solid var(--link); padding-left:10px; }
+.rsvp-saved[hidden]{ display:none; }
+.bubble .rsvp-saved p{ margin:0; }
+.rsvp-saved p:first-child{ font-weight:600; }
+.rsvp-wishes{ border-top:1px solid var(--hairline); }
+.rsvp-wishes summary{ padding:12px 0; min-height:44px; cursor:pointer; font-size:14px; color:var(--link); }
+.rsvp-wishes summary span{ color:var(--text-secondary); }
+.rsvp-wishes .b-body{ padding-top:0; }
+.rsvp-form button:disabled{ cursor:wait; opacity:.65; }
 
 .wishes-list{ display:flex; flex-direction:column; }
 .wishes-empty{ text-align:center; margin-top:10px; }
@@ -1268,6 +1264,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   outline:2px solid var(--link);
   outline-offset:2px;
 }
+.rsvp-wishes summary:focus-visible{ outline:2px solid var(--link); outline-offset:2px; }
 .rsvp-form input:focus-visible, .rsvp-form textarea:focus-visible{
   box-shadow:inset 0 0 0 1.5px var(--link);
 }

@@ -627,10 +627,11 @@
     choiceHadir.setAttribute("aria-pressed", String(status === "Hadir"));
     choiceTidak.setAttribute("aria-pressed", String(status === "Tidak Hadir"));
     guestCountRow.hidden = status !== "Hadir";
+    document.getElementById("guestCountHelp").hidden = status !== "Hadir";
     rsvpError.classList.remove("show");
   }
-  choiceHadir.addEventListener("click", function () { selectStatus("Hadir"); });
-  choiceTidak.addEventListener("click", function () { selectStatus("Tidak Hadir"); });
+  choiceHadir.addEventListener("click", function () { selectStatus("Hadir"); markRsvpDirty(); });
+  choiceTidak.addEventListener("click", function () { selectStatus("Tidak Hadir"); markRsvpDirty(); });
 
   // ---------- RSVP & Wishes (localStorage) ----------
   // Wishes stored here were written on this device, i.e. by this guest, so
@@ -686,7 +687,7 @@
       time.innerHTML = timeOf(w.ts) + (w.synced ? TICKS_SVG.replace("Dibaca", "RSVP tersimpan") : " · perangkat ini");
 
       bubble.appendChild(meta);
-      bubble.appendChild(textEl);
+      if (w.message) bubble.appendChild(textEl);
       bubble.appendChild(time);
       row.appendChild(bubble);
       frag.appendChild(row);
@@ -696,11 +697,42 @@
   }
 
   var rsvpStatus = document.getElementById("rsvpStatus");
-  var rsvpSubmit = rsvpForm.querySelector('button[type="submit"]');
+  var rsvpSubmit = document.getElementById("rsvpSaveAttendance");
+  var rsvpWishSubmit = document.getElementById("rsvpSaveWishes");
+  var rsvpName = document.getElementById("rsvpName");
+  var rsvpMessage = document.getElementById("rsvpMessage");
+  var rsvpCount = document.getElementById("guestCount");
   var rsvpPending = false;
   var rsvpReady = false;
-  rsvpSubmit.disabled = true;
-  rsvpStatus.textContent = "Memeriksa RSVP sebelumnya…";
+  var rsvpEdited = false;
+  var rsvpLastSaved = null;
+  rsvpSubmit.disabled = rsvpWishSubmit.disabled = true;
+  rsvpStatus.textContent = "Memeriksa konfirmasi sebelumnya…";
+  if (guestName !== "Tamu Undangan") rsvpName.value = guestName;
+
+  function markRsvpDirty() {
+    rsvpEdited = true;
+    if (!rsvpPending) rsvpStatus.textContent = "Pilihan belum disimpan. Tekan Simpan kehadiran untuk mencatatnya.";
+  }
+  rsvpForm.addEventListener("input", markRsvpDirty);
+
+  function showSavedRsvp(saved) {
+    rsvpLastSaved = saved;
+    document.getElementById("rsvpSaved").hidden = false;
+    document.getElementById("rsvpSavedAnswer").textContent = "Tercatat: " + saved.name + " · " +
+      (saved.status === "Hadir" ? "Hadir · " + saved.count + " orang" : "Berhalangan");
+    document.getElementById("rsvpSavedTime").textContent = "Terakhir disimpan " + new Date(saved.ts).toLocaleString("id-ID", {
+      day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta"
+    }) + " WIB";
+  }
+
+  function setRsvpBusy(busy) {
+    rsvpPending = busy;
+    [rsvpName, rsvpMessage, rsvpCount, choiceHadir, choiceTidak].forEach(function (field) { field.disabled = busy; });
+    rsvpSubmit.disabled = rsvpWishSubmit.disabled = busy || !rsvpReady;
+    rsvpSubmit.textContent = busy ? "Menyimpan…" : (rsvpLastSaved ? "Perbarui kehadiran" : "Simpan kehadiran");
+    rsvpWishSubmit.textContent = busy ? "Menyimpan…" : "Simpan ucapan";
+  }
 
   function rememberRsvp(saved) {
     var wishes = loadWishes().filter(function (wish) { return !wish.synced; });
@@ -712,32 +744,30 @@
   rsvpForm.addEventListener("submit", async function (e) {
     e.preventDefault();
     if (rsvpPending || !rsvpReady) return;
-    var name = document.getElementById("rsvpName").value.trim();
-    var message = document.getElementById("rsvpMessage").value.trim();
+    var name = rsvpName.value.trim();
+    var message = rsvpMessage.value.trim();
     if (!selectedStatus) {
       rsvpError.classList.add("show");
-      scrollChatTo(document.getElementById("rsvp"));
+      choiceHadir.focus();
       return;
     }
-    if (!name) return;
+    if (!name) { rsvpName.focus(); return; }
     var entry = {name: name, status: selectedStatus,
-      count: selectedStatus === "Hadir" ? Number(document.getElementById("guestCount").value) : 0,
-      message: message};
-    rsvpPending = true;
-    rsvpSubmit.disabled = true;
-    rsvpSubmit.textContent = "Menyimpan…";
-    rsvpStatus.textContent = "Sedang menyimpan RSVP…";
+      count: selectedStatus === "Hadir" ? Number(rsvpCount.value) : 0, message: message};
+    setRsvpBusy(true);
+    rsvpStatus.textContent = "Sedang menyimpan konfirmasimu…";
     try {
       var saved = await window.WeddingRsvp.save(entry);
       rememberRsvp(saved);
-      rsvpStatus.textContent = "RSVP sudah tersimpan. Kirim lagi untuk mengubah jawaban dari browser ini.";
+      showSavedRsvp(saved);
+      rsvpEdited = false;
+      rsvpStatus.textContent = message ? "Kehadiran dan ucapan sudah tersimpan. Terima kasih!" :
+        "Kehadiran sudah tersimpan meski tanpa ucapan. Terima kasih!";
       if (document.activeElement) document.activeElement.blur();
     } catch (error) {
       rsvpStatus.textContent = error.message;
     } finally {
-      rsvpPending = false;
-      rsvpSubmit.disabled = false;
-      rsvpSubmit.textContent = "Kirim";
+      setRsvpBusy(false);
     }
   });
 
@@ -746,16 +776,24 @@
     saveWishes(loadWishes().filter(function (wish) { return !wish.synced; }));
     if (saved) {
       rememberRsvp(saved);
-      rsvpStatus.textContent = "RSVP sebelumnya: " + saved.status + (saved.count ? " · " + saved.count + " orang" : "") + ". Kamu bisa mengirim perubahan.";
+      showSavedRsvp(saved);
+      if (!rsvpEdited) {
+        rsvpName.value = saved.name;
+        rsvpMessage.value = saved.message || "";
+        rsvpCount.value = saved.count ? String(saved.count) : "1";
+        selectStatus(saved.status);
+      }
+      rsvpStatus.textContent = rsvpEdited ? "Perubahan belum disimpan. Tekan Perbarui kehadiran jika sudah sesuai." :
+        "Konfirmasimu sudah tercatat. Kamu boleh mengubah jawaban atau menambahkan ucapan.";
     } else {
       renderWishes();
-      rsvpStatus.textContent = "Jawabanmu akan tersimpan untuk Samuel dan Ledy.";
+      rsvpStatus.textContent = "Pilih kehadiran, lalu tekan Simpan kehadiran. Ucapan tidak wajib.";
     }
   }).catch(function () {
-    rsvpStatus.textContent = "Belum dapat memuat RSVP sebelumnya. Periksa koneksi sebelum mengirim.";
+    rsvpStatus.textContent = "Belum dapat memuat konfirmasi sebelumnya. Periksa koneksi lalu coba simpan.";
   }).finally(function () {
     rsvpReady = true;
-    rsvpSubmit.disabled = false;
+    setRsvpBusy(false);
   });
 
   // ---------- Quick-jump menu (opened from the composer's + button) ----------

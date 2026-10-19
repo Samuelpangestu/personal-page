@@ -17,3 +17,9 @@ Tes: `node --test scripts/rsvp/rsvp.test.mjs`. Pengujian langsung memakai identi
 Deploy dari versi remote terbaru, pertahankan route domain dan aset halaman lain, lalu cek simpan/baca/ubah melalui situs dan cocokkan baris di Sheets. Jangan men-deploy checkout lama yang memiliki perubahan undangan lokal yang belum dimaksudkan untuk tayang.
 
 Akses ke data Sheets mengikuti pengaturan berbagi planner. Endpoint website tidak menyediakan daftar tamu, tetapi itu tidak membatasi orang yang sudah dapat membuka spreadsheet. Pastikan berbagi Drive sesuai penerima yang dikehendaki sebelum mengumpulkan data tamu.
+
+## Kehadiran tanpa ucapan
+
+Formulir mendahulukan nama, pilihan hadir/berhalangan, dan jumlah orang. Tombol “Simpan kehadiran” bekerja meskipun bagian ucapan tidak pernah dibuka. Bagian ucapan menggunakan disclosure native dan bisa ditambahkan kemudian pada respons yang sama. Jawaban terakhir, jumlah orang dan waktu penyimpanan WIB ditampilkan setelah konfirmasi server; pilihan dan isian dipulihkan setelah reload tanpa menimpa perubahan yang sudah diketik saat pemuatan.
+
+Design Read: mempertahankan percakapan WhatsApp iOS yang sudah ada. Focal point satu tombol simpan kehadiran; ucapan memakai disclosure agar konfirmasi cepat. ENERGY 1 / RHYTHM 2 / MOTION 1; tidak menambah animasi. Label, tenggat, jumlah termasuk diri sendiri, status belum disimpan dan waktu konfirmasi mempunyai fungsi informasi. Tidak menampilkan angka suara dekoratif sebagai statistik tamu.

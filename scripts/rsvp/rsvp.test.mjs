@@ -85,6 +85,21 @@ test('Sheets writes one row, updates attendance/count without duplication, and r
   assert.equal(g.call({...payload, action: 'read', key: 'b'.repeat(64)}).entry, null);
   assert.equal(g.released(), 4);
 });
+test('attendance without wishes is saved and adding wishes later updates the same row', async () => {
+  const g = gasContext();
+  globalThis.fetch = async (_url, options) => Response.json(g.call(JSON.parse(options.body)));
+  const saved = await worker.fetch(req({...entry, message: ''}), env);
+  assert.equal(saved.status, 200);
+  const cookie = saved.headers.get('Set-Cookie').split(';')[0];
+  assert.equal((await saved.json()).entry.message, '');
+  assert.equal(g.rows[1][2], 'Hadir');
+  assert.equal(g.rows[1][3], 2);
+  assert.equal(g.rows[1][4], '');
+  const changed = await worker.fetch(req({...entry, message: 'Selamat untuk kalian!'}, {Cookie: cookie}), env);
+  assert.equal(changed.status, 200);
+  assert.equal(g.rows.length, 2);
+  assert.equal(g.rows[1][4], 'Selamat untuk kalian!');
+});
 test('Sheets rejects unauthorized/invalid requests and prevents spreadsheet formula injection', () => {
   const g = gasContext();
   for (const bad of [{...payload, secret: 'wrong'}, {...payload, count: -1}, {...payload, status: 'x'}, {...payload, key: ''}]) assert.equal(g.call(bad).ok, false);

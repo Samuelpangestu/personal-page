@@ -143,3 +143,13 @@ warna baru di tempat lain.
   berada di luar repo. Jangan menimpa Worker dengan deploy static lama.
 - Admin lama hanya riwayat browser. Rekap terpusat dilihat pada tab RSVP
   mengikuti pengaturan berbagi planner; jangan menambahkan endpoint publik yang membocorkan daftar tamu.
+
+### Kehadiran tanpa ucapan
+
+- Nama, pilihan kehadiran dan jumlah orang disimpan melalui tombol utama;
+  ucapan memakai disclosure opsional dan dapat ditambahkan kemudian pada
+  respons yang sama. Jangan menjadikan ucapan syarat pencatatan kehadiran.
+- Tampilkan jawaban terakhir dan waktu simpan WIB; pulihkan semua isian
+  setelah reload agar perubahan jumlah tidak menghapus ucapan lama.
+- Rekap Sheets membedakan hadir tanpa/dengan ucapan; keduanya tetap masuk
+  total hadir. Pertahankan batas dua orang sampai pemilik mengubahnya.

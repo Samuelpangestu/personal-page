@@ -627,7 +627,6 @@
     choiceHadir.setAttribute("aria-pressed", String(status === "Hadir"));
     choiceTidak.setAttribute("aria-pressed", String(status === "Tidak Hadir"));
     guestCountRow.hidden = status !== "Hadir";
-    document.getElementById("guestCountHelp").hidden = status !== "Hadir";
     rsvpError.classList.remove("show");
   }
   choiceHadir.addEventListener("click", function () { selectStatus("Hadir"); markRsvpDirty(); });
@@ -638,7 +637,6 @@
   // they render as the guest's own (outgoing) messages.
   var STORAGE_KEY = "wedding_wishes_samuel_ledy";
   var wishesList = document.getElementById("wishesList");
-  var wishesEmpty = document.getElementById("wishesEmpty");
   var rsvpForm = document.getElementById("rsvpForm");
   var TICKS_SVG = '<svg class="ticks" width="16" height="11" viewBox="0 0 16 11" fill="none" aria-label="Dibaca"><path d="M1 5.8 3.9 8.7 10 2.2M6.4 7.9l.8.8L13.9 2.2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -662,9 +660,8 @@
   }
 
   function renderWishes() {
-    var wishes = loadWishes();
+    var wishes = loadWishes().filter(function (wish) { return typeof wish.message === "string" && wish.message.trim(); });
     wishesList.querySelectorAll(".msg").forEach(function (el) { el.remove(); });
-    wishesEmpty.hidden = wishes.length > 0;
 
     var frag = document.createDocumentFragment();
     wishes.forEach(function (w) {
@@ -707,23 +704,18 @@
   var rsvpEdited = false;
   var rsvpLastSaved = null;
   rsvpSubmit.disabled = rsvpWishSubmit.disabled = true;
-  rsvpStatus.textContent = "Memeriksa konfirmasi sebelumnya…";
+  rsvpStatus.textContent = "Memuat…";
   if (guestName !== "Tamu Undangan") rsvpName.value = guestName;
 
   function markRsvpDirty() {
     rsvpEdited = true;
-    if (!rsvpPending) rsvpStatus.textContent = "Pilihan belum disimpan. Tekan Simpan kehadiran untuk mencatatnya.";
+    if (!rsvpPending) rsvpStatus.textContent = "Belum disimpan.";
   }
   rsvpForm.addEventListener("input", markRsvpDirty);
 
   function showSavedRsvp(saved) {
     rsvpLastSaved = saved;
-    document.getElementById("rsvpSaved").hidden = false;
-    document.getElementById("rsvpSavedAnswer").textContent = "Tercatat: " + saved.name + " · " +
-      (saved.status === "Hadir" ? "Hadir · " + saved.count + " orang" : "Berhalangan");
-    document.getElementById("rsvpSavedTime").textContent = "Terakhir disimpan " + new Date(saved.ts).toLocaleString("id-ID", {
-      day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Jakarta"
-    }) + " WIB";
+    rsvpStatus.textContent = "Tersimpan · " + (saved.status === "Hadir" ? "Hadir, " + saved.count + " orang" : "Berhalangan");
   }
 
   function setRsvpBusy(busy) {
@@ -755,14 +747,12 @@
     var entry = {name: name, status: selectedStatus,
       count: selectedStatus === "Hadir" ? Number(rsvpCount.value) : 0, message: message};
     setRsvpBusy(true);
-    rsvpStatus.textContent = "Sedang menyimpan konfirmasimu…";
+    rsvpStatus.textContent = "Menyimpan…";
     try {
       var saved = await window.WeddingRsvp.save(entry);
       rememberRsvp(saved);
       showSavedRsvp(saved);
       rsvpEdited = false;
-      rsvpStatus.textContent = message ? "Kehadiran dan ucapan sudah tersimpan. Terima kasih!" :
-        "Kehadiran sudah tersimpan meski tanpa ucapan. Terima kasih!";
       if (document.activeElement) document.activeElement.blur();
     } catch (error) {
       rsvpStatus.textContent = error.message;
@@ -783,14 +773,13 @@
         rsvpCount.value = saved.count ? String(saved.count) : "1";
         selectStatus(saved.status);
       }
-      rsvpStatus.textContent = rsvpEdited ? "Perubahan belum disimpan. Tekan Perbarui kehadiran jika sudah sesuai." :
-        "Konfirmasimu sudah tercatat. Kamu boleh mengubah jawaban atau menambahkan ucapan.";
+      if (rsvpEdited) rsvpStatus.textContent = "Belum disimpan.";
     } else {
       renderWishes();
-      rsvpStatus.textContent = "Pilih kehadiran, lalu tekan Simpan kehadiran. Ucapan tidak wajib.";
+      rsvpStatus.textContent = rsvpEdited ? "Belum disimpan." : "";
     }
   }).catch(function () {
-    rsvpStatus.textContent = "Belum dapat memuat konfirmasi sebelumnya. Periksa koneksi lalu coba simpan.";
+    rsvpStatus.textContent = "Belum dapat memuat jawaban. Coba lagi.";
   }).finally(function () {
     rsvpReady = true;
     setRsvpBusy(false);

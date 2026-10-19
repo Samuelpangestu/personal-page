@@ -352,14 +352,13 @@
           <form class="bubble bubble-wide rsvp-form attendance-card" id="rsvpForm">
             <div class="b-body">
               <p class="poll-question">Konfirmasi kehadiran</p>
-              <p class="deadline-note">Mohon konfirmasi sebelum 7 Januari 2027 ya 🙏</p>
-              <p class="rsvp-note" id="rsvpIntro">Cukup isi nama dan kehadiran. Ucapan boleh menyusul.</p>
-              <label for="rsvpName">Nama kamu</label>
+              <p class="deadline-note">Konfirmasi sebelum 7 Januari 2027.</p>
+              <label for="rsvpName">Nama</label>
               <input type="text" id="rsvpName" placeholder="Nama sesuai undangan" autocomplete="name" maxlength="120" required>
               <div class="attendance-choices" role="group" aria-label="Pilihan kehadiran" aria-describedby="rsvpError">
                 <button class="choice-btn" type="button" data-status="Hadir" id="choiceHadir" aria-pressed="false">
                   <span class="poll-radio" aria-hidden="true"></span>
-                  <span class="poll-label">Hadir 🙌</span>
+                  <span class="poll-label">Hadir</span>
                 </button>
                 <button class="choice-btn" type="button" data-status="Tidak Hadir" id="choiceTidak" aria-pressed="false">
                   <span class="poll-radio" aria-hidden="true"></span>
@@ -367,34 +366,26 @@
                 </button>
               </div>
               <div class="guest-count-row" id="guestCountRow" hidden>
-                <label for="guestCount">Jumlah orang hadir</label>
-                <select id="guestCount" aria-describedby="guestCountHelp">
+                <label for="guestCount">Jumlah orang (termasuk kamu)</label>
+                <select id="guestCount">
                   <option value="1">1 orang</option>
                   <option value="2">2 orang</option>
                 </select>
               </div>
-              <p class="rsvp-note" id="guestCountHelp" hidden>Termasuk kamu, maksimal 2 orang.</p>
               <p class="rsvp-error" id="rsvpError" role="alert">Pilih Hadir atau Berhalangan terlebih dahulu.</p>
-              <div class="rsvp-saved" id="rsvpSaved" hidden>
-                <p id="rsvpSavedAnswer"></p>
-                <p class="rsvp-note" id="rsvpSavedTime"></p>
-              </div>
               <p class="rsvp-note" id="rsvpStatus" role="status" aria-live="polite"></p>
             </div>
             <button type="submit" class="b-action btn-send" id="rsvpSaveAttendance">Simpan kehadiran</button>
             <details class="rsvp-wishes" id="rsvpWishes">
-              <summary>Tambahkan ucapan &amp; doa <span>(opsional)</span></summary>
+              <summary>Ucapan &amp; doa <span>(opsional)</span></summary>
               <div class="b-body">
-                <label for="rsvpMessage">Ucapan &amp; doa</label>
-                <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan jika berkenan…" maxlength="2000" aria-describedby="rsvpMessageHelp"></textarea>
-                <p class="rsvp-note" id="rsvpMessageHelp">Boleh dikosongkan. Kamu tetap tercatat meski tanpa ucapan.</p>
+                <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan…" maxlength="2000" aria-label="Ucapan dan doa (opsional)"></textarea>
               </div>
               <button type="submit" class="b-action" id="rsvpSaveWishes">Simpan ucapan</button>
             </details>
           </form>
         </div>
         <div class="wishes-list" id="wishesList">
-          <p class="wishes-empty" id="wishesEmpty"><span class="sys">Belum ada konfirmasi tersimpan dari browser ini.</span></p>
         </div>
       </section>
 

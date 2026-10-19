@@ -149,7 +149,8 @@ warna baru di tempat lain.
 - Nama, pilihan kehadiran dan jumlah orang disimpan melalui tombol utama;
   ucapan memakai disclosure opsional dan dapat ditambahkan kemudian pada
   respons yang sama. Jangan menjadikan ucapan syarat pencatatan kehadiran.
-- Tampilkan jawaban terakhir dan waktu simpan WIB; pulihkan semua isian
+- Tampilkan satu status tersimpan dan jumlah orang; waktu simpan hanya
+  ditampilkan di Sheets. Hindari petunjuk berulang. Pulihkan semua isian
   setelah reload agar perubahan jumlah tidak menghapus ucapan lama.
 - Rekap Sheets membedakan hadir tanpa/dengan ucapan; keduanya tetap masuk
   total hadir. Pertahankan batas dua orang sampai pemilik mengubahnya.

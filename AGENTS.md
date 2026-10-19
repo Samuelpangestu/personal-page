@@ -177,3 +177,20 @@ warna baru di tempat lain.
   boleh menampilkan nama tebakan. Link `?to=` lama tetap didukung.
 - Ini hanya personalisasi nama. Identitas RSVP tetap cookie dan batas dua
   orang tetap berlaku; jangan menganggap ID undangan sebagai login tamu.
+
+## Invitation dan announcement
+
+- `/weddingsamuelledy/invitation` adalah alias undangan utama. Alamat lama
+  dan link pribadi `?guest=` tetap berlaku, termasuk pada alias invitation.
+- `/weddingsamuelledy/announcement` adalah halaman kabar pernikahan untuk
+  penerima yang tidak diundang. Isinya foto, tanggal, kota, dan permohonan
+  doa restu. Tidak memuat RSVP, rekening, alamat, peta, jam acara, kalender,
+  atau tautan menuju invitation. Parameter guest tidak diproses di halaman ini.
+- Announcement memakai stylesheet dan foto yang sama, tanpa JavaScript atau
+  panggilan data RSVP. Tanggal di kedua halaman perlu disesuaikan bersama
+  jika rencana berubah. Jangan memakai draft announcement lokal lama yang
+  masih mencantumkan tanggal berbeda.
+- Design Read: gaya chat WhatsApp yang sudah dipilih pengguna; foto pasangan
+  menjadi fokus, pesan singkat meminta doa. ENERGY 1 / RHYTHM 2 / MOTION 1.
+  Tidak menambah tombol, statistik, atau aktivitas chat palsu. Tema terang,
+  gelap, keyboard scroll, dan viewport ponsel telah diperiksa.

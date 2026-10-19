@@ -17,6 +17,8 @@ test.afterEach(() => { globalThis.fetch = realFetch; });
 
 test('worker serves existing pages unchanged and refuses other methods', async () => {
   assert.equal(await (await worker.fetch(new Request('https://invite.test/profile'), env)).text(), 'asset');
+  globalThis.fetch = () => { throw new Error('Announcement must not load RSVP or the guest registry'); };
+  assert.equal(await (await worker.fetch(new Request('https://invite.test/weddingsamuelledy/announcement?guest=' + 'c'.repeat(32)), env)).text(), 'asset');
   assert.equal((await worker.fetch(new Request('https://invite.test/weddingsamuelledy/api/rsvp', {method: 'DELETE'}), env)).status, 405);
 });
 test('worker rejects cross-site, invalid counts, status, JSON, and large bodies before writing', async () => {
@@ -178,6 +180,8 @@ test('stable pages use a fresh name, prevent shared caching, and fail closed on 
     globalThis.fetch = async () => Response.json({ok: true, name: 'Nama Baru'});
     assert.equal((await worker.fetch(request, pageEnv)).status, 200);
     assert.equal(names[1], 'Nama Baru');
+    assert.equal((await worker.fetch(new Request('https://invite.test/weddingsamuelledy/invitation?guest=' + guestId), pageEnv)).status, 200);
+    assert.equal(names[2], 'Nama Baru');
     globalThis.fetch = async () => Response.json({ok: true, name: null});
     assert.equal((await worker.fetch(request, pageEnv)).status, 404);
     globalThis.fetch = async () => { throw new Error('offline'); };

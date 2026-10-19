@@ -10,7 +10,7 @@ function reply(value, status = 200, id) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (['/weddingsamuelledy', '/weddingsamuelledy/'].includes(url.pathname) && url.searchParams.has('guest')) return guestPage(request, env, url.searchParams.get('guest'));
+    if (['/weddingsamuelledy', '/weddingsamuelledy/', '/weddingsamuelledy/invitation', '/weddingsamuelledy/invitation/'].includes(url.pathname) && url.searchParams.has('guest')) return guestPage(request, env, url.searchParams.get('guest'));
     if (url.pathname !== '/weddingsamuelledy/api/rsvp') return env.ASSETS.fetch(request);
     if (!['GET', 'POST'].includes(request.method)) return reply({ok: false}, 405);
     if (request.method === 'POST' && request.headers.get('Origin') !== url.origin) return reply({ok: false}, 403);

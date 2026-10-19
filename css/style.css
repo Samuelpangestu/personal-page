@@ -1370,9 +1370,10 @@ a:focus-visible, button:focus-visible, select:focus-visible{
     position:fixed;
     top:0; left:0; right:0;
     max-width:none;
-    height:100vh;
-    height:min(100dvh, var(--app-h, 100dvh));
-    transform:translate3d(0, var(--app-top, 0px), 0);
+    zoom:var(--phone-scale, 1);
+    height:calc(100vh / var(--phone-scale, 1));
+    height:calc(min(100dvh, var(--app-h, 100dvh)) / var(--phone-scale, 1));
+    transform:translate3d(0, calc(var(--app-top, 0px) / var(--phone-scale, 1)), 0);
   }
 
   /* A real phone already draws its own status bar and home indicator */

@@ -28,11 +28,17 @@
   // keyboard. Mirroring visualViewport into CSS keeps the header and composer
   // on screen, and the document itself is never allowed to scroll.
   var vv = window.visualViewport;
+  var phoneScale = 1;
   function isTextFieldFocused() {
     var el = document.activeElement;
     return !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT");
   }
   function syncViewport() {
+    // Android desktop mode can shrink a 980px layout onto a phone screen.
+    var phoneWidth = Math.min(window.screen.width, window.outerWidth || window.screen.width);
+    phoneScale = navigator.maxTouchPoints > 0 && phoneWidth > 0 && phoneWidth <= 600 &&
+      window.innerHeight > window.innerWidth && window.innerWidth > phoneWidth * 1.25 ? window.innerWidth / phoneWidth : 1;
+    root.style.setProperty("--phone-scale", phoneScale);
     if (!vv) return;
     root.style.setProperty("--app-h", Math.round(vv.height) + "px");
     root.style.setProperty("--app-top", Math.max(0, Math.round(vv.offsetTop)) + "px");
@@ -40,7 +46,6 @@
   if (vv) {
     vv.addEventListener("resize", syncViewport);
     vv.addEventListener("scroll", syncViewport);
-    syncViewport();
     // On some browsers (notably in-app WebViews, e.g. a link opened directly
     // from a WhatsApp chat) visualViewport.height isn't fully settled at the
     // moment this script runs, and nothing re-corrects --app-h until a later
@@ -52,6 +57,8 @@
       setTimeout(syncViewport, delay);
     });
   }
+  window.addEventListener("resize", syncViewport);
+  syncViewport();
   window.addEventListener("scroll", function () {
     if (!isTextFieldFocused() && (window.scrollY || window.pageYOffset)) window.scrollTo(0, 0);
   }, { passive: true });
@@ -426,12 +433,12 @@
 
   lockScreen.addEventListener("pointerdown", function (e) {
     if (isOpen || (e.pointerType === "mouse" && e.button !== 0)) return;
-    drag = { id: e.pointerId, y0: e.clientY, y: e.clientY, t: e.timeStamp, vy: 0, active: false };
+    drag = { id: e.pointerId, y0: e.clientY / phoneScale, y: e.clientY / phoneScale, t: e.timeStamp, vy: 0, active: false };
   });
 
   lockScreen.addEventListener("pointermove", function (e) {
     if (!drag || e.pointerId !== drag.id) return;
-    var dy = drag.y0 - e.clientY;
+    var dy = drag.y0 - e.clientY / phoneScale;
     if (!drag.active) {
       if (Math.abs(dy) < DRAG_SLOP) return;
       drag.active = true;
@@ -439,8 +446,8 @@
       try { lockScreen.setPointerCapture(e.pointerId); } catch (err) {}
     }
     var dt = Math.max(1, e.timeStamp - drag.t);
-    drag.vy = (drag.y - e.clientY) / dt;
-    drag.y = e.clientY;
+    drag.vy = (drag.y - e.clientY / phoneScale) / dt;
+    drag.y = e.clientY / phoneScale;
     drag.t = e.timeStamp;
     var h = lockScreen.offsetHeight || window.innerHeight;
     paintProgress(Math.max(0, Math.min(1, dy / h)), false);
@@ -452,7 +459,7 @@
     drag = null;
     if (!d.active) return;
     var h = lockScreen.offsetHeight || window.innerHeight;
-    var dy = d.y0 - e.clientY;
+    var dy = d.y0 - e.clientY / phoneScale;
     if (e.type !== "pointercancel" && (dy > h * OPEN_DISTANCE || (d.vy > OPEN_VELOCITY && dy > 40))) {
       openInvitation();
     } else {
@@ -514,7 +521,7 @@
   var chatTop = document.getElementById("chatTop");
   function scrollChatTo(targetEl, highlight) {
     var feedRect = chatFeed.getBoundingClientRect();
-    var top = targetEl.getBoundingClientRect().top - feedRect.top + chatFeed.scrollTop - chatTop.offsetHeight - 8;
+    var top = (targetEl.getBoundingClientRect().top - feedRect.top) / phoneScale + chatFeed.scrollTop - chatTop.offsetHeight - 8;
     chatFeed.scrollTo({ top: Math.max(0, top), behavior: reduceMotion.matches ? "auto" : "smooth" });
     if (highlight) {
       var row = targetEl.classList.contains("msg") ? targetEl : targetEl.querySelector(".msg");
@@ -869,7 +876,7 @@
   var navTicking = false;
   function updateActiveNav() {
     navTicking = false;
-    var line = chatFeed.getBoundingClientRect().top + chatTop.offsetHeight + 40;
+    var line = chatFeed.getBoundingClientRect().top + (chatTop.offsetHeight + 40) * phoneScale;
     var current = navSections[0];
     navSections.forEach(function (n) {
       if (n.el.getBoundingClientRect().top <= line) current = n;

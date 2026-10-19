@@ -142,4 +142,4 @@ warna baru di tempat lain.
   Detail setup dan tes: `scripts/rsvp/README.md`. Kredensial deployment
   berada di luar repo. Jangan menimpa Worker dengan deploy static lama.
 - Admin lama hanya riwayat browser. Rekap terpusat dilihat pada tab RSVP
-  privat; jangan menambahkan endpoint publik yang membocorkan daftar tamu.
+  mengikuti pengaturan berbagi planner; jangan menambahkan endpoint publik yang membocorkan daftar tamu.

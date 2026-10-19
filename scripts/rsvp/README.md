@@ -1,6 +1,6 @@
 # RSVP terpusat
 
-Alur: formulir → `/weddingsamuelledy/api/rsvp` pada Cloudflare Worker → Apps Script → tab `RSVP` pada planner privat.
+Alur: formulir → `/weddingsamuelledy/api/rsvp` pada Cloudflare Worker → Apps Script → tab `RSVP` pada planner pasangan.
 
 Browser hanya menerima jawaban miliknya. Tidak tersedia endpoint daftar tamu publik. URL Apps Script dan shared secret disimpan sebagai Worker secrets `RSVP_WEBHOOK_URL` dan `RSVP_SECRET`; ID spreadsheet dan secret penerima berada di Script Properties atau konfigurasi privat Apps Script. Jangan memasukkannya ke Git atau aset situs.
 
@@ -15,3 +15,5 @@ Respons baru hanya ditampilkan sebagai tersimpan setelah server mengonfirmasi. J
 Tes: `node --test scripts/rsvp/rsvp.test.mjs`. Pengujian langsung memakai identitas uji yang jelas dan dibersihkan dari Sheets sesudah pemeriksaan; jangan mengirim RSVP atas nama tamu asli.
 
 Deploy dari versi remote terbaru, pertahankan route domain dan aset halaman lain, lalu cek simpan/baca/ubah melalui situs dan cocokkan baris di Sheets. Jangan men-deploy checkout lama yang memiliki perubahan undangan lokal yang belum dimaksudkan untuk tayang.
+
+Akses ke data Sheets mengikuti pengaturan berbagi planner. Endpoint website tidak menyediakan daftar tamu, tetapi itu tidak membatasi orang yang sudah dapat membuka spreadsheet. Pastikan berbagi Drive sesuai penerima yang dikehendaki sebelum mengumpulkan data tamu.

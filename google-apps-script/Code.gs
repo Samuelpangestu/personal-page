@@ -67,9 +67,19 @@ function lookupGuest_(body, props) {
   if (!/^[a-f0-9]{32}$/.test(body.guestId || '')) throw new Error('Invalid guest ID');
   var sheet = SpreadsheetApp.openById(props.getProperty('SPREADSHEET_ID') || RSVP_CONFIG.spreadsheetId).getSheetByName('Tamu');
   if (!sheet) throw new Error('Guest sheet not configured');
-  var rows = sheet.getLastRow() >= 6 ? sheet.getRange(6, 2, sheet.getLastRow() - 5, 11).getValues() : [];
+  // B = nama, L = ID tamu, M = Diundang ke.
+  var rows = sheet.getLastRow() >= 6 ? sheet.getRange(6, 2, sheet.getLastRow() - 5, 12).getValues() : [];
   var matches = rows.filter(function (row) { return row[10] === body.guestId; });
   if (matches.length > 1) throw new Error('Duplicate guest ID');
   var name = matches.length ? String(matches[0][0]).trim() : '';
-  return {ok: true, name: name || null};
+  return {ok: true, name: name || null, events: eventsGuest_(matches.length ? matches[0][11] : '')};
+}
+
+// Kolom kosong atau nilai tak dikenal = Gereja, sama seperti link umum.
+function eventsGuest_(value) {
+  var text = String(value || '').toLowerCase();
+  var church = text.indexOf('gereja') >= 0;
+  var reception = text.indexOf('resepsi') >= 0;
+  if (church && reception) return 'semua';
+  return reception ? 'resepsi' : 'gereja';
 }

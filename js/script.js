@@ -1,7 +1,18 @@
 (function () {
   "use strict";
 
-  var WEDDING_DATE = new Date("2027-01-16T09:00:00+07:00");
+  // The Worker removes event cards a guest is not invited to, so the
+  // countdown and its calendar button follow the cards that remain.
+  var eventCalendars = Array.prototype.slice.call(document.querySelectorAll("#events .btn-calendar"));
+  var eventStart = eventCalendars.map(function (b) { return b.getAttribute("data-start"); }).sort()[0] || "20270116T020000Z";
+  var eventEnd = eventCalendars.map(function (b) { return b.getAttribute("data-end"); }).sort().pop() || "20270116T040000Z";
+  var WEDDING_DATE = new Date(eventStart.replace(/^(\d{4})(\d\d)(\d\d)T(\d\d)(\d\d)(\d\d)Z$/, "$1-$2-$3T$4:$5:$6Z"));
+  var countdownCalendar = document.getElementById("countdownCalendar");
+  if (countdownCalendar && eventCalendars.length) {
+    countdownCalendar.setAttribute("data-start", eventStart);
+    countdownCalendar.setAttribute("data-end", eventEnd);
+    countdownCalendar.setAttribute("data-location", eventCalendars[0].getAttribute("data-location"));
+  }
   var root = document.documentElement;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -99,13 +110,16 @@
   }
 
   function groupMessages() {
-    var msgs = Array.prototype.slice.call(chatFeed.querySelectorAll(".msg"));
-    msgs.forEach(function (msg, i) {
+    // A section divider breaks a run, like a date chip in WhatsApp.
+    var nodes = Array.prototype.slice.call(chatFeed.querySelectorAll(".msg, .feed-divider"));
+    function sameRun(other, who) {
+      return other && other.classList.contains("msg") && senderOf(other) === who;
+    }
+    nodes.forEach(function (msg, i) {
+      if (!msg.classList.contains("msg")) return;
       var who = senderOf(msg);
-      var prev = msgs[i - 1];
-      var next = msgs[i + 1];
-      var first = !prev || senderOf(prev) !== who;
-      var last = !next || senderOf(next) !== who;
+      var first = !sameRun(nodes[i - 1], who);
+      var last = !sameRun(nodes[i + 1], who);
       msg.classList.toggle("is-first", first);
       msg.classList.toggle("is-last", last);
 
@@ -120,6 +134,30 @@
         existing.remove();
       }
     });
+  }
+
+  // ---------- Arrival motion ----------
+  // Bubbles and dividers fade up as they scroll into the feed. Only nodes
+  // present now get the hidden state, so wishes rendered later stay visible.
+  var arrivalItems = [];
+  if ("IntersectionObserver" in window && !reduceMotion.matches) {
+    arrivalItems = Array.prototype.slice.call(chatFeed.querySelectorAll(".feed-section .msg, .feed-divider"));
+    arrivalItems.forEach(function (el) { el.classList.add("anim"); });
+  }
+  var arrivalsStarted = false;
+  function startArrivals() {
+    if (arrivalsStarted || !arrivalItems.length) return;
+    arrivalsStarted = true;
+    var observer = new IntersectionObserver(function (entries) {
+      var shown = 0;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.style.animationDelay = Math.min(shown++ * 50, 200) + "ms";
+        entry.target.classList.add("in");
+        observer.unobserve(entry.target);
+      });
+    }, { root: chatFeed, threshold: 0.12 });
+    arrivalItems.forEach(function (el) { observer.observe(el); });
   }
 
   // ---------- Group info panel ----------
@@ -345,6 +383,7 @@
     paintProgress(1, true);
     setTimeout(finishOpen, reduceMotion.matches ? 160 : OPEN_MS);
     showTyping();
+    startArrivals();
   }
 
   function closeInvitation() {
@@ -503,9 +542,11 @@
   // Tap: jump to the pinned message shown, then show the next one. The text
   // slides in the direction of travel through the chat; the vertical
   // indicator marks which of the pins is showing.
+  var firstEventNameEl = document.querySelector("#events .msg[data-event] .event-name");
+  var firstEventName = firstEventNameEl ? firstEventNameEl.textContent : "Pemberkatan";
   var pinnedItems = [
     { target: "#countdown", label: "hitung mundur", text: function () { return "Hitung mundur · <strong>" + daysRemaining + "</strong> hari lagi menuju hari H"; } },
-    { target: "#events .msg:nth-of-type(2)", label: "lokasi pemberkatan", text: function () { return "Lokasi · Pemberkatan, Semarang"; } },
+    { target: "#events .msg[data-event]", label: "lokasi acara", text: function () { return "Lokasi · " + firstEventName + ", Semarang"; } },
     { target: "#gift .msg:nth-of-type(2)", label: "tanda kasih", text: function () { return "Tanda kasih · Jago · 105147598203"; } },
     { target: "#rsvp", label: "konfirmasi kehadiran", text: function () { return "Konfirmasi kehadiran · Kamu bisa datang?"; } }
   ];

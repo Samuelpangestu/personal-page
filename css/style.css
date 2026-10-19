@@ -427,6 +427,39 @@ button{ -webkit-tap-highlight-color:transparent; }
 .sys-lock{ background:var(--system-yellow); color:var(--system-yellow-ink); }
 .sys-lock svg{ vertical-align:-1px; margin-right:2px; }
 
+/* Section separator: a WhatsApp date chip flanked by hairlines */
+.feed-divider{
+  display:flex; align-items:center; gap:10px;
+  margin:22px 4px 6px;
+  font:inherit;
+}
+.feed-divider::before, .feed-divider::after{
+  content:""; flex:1; height:1px;
+  background:var(--hairline);
+}
+.feed-divider span{
+  padding:3px 12px;
+  border-radius:10px;
+  background:var(--sys-bg);
+  color:var(--sys-ink);
+  font-size:12.5px; font-weight:600; line-height:1.35;
+}
+
+/* Arrival motion, set up by script.js only when IntersectionObserver is
+   available and reduced motion is off; content added later is never hidden. */
+.anim:not(.in){ opacity:0; }
+.msg.in{ animation:msg-in .28s var(--ease-out) both; transform-origin:0 100%; }
+.msg.out.in{ transform-origin:100% 100%; }
+.feed-divider.in{ animation:divider-in .34s var(--ease-out) both; }
+@keyframes msg-in{
+  from{ opacity:0; transform:translateY(10px) scale(.96); }
+  to{ opacity:1; transform:none; }
+}
+@keyframes divider-in{
+  from{ opacity:0; transform:scale(.9); }
+  to{ opacity:1; transform:none; }
+}
+
 /* ===== MESSAGES ===== */
 .msg{
   position:relative;

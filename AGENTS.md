@@ -124,8 +124,9 @@ warna baru di tempat lain.
   biru) karena localStorage per-perangkat = tulisan tamu itu sendiri.
 - Musik hanya mulai dari gesture pembuka (swipe/tap notifikasi), tanpa
   atribut `autoplay`.
-- Tidak ada animasi reveal per section; motion hanya untuk perpindahan state
-  (unlock, pinned berganti, panel info, highlight setelah lompat pinned).
+- Motion perpindahan state (unlock, pinned berganti, panel info, highlight
+  setelah lompat pinned) ditambah animasi kedatangan bubble/separator; lihat
+  "Jenis undangan, separator, dan animasi" di bawah.
 
 ## RSVP terpusat (19 Oktober 2026)
 
@@ -169,7 +170,7 @@ warna baru di tempat lain.
   ID literal telah dialokasikan pada baris yang tersedia sampai 1000. Jangan
   mengganti ID saat nama dikoreksi; tamu berbeda memakai baris baru dengan ID
   berbeda. Tambahan baris di luar kapasitas ini perlu ID baru dan rumus link.
-- Gunakan filter seluruh A:L untuk pengurutan; jangan mengurutkan nama saja.
+- Gunakan filter seluruh A:M untuk pengurutan; jangan mengurutkan nama saja.
   K memakai rumus per baris, bukan spill, agar ID ikut berpindah bersama nama.
 - URL `?guest=<id>` dibaca Worker pada setiap pembukaan. Apps Script hanya
   mengembalikan nama untuk satu ID. HTMLRewriter meneruskannya ke script.js;
@@ -194,3 +195,22 @@ warna baru di tempat lain.
   menjadi fokus, pesan singkat meminta doa. ENERGY 1 / RHYTHM 2 / MOTION 1.
   Tidak menambah tombol, statistik, atau aktivitas chat palsu. Tema terang,
   gelap, keyboard scroll, dan viewport ponsel telah diperiksa.
+
+## Jenis undangan, separator, dan animasi (19 Oktober 2026)
+
+- Tab Tamu kolom M "Diundang ke": Gereja / Resepsi / Gereja & Resepsi.
+  Kosong atau nilai lain = Gereja. Apps Script mengembalikan `events`
+  (`gereja`/`resepsi`/`semua`) bersama nama; Worker menghapus elemen
+  `[data-event]` yang tidak berlaku dari HTML (bukan sekadar disembunyikan).
+- Link tanpa `?guest=` (link umum/rame-rame, termasuk `index.html` langsung)
+  selalu Gereja saja. Link pribadi tetap satu per tamu; jenisnya dari kolom M.
+- Kartu acara dan baris info grup memakai `data-event`. Hitung mundur, tombol
+  kalender hitung mundur, dan pin "Lokasi" mengikuti kartu yang tersisa.
+  Resepsi: Hotel Candi Indah Convention, 13.00–15.00 (konfirmasi pengguna).
+- Separator bagian memakai `<h2 class="feed-divider">` (bukan `div`, agar
+  selector `.msg:nth-of-type()` tetap benar) dan memutus run pengirim.
+- Pengguna meminta animasi ringan: bubble dan separator muncul saat masuk
+  layar (IntersectionObserver, mulai setelah unlock, sekali per elemen).
+  Hanya elemen yang ada saat load diberi `.anim`; ucapan yang dirender
+  kemudian tidak pernah tersembunyi. Nonaktif pada reduced motion.
+- Ucapan & doa terbuka secara default; tenggat RSVP tidak ditampilkan.

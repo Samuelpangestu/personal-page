@@ -139,11 +139,27 @@ test('browser client accepts confirmed response and rejects HTTP, logical and ne
 });
 
 const guestId = 'c'.repeat(32);
+// Mimics HTMLRewriter for the two selectors worker.js uses; kept cards are reported in the body.
+function FakeRewriter(names = []) {
+  return class {
+    constructor() { this.handlers = {}; }
+    on(selector, handler) { assert.ok(['html', '[data-event]'].includes(selector)); this.handlers[selector] = handler; return this; }
+    transform() {
+      this.handlers.html?.element({setAttribute(key, value) { assert.equal(key, 'data-guest-name'); names.push(value); }});
+      const kept = ['gereja', 'resepsi', 'lainnya'].filter(event => {
+        let removed = false;
+        this.handlers['[data-event]'].element({getAttribute: () => event, remove() { removed = true; }});
+        return !removed;
+      });
+      return new Response(kept.join(','), {headers: {'Content-Type': 'text/html'}});
+    }
+  };
+}
 test('stable guest lookup follows rename, reorder and additions without exposing the registry', () => {
   const guests = [['Budi & Ani', ...Array(9).fill(''), guestId]];
   const g = gasContext(guests);
   const query = {action: 'guest', guestId, secret: 'test-only-secret'};
-  assert.deepEqual(JSON.parse(JSON.stringify(g.call(query))), {ok: true, name: 'Budi & Ani'});
+  assert.deepEqual(JSON.parse(JSON.stringify(g.call(query))), {ok: true, name: 'Budi & Ani', events: 'gereja'});
   guests[0][0] = 'Bapak Budi & Ibu Ani';
   guests.unshift(['Nama lain', ...Array(9).fill(''), 'd'.repeat(32)]);
   assert.equal(g.call(query).name, 'Bapak Budi & Ibu Ani');
@@ -162,10 +178,7 @@ test('stable guest lookup follows rename, reorder and additions without exposing
 test('stable pages use a fresh name, prevent shared caching, and fail closed on lookup errors', async () => {
   const actualRewriter = globalThis.HTMLRewriter;
   const names = [];
-  globalThis.HTMLRewriter = class {
-    on(selector, handler) { assert.equal(selector, 'html'); this.handler = handler; return this; }
-    transform(response) { this.handler.element({setAttribute(key, value) { assert.equal(key, 'data-guest-name'); names.push(value); }}); return response; }
-  };
+  globalThis.HTMLRewriter = FakeRewriter(names);
   const pageEnv = {...env, ASSETS: {fetch: () => new Response('<html></html>', {headers: {'Content-Type': 'text/html'}})}};
   const request = new Request('https://invite.test/weddingsamuelledy/?guest=' + guestId + '&to=Wrong');
   try {
@@ -187,5 +200,40 @@ test('stable pages use a fresh name, prevent shared caching, and fail closed on 
     globalThis.fetch = async () => { throw new Error('offline'); };
     assert.equal((await worker.fetch(request, pageEnv)).status, 503);
     assert.equal((await worker.fetch(new Request('https://invite.test/weddingsamuelledy/?guest=bad'), pageEnv)).status, 404);
+  } finally { globalThis.HTMLRewriter = actualRewriter; }
+});
+
+test('guest type column M picks the event cards, defaulting to church', () => {
+  const guests = [['Budi', ...Array(9).fill(''), guestId, '']];
+  const g = gasContext(guests);
+  const query = {action: 'guest', guestId, secret: 'test-only-secret'};
+  for (const [cell, events] of [['', 'gereja'], ['Gereja', 'gereja'], ['Resepsi', 'resepsi'],
+    ['Gereja & Resepsi', 'semua'], ['resepsi dan gereja', 'semua'], ['Lainnya', 'gereja']]) {
+    guests[0][11] = cell;
+    assert.equal(g.call(query).events, events, cell);
+  }
+});
+test('pages keep only invited event cards; links without a guest ID show church only', async () => {
+  const actualRewriter = globalThis.HTMLRewriter;
+  globalThis.HTMLRewriter = FakeRewriter();
+  const pageEnv = {...env, ASSETS: {fetch: () => new Response('<html></html>', {headers: {'Content-Type': 'text/html'}})}};
+  const open = async (path, lookup) => {
+    globalThis.fetch = async () => Response.json(lookup);
+    return (await worker.fetch(new Request('https://invite.test' + path), pageEnv)).text();
+  };
+  try {
+    const personal = '/weddingsamuelledy/?guest=' + guestId;
+    assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'gereja'}), 'gereja');
+    assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'resepsi'}), 'resepsi');
+    assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'semua'}), 'gereja,resepsi');
+    // Older Apps Script without the events field, or an unexpected value, fails closed to church.
+    assert.equal(await open(personal, {ok: true, name: 'Budi'}), 'gereja');
+    assert.equal(await open(personal, {ok: true, name: 'Budi', events: 'toString'}), 'gereja');
+    globalThis.fetch = () => { throw new Error('public links must not look up guests'); };
+    for (const path of ['/weddingsamuelledy', '/weddingsamuelledy/', '/weddingsamuelledy/index.html',
+      '/weddingsamuelledy/invitation', '/weddingsamuelledy/invitation/?to=Budi']) {
+      assert.equal(await (await worker.fetch(new Request('https://invite.test' + path), pageEnv)).text(), 'gereja', path);
+    }
+    assert.equal(await (await worker.fetch(new Request('https://invite.test/weddingsamuelledy/css/style.css'), env)).text(), 'asset');
   } finally { globalThis.HTMLRewriter = actualRewriter; }
 });

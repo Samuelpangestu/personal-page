@@ -1,4 +1,7 @@
 const COOKIE = 'sl_rsvp';
+const INVITE_PATHS = ['/weddingsamuelledy', '/weddingsamuelledy/', '/weddingsamuelledy/index.html', '/weddingsamuelledy/invitation', '/weddingsamuelledy/invitation/'];
+// Which event cards each guest type keeps. Links without a guest ID are public, so church only.
+const EVENT_SETS = {gereja: ['gereja'], resepsi: ['resepsi'], semua: ['gereja', 'resepsi']};
 
 function reply(value, status = 200, id) {
   const headers = new Headers({'Content-Type': 'application/json; charset=utf-8',
@@ -10,7 +13,9 @@ function reply(value, status = 200, id) {
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (['/weddingsamuelledy', '/weddingsamuelledy/', '/weddingsamuelledy/invitation', '/weddingsamuelledy/invitation/'].includes(url.pathname) && url.searchParams.has('guest')) return guestPage(request, env, url.searchParams.get('guest'));
+    if (INVITE_PATHS.includes(url.pathname)) {
+      return url.searchParams.has('guest') ? guestPage(request, env, url.searchParams.get('guest')) : publicPage(request, env);
+    }
     if (url.pathname !== '/weddingsamuelledy/api/rsvp') return env.ASSETS.fetch(request);
     if (!['GET', 'POST'].includes(request.method)) return reply({ok: false}, 405);
     if (request.method === 'POST' && request.headers.get('Origin') !== url.origin) return reply({ok: false}, 403);
@@ -64,9 +69,10 @@ async function guestPage(request, env, guestId) {
     if (typeof result.name !== 'string' || !result.name.trim() || result.name.length > 120) throw new Error('Invalid name');
     const page = await env.ASSETS.fetch(request);
     if (!page.ok || !page.headers.get('Content-Type')?.includes('text/html')) throw new Error('Page unavailable');
-    const personalized = new HTMLRewriter().on('html', {
+    const events = Object.hasOwn(EVENT_SETS, result.events) ? result.events : 'gereja';
+    const personalized = withEvents(new HTMLRewriter().on('html', {
       element(element) { element.setAttribute('data-guest-name', result.name); }
-    }).transform(page);
+    }), events).transform(page);
     const output = new Response(personalized.body, personalized);
     output.headers.set('Cache-Control', 'private, no-store');
     output.headers.set('X-Robots-Tag', 'noindex, nofollow');
@@ -74,4 +80,18 @@ async function guestPage(request, env, guestId) {
   } catch {
     return new Response('Undangan belum dapat dimuat. Silakan muat ulang sebentar lagi.', {status: 503, headers});
   }
+}
+
+async function publicPage(request, env) {
+  const page = await env.ASSETS.fetch(request);
+  if (!page.headers.get('Content-Type')?.includes('text/html')) return page;
+  return withEvents(new HTMLRewriter(), 'gereja').transform(page);
+}
+
+// Uninvited event cards are removed from the HTML itself, not just hidden.
+function withEvents(rewriter, events) {
+  const keep = EVENT_SETS[events];
+  return rewriter.on('[data-event]', {
+    element(element) { if (!keep.includes(element.getAttribute('data-event'))) element.remove(); }
+  });
 }

@@ -683,7 +683,7 @@
 
       var time = document.createElement("span");
       time.className = "msg-time";
-      time.innerHTML = timeOf(w.ts) + TICKS_SVG;
+      time.innerHTML = timeOf(w.ts) + (w.synced ? TICKS_SVG.replace("Dibaca", "RSVP tersimpan") : " · perangkat ini");
 
       bubble.appendChild(meta);
       bubble.appendChild(textEl);
@@ -695,69 +695,68 @@
     groupMessages();
   }
 
-  rsvpForm.addEventListener("submit", function (e) {
+  var rsvpStatus = document.getElementById("rsvpStatus");
+  var rsvpSubmit = rsvpForm.querySelector('button[type="submit"]');
+  var rsvpPending = false;
+  var rsvpReady = false;
+  rsvpSubmit.disabled = true;
+  rsvpStatus.textContent = "Memeriksa RSVP sebelumnya…";
+
+  function rememberRsvp(saved) {
+    var wishes = loadWishes().filter(function (wish) { return !wish.synced; });
+    wishes.push(saved);
+    saveWishes(wishes);
+    renderWishes();
+  }
+
+  rsvpForm.addEventListener("submit", async function (e) {
     e.preventDefault();
+    if (rsvpPending || !rsvpReady) return;
     var name = document.getElementById("rsvpName").value.trim();
     var message = document.getElementById("rsvpMessage").value.trim();
-    var count = document.getElementById("guestCount").value;
-
     if (!selectedStatus) {
       rsvpError.classList.add("show");
       scrollChatTo(document.getElementById("rsvp"));
       return;
     }
-    if (!name || !message) return;
-
-    var entry = {
-      name: name,
-      status: selectedStatus,
-      count: selectedStatus === "Hadir" ? count : null,
-      message: message,
-      ts: Date.now()
-    };
-    var wishes = loadWishes();
-    wishes.push(entry);
-    saveWishes(wishes);
-    renderWishes();
-    rsvpForm.reset();
-    if (document.activeElement) document.activeElement.blur();
-
-    var rows = wishesList.querySelectorAll(".msg");
-    if (rows.length) scrollChatTo(rows[rows.length - 1]);
-
-    submitRsvpToWebhook(entry);
+    if (!name) return;
+    var entry = {name: name, status: selectedStatus,
+      count: selectedStatus === "Hadir" ? Number(document.getElementById("guestCount").value) : 0,
+      message: message};
+    rsvpPending = true;
+    rsvpSubmit.disabled = true;
+    rsvpSubmit.textContent = "Menyimpan…";
+    rsvpStatus.textContent = "Sedang menyimpan RSVP…";
+    try {
+      var saved = await window.WeddingRsvp.save(entry);
+      rememberRsvp(saved);
+      rsvpStatus.textContent = "RSVP sudah tersimpan. Kirim lagi untuk mengubah jawaban dari browser ini.";
+      if (document.activeElement) document.activeElement.blur();
+    } catch (error) {
+      rsvpStatus.textContent = error.message;
+    } finally {
+      rsvpPending = false;
+      rsvpSubmit.disabled = false;
+      rsvpSubmit.textContent = "Kirim";
+    }
   });
 
-  function submitRsvpToWebhook(entry) {
-    if (!window.RSVP_WEBHOOK_URL) return;
-
-    var form = document.createElement("form");
-    form.method = "POST";
-    form.action = window.RSVP_WEBHOOK_URL;
-    form.target = "rsvpWebhookFrame";
-    form.hidden = true;
-
-    var fields = {
-      name: entry.name,
-      status: entry.status,
-      count: entry.count || "",
-      message: entry.message
-    };
-
-    Object.keys(fields).forEach(function (name) {
-      var input = document.createElement("input");
-      input.type = "hidden";
-      input.name = name;
-      input.value = fields[name];
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-    form.remove();
-  }
-
   renderWishes();
+  window.WeddingRsvp.load().then(function (saved) {
+    saveWishes(loadWishes().filter(function (wish) { return !wish.synced; }));
+    if (saved) {
+      rememberRsvp(saved);
+      rsvpStatus.textContent = "RSVP sebelumnya: " + saved.status + (saved.count ? " · " + saved.count + " orang" : "") + ". Kamu bisa mengirim perubahan.";
+    } else {
+      renderWishes();
+      rsvpStatus.textContent = "Jawabanmu akan tersimpan untuk Samuel dan Ledy.";
+    }
+  }).catch(function () {
+    rsvpStatus.textContent = "Belum dapat memuat RSVP sebelumnya. Periksa koneksi sebelum mengirim.";
+  }).finally(function () {
+    rsvpReady = true;
+    rsvpSubmit.disabled = false;
+  });
 
   // ---------- Quick-jump menu (opened from the composer's + button) ----------
   var jumpMenu = document.getElementById("jumpMenu");

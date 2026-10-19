@@ -2,3 +2,7 @@
 .agents/
 .claude/
 skills-lock.json
+.wrangler/
+.dev.vars
+*.private.json
+.clasp.json

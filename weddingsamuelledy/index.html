@@ -391,9 +391,10 @@
           <span class="avatar avatar-bride" aria-label="Ledy"></span>
           <form class="bubble bubble-wide rsvp-form" id="rsvpForm">
             <div class="b-body">
-              <input type="text" id="rsvpName" placeholder="Nama kamu" autocomplete="name" required>
-              <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan dan doa..." required></textarea>
+              <input type="text" id="rsvpName" placeholder="Nama kamu" autocomplete="name" maxlength="120" required>
+              <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan dan doa... (opsional)" maxlength="2000"></textarea>
               <p class="rsvp-error" id="rsvpError" role="alert">Pilih dulu status kehadiran di atas ya.</p>
+              <p id="rsvpStatus" role="status" aria-live="polite"></p>
             </div>
             <button type="submit" class="b-action btn-send">Kirim</button>
           </form>
@@ -658,14 +659,7 @@
   <source src="assets/music.m4a" type="audio/mp4">
 </audio>
 
-<iframe name="rsvpWebhookFrame" title="RSVP submission" hidden></iframe>
-
-<script>
-  // Opsional: tempel URL Google Apps Script Web App di sini agar RSVP
-  // tersimpan terpusat (lintas perangkat) ke Google Sheets, bukan hanya
-  // localStorage di perangkat masing-masing tamu. Kosongkan jika belum ada.
-  window.RSVP_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbxBCfeMh0VrFdr5twD3tVdWsB3pHpdhIfPY-7Uq95qlRtZVHzI1bEhWryBub48vQ-ea/exec";
-</script>
+<script src="js/rsvp.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

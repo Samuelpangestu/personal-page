@@ -1,8 +1,11 @@
 {
   "name": "personal-page",
   "compatibility_date": "2026-09-28",
+  "main": "worker.js",
   "assets": {
     "directory": ".",
+    "binding": "ASSETS",
+    "run_worker_first": ["/weddingsamuelledy/api/rsvp"],
     "html_handling": "none"
   }
 }

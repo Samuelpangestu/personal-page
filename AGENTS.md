@@ -126,3 +126,20 @@ warna baru di tempat lain.
   atribut `autoplay`.
 - Tidak ada animasi reveal per section; motion hanya untuk perpindahan state
   (unlock, pinned berganti, panel info, highlight setelah lompat pinned).
+
+## RSVP terpusat (19 Oktober 2026)
+
+- Pengguna meminta implementasi dan pengujian RSVP ke Google Sheets. Ini
+  menggantikan hook browser opsional di atas: `worker.js` menjadi proxy
+  khusus `/weddingsamuelledy/api/rsvp`; halaman lain tetap static.
+- `js/rsvp.js` menerima konfirmasi server sebelum menampilkan sukses.
+  Apps Script menulis ke tab RSVP, memperbarui respons dengan key yang sama,
+  dan mempertahankan data Tamu yang disusun manual.
+- Pengulangan dari cookie/browser yang sama memperbarui satu baris. Ini
+  bukan autentikasi tamu: perangkat/domain berbeda atau cookie hilang perlu
+  rekonsiliasi nama oleh pemilik. Batas jumlah tamu tetap dua orang.
+- Rahasia Worker dan ID spreadsheet tidak boleh ditulis ke file publik.
+  Detail setup dan tes: `scripts/rsvp/README.md`. Kredensial deployment
+  berada di luar repo. Jangan menimpa Worker dengan deploy static lama.
+- Admin lama hanya riwayat browser. Rekap terpusat dilihat pada tab RSVP
+  privat; jangan menambahkan endpoint publik yang membocorkan daftar tamu.

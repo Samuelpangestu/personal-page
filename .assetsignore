@@ -1,0 +1,16 @@
+.git
+.gitignore
+.hallmark
+.wrangler
+.dev.vars
+.clasp.json
+.agents
+.claude
+AGENTS.md
+WEDDING_KNOWLEDGE.md
+APPLICATION_NOTES.md
+REFERENCE_NOTES.md
+worker.js
+wrangler.jsonc
+scripts
+google-apps-script

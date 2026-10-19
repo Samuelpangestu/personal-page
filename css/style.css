@@ -1154,8 +1154,8 @@ button{ -webkit-tap-highlight-color:transparent; }
 .notif-time{ flex:0 0 auto; color:var(--notif-secondary); font-size:13px; }
 .notif-text{
   font-size:15px; line-height:20px;
-  display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:2;
-  overflow:hidden;
+  display:block;
+  overflow-wrap:anywhere;
 }
 
 .ios-bottombar{
@@ -1337,7 +1337,7 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   .notif-app-icon{ width:14px; height:14px; }
   .notif-row1{ font-size:13px; line-height:16px; }
   .notif-time{ font-size:11px; }
-  .notif-text{ font-size:13px; line-height:17px; -webkit-line-clamp:1; }
+  .notif-text{ font-size:13px; line-height:17px; }
   .ios-bottombar{ padding:0 20px 18px; }
   .ios-bottom-icon{ flex-basis:32px; width:32px; height:32px; }
   .ios-bottom-icon svg{ width:18px; height:18px; }

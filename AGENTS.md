@@ -231,3 +231,9 @@ warna baru di tempat lain.
 - Hindari sapaan "kamu", "aku", "makasih", dan partikel santai seperti "ya".
   Gunakan "Bapak/Ibu/Saudara/i", "saya", atau kalimat netral sesuai konteks.
 - Nama tamu tetap dinamis. Jangan mengubah ucapan yang ditulis tamu.
+
+## Notifikasi cover
+
+- Teks notifikasi harus tampil lengkap, termasuk nama tamu. Gunakan tinggi
+  otomatis dan pembungkusan kata; jangan menerapkan line clamp atau ellipsis,
+  termasuk pada breakpoint desktop pendek. Pertahankan posisi rendah pada foto.

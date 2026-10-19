@@ -366,7 +366,7 @@
         </div>
       </section>
 
-      <!-- RSVP: attendance first; wishes can be added later. -->
+      <!-- RSVP: optional wishes sit directly below the invitation name. -->
       <section class="feed-section" id="rsvp" aria-label="Konfirmasi kehadiran">
         <h2 class="feed-divider"><span>Konfirmasi Kehadiran</span></h2>
         <div class="msg bride">
@@ -376,6 +376,8 @@
               <p class="poll-question">Konfirmasi kehadiran</p>
               <label for="rsvpName">Nama</label>
               <input type="text" id="rsvpName" placeholder="Nama sesuai undangan" autocomplete="name" maxlength="120" required>
+              <label for="rsvpMessage">Ucapan &amp; doa (opsional)</label>
+              <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan…" maxlength="2000"></textarea>
               <div class="attendance-choices" role="group" aria-label="Pilihan kehadiran" aria-describedby="rsvpError">
                 <button class="choice-btn" type="button" data-status="Hadir" id="choiceHadir" aria-pressed="false">
                   <span class="poll-radio" aria-hidden="true"></span>
@@ -396,14 +398,7 @@
               <p class="rsvp-error" id="rsvpError" role="alert">Pilih Hadir atau Berhalangan terlebih dahulu.</p>
               <p class="rsvp-note" id="rsvpStatus" role="status" aria-live="polite"></p>
             </div>
-            <button type="submit" class="b-action btn-send" id="rsvpSaveAttendance">Simpan kehadiran</button>
-            <details class="rsvp-wishes" id="rsvpWishes" open>
-              <summary>Ucapan &amp; doa <span>(opsional)</span></summary>
-              <div class="b-body">
-                <textarea id="rsvpMessage" rows="3" placeholder="Tulis ucapan…" maxlength="2000" aria-label="Ucapan dan doa (opsional)"></textarea>
-              </div>
-              <button type="submit" class="b-action" id="rsvpSaveWishes">Simpan ucapan</button>
-            </details>
+            <button type="submit" class="b-action btn-send" id="rsvpSaveAttendance">Simpan konfirmasi</button>
           </form>
         </div>
         <div class="wishes-list" id="wishesList">

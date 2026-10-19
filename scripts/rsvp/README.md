@@ -20,9 +20,9 @@ Akses ke data Sheets mengikuti pengaturan berbagi planner. Endpoint website tida
 
 ## Kehadiran tanpa ucapan
 
-Formulir mendahulukan nama, pilihan hadir/berhalangan, dan jumlah orang. Tombol “Simpan kehadiran” bekerja meskipun bagian ucapan tidak pernah dibuka. Bagian ucapan menggunakan disclosure native yang terbuka secara default dan bisa ditambahkan kemudian pada respons yang sama. Status tersimpan dan jumlah orang ditampilkan dalam satu baris setelah konfirmasi server; waktu simpan tetap tercatat di Sheets; pilihan dan isian dipulihkan setelah reload tanpa menimpa perubahan yang sudah diketik saat pemuatan.
+Formulir menampilkan nama, ucapan dan doa opsional, pilihan hadir/berhalangan, lalu jumlah orang. Satu tombol “Simpan konfirmasi” menyimpan semuanya; ucapan kosong tetap valid. Nama dari link undangan diprioritaskan terhadap nama respons lama ketika halaman dimuat, tetapi tamu dapat mengeditnya. Status tersimpan dan jumlah orang ditampilkan dalam satu baris setelah konfirmasi server; pilihan dan isian dipulihkan setelah reload tanpa menimpa perubahan yang sudah diketik saat pemuatan. Waktu pada bubble ucapan berada di baris sendiri agar label riwayat perangkat tidak menutupi teks.
 
-Design Read: mempertahankan percakapan WhatsApp iOS yang sudah ada. Focal point satu tombol simpan kehadiran; ucapan memakai disclosure agar konfirmasi cepat. ENERGY 1 / RHYTHM 2 / MOTION 2; bubble muncul ringan saat masuk layar (lihat AGENTS.md). Label, jumlah termasuk diri sendiri dan satu status singkat mempunyai fungsi informasi. Petunjuk berulang, waktu simpan di UI, serta bubble kehadiran tanpa ucapan dihilangkan sesuai preferensi pengguna; waktu tetap tersedia di Sheets. Tidak menampilkan angka suara dekoratif sebagai statistik tamu.
+Design Read: mempertahankan percakapan WhatsApp iOS yang sudah ada. Focal point satu tombol simpan konfirmasi, dengan ucapan terlihat langsung di bawah nama sesuai permintaan pengguna. ENERGY 1 / RHYTHM 2 / MOTION 2; bubble muncul ringan saat masuk layar (lihat AGENTS.md). Label, jumlah termasuk diri sendiri dan satu status singkat mempunyai fungsi informasi. Waktu simpan tetap tersedia di Sheets. Tidak menampilkan angka suara dekoratif sebagai statistik tamu.
 
 ## Link tamu tetap
 

@@ -147,9 +147,13 @@ warna baru di tempat lain.
 
 ### Kehadiran tanpa ucapan
 
-- Nama, pilihan kehadiran dan jumlah orang disimpan melalui tombol utama;
-  ucapan memakai disclosure opsional dan dapat ditambahkan kemudian pada
-  respons yang sama. Jangan menjadikan ucapan syarat pencatatan kehadiran.
+- Urutan form: nama undangan, ucapan dan doa opsional, pilihan kehadiran,
+  jumlah orang, satu tombol simpan konfirmasi. Ucapan tidak wajib dan dapat
+  ditambahkan kemudian pada respons yang sama.
+- Nama dari link pribadi diprioritaskan saat memuat ulang; nama jawaban lama
+  menjadi fallback hanya untuk link umum. Nama tetap dapat diedit tamu.
+- Waktu ucapan memakai baris sendiri (`msg-time-block`) agar label riwayat
+  perangkat tidak menimpa pesan pendek. Pertahankan baris baru dalam ucapan.
 - Tampilkan satu status tersimpan dan jumlah orang; waktu simpan hanya
   ditampilkan di Sheets. Hindari petunjuk berulang. Pulihkan semua isian
   setelah reload agar perubahan jumlah tidak menghapus ucapan lama.

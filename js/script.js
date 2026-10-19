@@ -722,7 +722,7 @@
       textEl.textContent = w.message;
 
       var time = document.createElement("span");
-      time.className = "msg-time";
+      time.className = "msg-time msg-time-block";
       time.innerHTML = timeOf(w.ts) + (w.synced ? TICKS_SVG.replace("Dibaca", "RSVP tersimpan") : " · perangkat ini");
 
       bubble.appendChild(meta);
@@ -737,7 +737,6 @@
 
   var rsvpStatus = document.getElementById("rsvpStatus");
   var rsvpSubmit = document.getElementById("rsvpSaveAttendance");
-  var rsvpWishSubmit = document.getElementById("rsvpSaveWishes");
   var rsvpName = document.getElementById("rsvpName");
   var rsvpMessage = document.getElementById("rsvpMessage");
   var rsvpCount = document.getElementById("guestCount");
@@ -745,7 +744,7 @@
   var rsvpReady = false;
   var rsvpEdited = false;
   var rsvpLastSaved = null;
-  rsvpSubmit.disabled = rsvpWishSubmit.disabled = true;
+  rsvpSubmit.disabled = true;
   rsvpStatus.textContent = "Memuat…";
   if (guestName !== "Tamu Undangan") rsvpName.value = guestName;
 
@@ -763,9 +762,8 @@
   function setRsvpBusy(busy) {
     rsvpPending = busy;
     [rsvpName, rsvpMessage, rsvpCount, choiceHadir, choiceTidak].forEach(function (field) { field.disabled = busy; });
-    rsvpSubmit.disabled = rsvpWishSubmit.disabled = busy || !rsvpReady;
-    rsvpSubmit.textContent = busy ? "Menyimpan…" : (rsvpLastSaved ? "Perbarui kehadiran" : "Simpan kehadiran");
-    rsvpWishSubmit.textContent = busy ? "Menyimpan…" : "Simpan ucapan";
+    rsvpSubmit.disabled = busy || !rsvpReady;
+    rsvpSubmit.textContent = busy ? "Menyimpan…" : (rsvpLastSaved ? "Perbarui konfirmasi" : "Simpan konfirmasi");
   }
 
   function rememberRsvp(saved) {
@@ -810,7 +808,7 @@
       rememberRsvp(saved);
       showSavedRsvp(saved);
       if (!rsvpEdited) {
-        rsvpName.value = saved.name;
+        rsvpName.value = guestName !== "Tamu Undangan" ? guestName : saved.name;
         rsvpMessage.value = saved.message || "";
         rsvpCount.value = saved.count ? String(saved.count) : "1";
         selectStatus(saved.status);

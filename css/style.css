@@ -856,13 +856,11 @@ button{ -webkit-tap-highlight-color:transparent; }
 .attendance-card label{ font-size:14px; }
 .bubble p.rsvp-note{ margin-top:0; font-size:13px; line-height:1.45; color:var(--text-secondary); }
 .rsvp-note:empty{ display:none; }
-.rsvp-wishes{ border-top:1px solid var(--hairline); }
-.rsvp-wishes summary{ padding:12px 0; min-height:44px; cursor:pointer; font-size:14px; color:var(--link); }
-.rsvp-wishes summary span{ color:var(--text-secondary); }
-.rsvp-wishes .b-body{ padding-top:0; }
 .rsvp-form button:disabled{ cursor:wait; opacity:.65; }
 
 .wishes-list{ display:flex; flex-direction:column; }
+.wish-item{ --time-w:0px; }
+.wish-text{ white-space:pre-wrap; }
 .bubble p.wish-meta{ font-size:13px; font-weight:600; color:var(--text-secondary); }
 .bubble p.wish-meta + p{ margin-top:1px; }
 
@@ -1293,7 +1291,6 @@ a:focus-visible, button:focus-visible, select:focus-visible{
   outline:2px solid var(--link);
   outline-offset:2px;
 }
-.rsvp-wishes summary:focus-visible{ outline:2px solid var(--link); outline-offset:2px; }
 .rsvp-form input:focus-visible, .rsvp-form textarea:focus-visible{
   box-shadow:inset 0 0 0 1.5px var(--link);
 }

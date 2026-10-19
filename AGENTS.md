@@ -237,3 +237,8 @@ warna baru di tempat lain.
 - Teks notifikasi harus tampil lengkap, termasuk nama tamu. Gunakan tinggi
   otomatis dan pembungkusan kata; jangan menerapkan line clamp atau ellipsis,
   termasuk pada breakpoint desktop pendek. Pertahankan posisi rendah pada foto.
+
+## Pembuka chat dan story dibaca
+
+- Urutan awal chat: salam, bubble pengantar undangan, foto dengan nama/tanggal/lagu, lalu ayat Alkitab. Kalimat pengantar tidak diulang di caption foto.
+- Setelah story dibuka, ring hijau avatar menjadi transparan tanpa mengubah ukuran foto. Status dilihat disimpan di localStorage browser; jika penyimpanan diblokir, ring tetap hilang selama halaman terbuka. Story tetap dapat dibuka ulang.

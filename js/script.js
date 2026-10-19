@@ -246,7 +246,13 @@
     runStoryTimer();
   }
 
+  var statusAvatar = document.getElementById("statusAvatarBtn");
+  var storySeenKey = "wedding_story_seen_samuel_ledy";
+  try { statusAvatar.classList.toggle("story-seen", localStorage.getItem(storySeenKey) === "1"); } catch (e) {}
+
   function openStory() {
+    statusAvatar.classList.add("story-seen");
+    try { localStorage.setItem(storySeenKey, "1"); } catch (e) {}
     storyIndex = 0;
     renderStory();
     storyViewer.classList.add("show");
@@ -267,7 +273,7 @@
     renderStory();
   }
 
-  document.getElementById("statusAvatarBtn").addEventListener("click", openStory);
+  statusAvatar.addEventListener("click", openStory);
   document.getElementById("storyClose").addEventListener("click", closeStory);
   document.getElementById("storyNext").addEventListener("click", nextStory);
   document.getElementById("storyPrev").addEventListener("click", prevStory);

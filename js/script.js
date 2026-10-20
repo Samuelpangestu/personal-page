@@ -636,34 +636,36 @@
   document.getElementById("composeInput").addEventListener("click", goToRsvp);
   document.getElementById("composeSend").addEventListener("click", goToRsvp);
 
-  // ---------- Add to calendar: open the .ics directly in the native calendar app ----------
-  function icsEscape(text) {
-    return String(text).replace(/([,;])/g, "\\$1");
-  }
-  document.querySelectorAll(".btn-calendar").forEach(function (btn) {
+  // ---------- Calendar: HTTPS links work where data: navigation is blocked ----------
+  document.querySelectorAll(".btn-calendar").forEach(function (btn, index) {
+    var start = btn.getAttribute("data-start");
+    var end = btn.getAttribute("data-end");
+    var calendar = new URL("https://calendar.google.com/calendar/render");
+    calendar.search = new URLSearchParams({action: "TEMPLATE", text: btn.getAttribute("data-summary"),
+      dates: start + "/" + end, location: btn.getAttribute("data-location") || "", ctz: "Asia/Jakarta"});
+    var choices = document.createElement("div");
+    choices.className = "calendar-choices";
+    choices.id = "calendarChoices" + index;
+    choices.hidden = true;
+    var google = document.createElement("a");
+    google.className = "b-action";
+    google.href = calendar.href;
+    google.target = "_blank";
+    google.rel = "noopener";
+    google.textContent = "Google Calendar";
+    var apple = document.createElement("a");
+    apple.className = "b-action";
+    var kind = start === "20270116T060000Z" ? "resepsi" : end === "20270116T080000Z" ? "semua" : "gereja";
+    apple.href = "assets/cal/" + kind + ".ics";
+    apple.textContent = "Kalender iPhone / file .ics";
+    choices.appendChild(google);
+    choices.appendChild(apple);
+    btn.insertAdjacentElement("afterend", choices);
+    btn.setAttribute("aria-controls", choices.id);
+    btn.setAttribute("aria-expanded", "false");
     btn.addEventListener("click", function () {
-      var summary = btn.getAttribute("data-summary") || "Pernikahan Samuel & Ledy";
-      var location = btn.getAttribute("data-location") || "";
-      var start = btn.getAttribute("data-start");
-      var end = btn.getAttribute("data-end");
-
-      var ics = [
-        "BEGIN:VCALENDAR",
-        "VERSION:2.0",
-        "BEGIN:VEVENT",
-        "SUMMARY:" + icsEscape(summary),
-        "DTSTART:" + start,
-        "DTEND:" + end,
-        "LOCATION:" + icsEscape(location),
-        "DESCRIPTION:" + icsEscape(summary),
-        "END:VEVENT",
-        "END:VCALENDAR"
-      ].join("\r\n");
-
-      // Navigating directly to a data: URI (rather than an <a download> blob
-      // link) is what makes iOS Safari present the native "Add Event" sheet
-      // immediately instead of just saving a .ics file to Files.
-      window.location.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics);
+      choices.hidden = !choices.hidden;
+      btn.setAttribute("aria-expanded", String(!choices.hidden));
     });
   });
 

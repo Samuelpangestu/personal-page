@@ -253,3 +253,8 @@ warna baru di tempat lain.
 
 - Musik dicoba sejak landing page dengan autoplay dan play(); jika diblokir browser, coba lagi pada interaksi pointer/keyboard pertama. Tidak menjanjikan autoplay bersuara tanpa gesture pada semua browser.
 - Tombol jeda milik tamu harus dihormati; interaksi lain maupun membuka undangan tidak boleh memulai ulang setelah tamu memilih jeda. Indikator mengikuti keberhasilan playback.
+
+## Kalender dan motif bubble
+
+- Tombol kalender membuka pilihan Google Calendar (template HTTPS) atau file ICS HTTPS untuk iPhone/aplikasi kalender. File gereja/resepsi terpisah, gabungan berisi dua event dengan UID stabil; jika tanggal/lokasi berubah, perbarui data tombol dan assets/cal/*.ics bersama. Data URI tidak dipakai. Pengguna tetap perlu menyimpan/mengimpor event.
+- Motif sudut halus hanya pada bubble pengantar, ayat, hitung mundur dan RSVP. Jangan menutupi isi atau menambah gerakan dekoratif.

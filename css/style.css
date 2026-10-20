@@ -1392,3 +1392,16 @@ html.phone-scaled .frame{
 }
 html.phone-scaled .ios-statusbar, html.phone-scaled .lock-home-indicator{ display:none; }
 html.phone-scaled .lock-overlay{ padding-top:calc(max(env(safe-area-inset-top), 20px) + 10px); }
+
+/* Quiet corner motifs distinguish the invitation's key messages. */
+#home .msg:nth-child(2) .bubble,
+#verse .bubble,
+#countdown .bubble,
+#rsvpForm{
+  background-image:radial-gradient(ellipse at center, transparent 55%, var(--hairline) 57%, var(--hairline) 60%, transparent 62%);
+  background-size:34px 46px;
+  background-position:calc(100% - 10px) 10px;
+  background-repeat:no-repeat;
+}
+.calendar-choices{ border-top:1px solid var(--hairline); }
+.calendar-choices[hidden]{ display:none; }

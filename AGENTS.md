@@ -241,7 +241,7 @@ warna baru di tempat lain.
 ## Pembuka chat dan story dibaca
 
 - Urutan awal chat: salam, bubble pengantar undangan, foto dengan nama/tanggal/lagu, lalu ayat Alkitab. Kalimat pengantar tidak diulang di caption foto.
-- Setelah story dibuka, ring hijau avatar menjadi transparan tanpa mengubah ukuran foto. Status dilihat disimpan di localStorage browser; jika penyimpanan diblokir, ring tetap hilang selama halaman terbuka. Story tetap dapat dibuka ulang.
+- Setelah story dibuka, ring hijau avatar menjadi transparan tanpa mengubah ukuran foto. Status dilihat hanya berlaku selama halaman terbuka; buka ulang atau reload mengembalikan ring hijau. Jangan menyimpan status story ke localStorage/sessionStorage. Story tetap dapat dibuka ulang.
 
 ## Android portrait cover
 

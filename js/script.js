@@ -255,12 +255,10 @@
   }
 
   var statusAvatar = document.getElementById("statusAvatarBtn");
-  var storySeenKey = "wedding_story_seen_samuel_ledy";
-  try { statusAvatar.classList.toggle("story-seen", localStorage.getItem(storySeenKey) === "1"); } catch (e) {}
+  statusAvatar.classList.remove("story-seen");
 
   function openStory() {
     statusAvatar.classList.add("story-seen");
-    try { localStorage.setItem(storySeenKey, "1"); } catch (e) {}
     storyIndex = 0;
     renderStory();
     storyViewer.classList.add("show");

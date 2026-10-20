@@ -1393,15 +1393,19 @@ html.phone-scaled .frame{
 html.phone-scaled .ios-statusbar, html.phone-scaled .lock-home-indicator{ display:none; }
 html.phone-scaled .lock-overlay{ padding-top:calc(max(env(safe-area-inset-top), 20px) + 10px); }
 
-/* Quiet corner motifs distinguish the invitation's key messages. */
+/* Wedding doodles echo the chat wallpaper without competing with the text. */
+:root{ --wedding-bubble-pattern:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22160%22%20viewBox%3D%220%200%20180%20160%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%2880%2C94%2C86%2C0.065%29%22%20stroke-width%3D%221.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2815%2018%29%20rotate%28-15%2015%2012%29%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2214%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%2214%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22m17%205%204-5%204%205-4%204Z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M111%2023c-7-11-21-2-10%209l10%209%2010-9c11-11-3-20-10-9Z%22%2F%3E%3Cg%20transform%3D%22translate%2857%2083%29%20rotate%2815%29%22%3E%3Cpath%20d%3D%22m0%200%209%2026%2013-15Z%22%2F%3E%3Cpath%20d%3D%22m2%202%2014%2017M5%2012l10-6M11%2024l8-10M29%200l3-5M30%2010l7%201M21-7l-2-5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28142%20112%29%22%3E%3Ccircle%20r%3D%223%22%2F%3E%3Cpath%20d%3D%22M0-3C-11-15-15%201-3%200-15%2010%201%2016%200%203%2011%2015%2016-1%203%200%2015-11-1-15%200-3ZM0%2010v17m0-6%208-5%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22m74%2020%203-5m-1%2014%205%201M26%20101l4%203m-12%2012%203-5m102-45%203%204m31-23-4%204M94%20137l5-2%22%2F%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2257%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22153%22%20cy%3D%2276%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+@media (prefers-color-scheme:dark){
+  :root{ --wedding-bubble-pattern:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22180%22%20height%3D%22160%22%20viewBox%3D%220%200%20180%20160%22%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22rgba%28255%2C255%2C255%2C0.045%29%22%20stroke-width%3D%221.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cg%20transform%3D%22translate%2815%2018%29%20rotate%28-15%2015%2012%29%22%3E%3Ccircle%20cx%3D%2210%22%20cy%3D%2214%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%2221%22%20cy%3D%2214%22%20r%3D%228%22%2F%3E%3Cpath%20d%3D%22m17%205%204-5%204%205-4%204Z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M111%2023c-7-11-21-2-10%209l10%209%2010-9c11-11-3-20-10-9Z%22%2F%3E%3Cg%20transform%3D%22translate%2857%2083%29%20rotate%2815%29%22%3E%3Cpath%20d%3D%22m0%200%209%2026%2013-15Z%22%2F%3E%3Cpath%20d%3D%22m2%202%2014%2017M5%2012l10-6M11%2024l8-10M29%200l3-5M30%2010l7%201M21-7l-2-5%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate%28142%20112%29%22%3E%3Ccircle%20r%3D%223%22%2F%3E%3Cpath%20d%3D%22M0-3C-11-15-15%201-3%200-15%2010%201%2016%200%203%2011%2015%2016-1%203%200%2015-11-1-15%200-3ZM0%2010v17m0-6%208-5%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22m74%2020%203-5m-1%2014%205%201M26%20101l4%203m-12%2012%203-5m102-45%203%204m31-23-4%204M94%20137l5-2%22%2F%3E%3Ccircle%20cx%3D%2244%22%20cy%3D%2257%22%20r%3D%221.6%22%2F%3E%3Ccircle%20cx%3D%22153%22%20cy%3D%2276%22%20r%3D%221.6%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"); }
+}
 #home .msg:nth-child(2) .bubble,
 #verse .bubble,
 #countdown .bubble,
 #rsvpForm{
-  background-image:radial-gradient(ellipse at center, transparent 55%, var(--hairline) 57%, var(--hairline) 60%, transparent 62%);
-  background-size:34px 46px;
-  background-position:calc(100% - 10px) 10px;
-  background-repeat:no-repeat;
+  background-image:var(--wedding-bubble-pattern);
+  background-size:180px 160px;
+  background-position:12px 14px;
+  background-repeat:repeat;
 }
 .calendar-choices{ border-top:1px solid var(--hairline); }
 .calendar-choices[hidden]{ display:none; }

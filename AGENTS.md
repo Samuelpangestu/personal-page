@@ -257,4 +257,4 @@ warna baru di tempat lain.
 ## Kalender dan motif bubble
 
 - Tombol kalender membuka pilihan Google Calendar (template HTTPS) atau file ICS HTTPS untuk iPhone/aplikasi kalender. File gereja/resepsi terpisah, gabungan berisi dua event dengan UID stabil; jika tanggal/lokasi berubah, perbarui data tombol dan assets/cal/*.ics bersama. Data URI tidak dipakai. Pengguna tetap perlu menyimpan/mengimpor event.
-- Motif sudut halus hanya pada bubble pengantar, ayat, hitung mundur dan RSVP. Jangan menutupi isi atau menambah gerakan dekoratif.
+- Corak doodle berulang bertema cincin, hati, bunga dan konfeti hanya pada bubble pengantar, ayat, hitung mundur dan RSVP; garis samar menyesuaikan tema terang/gelap. Jangan menutupi isi atau menambah gerakan dekoratif.

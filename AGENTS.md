@@ -248,3 +248,8 @@ warna baru di tempat lain.
 - Portrait viewports use the full-width phone layout even when a browser reports desktop hover/pointer capabilities. The framed desktop preview requires a landscape viewport as well as mouse input; do not rely on touch detection alone.
 
 - Android desktop mode can expose a 980px layout on a narrow phone. `syncViewport` compares layout width with screen/outer width on touch portrait phones and sets `--phone-scale`; the phone frame compensates with CSS zoom and inverse dimensions so all chat controls retain a readable size. Normal mobile and desktop stay at scale 1. Re-evaluate on resize; do not infer scaling from visualViewport.scale because keyboard/pinch zoom changes it.
+
+## Musik saat masuk
+
+- Musik dicoba sejak landing page dengan autoplay dan play(); jika diblokir browser, coba lagi pada interaksi pointer/keyboard pertama. Tidak menjanjikan autoplay bersuara tanpa gesture pada semua browser.
+- Tombol jeda milik tamu harus dihormati; interaksi lain maupun membuka undangan tidak boleh memulai ulang setelah tamu memilih jeda. Indikator mengikuti keberhasilan playback.

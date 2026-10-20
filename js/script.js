@@ -312,7 +312,7 @@
   tickClock();
   setInterval(tickClock, 1000);
 
-  // ---------- Music (only after a real user gesture) ----------
+  // ---------- Music: try on entry, retry on the first permitted gesture ----------
   var bgMusic = document.getElementById("bgMusic");
   var musicToggle = document.getElementById("musicToggle");
 
@@ -321,7 +321,9 @@
     musicToggle.setAttribute("aria-pressed", String(playing));
     musicToggle.setAttribute("aria-label", playing ? "Jeda musik latar" : "Putar musik latar");
   }
+  var musicPausedByGuest = false;
   function startMusic() {
+    if (musicPausedByGuest) return;
     var p = bgMusic.play();
     if (p && p.then) {
       p.then(function () { setMusicState(true); }).catch(function () { setMusicState(false); });
@@ -334,8 +336,19 @@
     setMusicState(false);
   }
   musicToggle.addEventListener("click", function () {
-    if (bgMusic.paused) startMusic(); else stopMusic();
+    if (bgMusic.paused) { musicPausedByGuest = false; startMusic(); }
+    else { musicPausedByGuest = true; stopMusic(); }
   });
+
+  function retryMusicOnGesture(event) {
+    if (event.target.closest && event.target.closest("#musicToggle")) return;
+    if (bgMusic.paused) startMusic();
+  }
+  document.addEventListener("pointerdown", retryMusicOnGesture, {passive: true});
+  document.addEventListener("keydown", retryMusicOnGesture);
+  bgMusic.addEventListener("playing", function () { setMusicState(true); });
+  bgMusic.addEventListener("pause", function () { setMusicState(false); });
+  startMusic();
 
   // ---------- Opening flow: lock screen -> chat ----------
   var lockScreen = document.getElementById("lockScreen");

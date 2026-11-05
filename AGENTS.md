@@ -258,3 +258,20 @@ warna baru di tempat lain.
 
 - Tombol kalender membuka pilihan Google Calendar (template HTTPS) atau file ICS HTTPS untuk iPhone/aplikasi kalender. File gereja/resepsi terpisah, gabungan berisi dua event dengan UID stabil; jika tanggal/lokasi berubah, perbarui data tombol dan assets/cal/*.ics bersama. Data URI tidak dipakai. Pengguna tetap perlu menyimpan/mengimpor event.
 - Corak doodle berulang bertema cincin, hati, bunga dan konfeti hanya pada bubble pengantar, ayat, hitung mundur dan RSVP; garis samar menyesuaikan tema terang/gelap. Jangan menutupi isi atau menambah gerakan dekoratif.
+
+## Profil publik di root (2026-11-05)
+
+`index.html` + `profile/` adalah portofolio samuelpgt.com, terpisah dari undangan.
+
+- Urutan: hero (ringkasan karier + 3 bukti + CTA LinkedIn) → Case 01 lintas
+  tim → Case 02 workflow tes → Case 03 AI triage → Experience → Tools and
+  templates (Planner, Checklist, Project index terlipat) → CTA kontak.
+- Header sticky dengan tombol LinkedIn, jadi kontak selalu satu ketukan.
+- Jangan karang metrik. Klaim yang belum dikonfirmasi owner ditandai
+  `TODO(owner)` di komentar HTML, bukan placeholder yang terlihat.
+- Bukti AI dibedakan tiga tingkat: synthetic replay (ilustratif), local
+  workflow tests (44/44, input terkontrol), live model evaluation (belum
+  diukur). Jangan gabungkan atau naikkan statusnya tanpa data.
+- Motion hanya di Case 03: `profile/workflow.js` menyorot node diagram sesuai
+  langkah yang sedang dibaca (`data-step` ↔ `data-stage`). Dengan reduced
+  motion tidak ada highlight; semua tetap terbaca.

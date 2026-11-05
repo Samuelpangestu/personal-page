@@ -12,7 +12,11 @@
   <meta property="og:title" content="Samuel Pangestu G Tobing | Quality Engineering &amp; Test Automation">
   <meta property="og:description" content="Cross-team regression checks, shared test workflows, and AI-assisted test triage with human review.">
   <meta property="og:url" content="https://samuelpgt.com/">
-  <!-- TODO(owner): add og:image (1200×630 PNG) so link previews on LinkedIn/WhatsApp show an image. -->
+  <meta property="og:image" content="https://samuelpgt.com/profile/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Samuel Pangestu G Tobing: quality engineering, test automation, and release decisions.">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="profile/style.css">
   <script src="profile/workflow.js" defer></script>
   <script src="profile/planner.js" defer></script>
@@ -85,13 +89,16 @@
             <div><dt>Release review</dt><dd>Four questions: scope, test evidence, open risks, and the decision with its reason. <a href="#release-checklist">The template is below.</a></dd></div>
           </dl>
 
-          <figure class="journey" aria-labelledby="journey-caption">
+          <figure class="journey" aria-labelledby="journey-caption" data-reveal>
             <p class="label" id="journey-caption">One journey, several owners</p>
-            <ol class="journey-apps">
-              <li><strong>Application A</strong><span>Team A</span></li>
-              <li><strong>Application B</strong><span>Team B</span></li>
-              <li><strong>Application C</strong><span>Team C</span></li>
-            </ol>
+            <div class="journey-track">
+              <ol class="journey-apps">
+                <li><strong>Application A</strong><span>Team A</span></li>
+                <li><strong>Application B</strong><span>Team B</span></li>
+                <li><strong>Application C</strong><span>Team C</span></li>
+              </ol>
+              <span class="journey-dot" aria-hidden="true"></span>
+            </div>
             <p class="journey-handoffs"><span>Handoff checks between applications</span></p>
             <p class="journey-review"><strong>One release review</strong><span>Scope · evidence · risks · decision</span></p>
           </figure>
@@ -102,7 +109,7 @@
         <p class="label">Case study · 02</p>
         <h2 id="case-heading">From a test request to results the team can use</h2>
         <p class="case-intro">When several teams share automated tests, it can be hard to tell what ran and why a check failed. I helped build a workflow that keeps each test request, its status, and its results together.</p>
-        <ol class="status-steps">
+        <ol class="status-steps" data-reveal>
           <li>
             <span class="status">Requested</span>
             <h3>Request a test run</h3>
@@ -201,6 +208,14 @@
     <section id="experience" class="section" aria-labelledby="experience-heading">
       <h2 id="experience-heading">Experience</h2>
       <p class="case-intro">From mobile, API, and performance testing at a consumer investing app to coordinating testing across applications.</p>
+      <figure class="career-chart" data-reveal>
+        <ol class="career-bar">
+          <li data-start="2022-05" data-end="2024-10" style="--months: 29"><span class="seg" aria-hidden="true"></span><strong>Test Engineer</strong><span>Stockbit / Bibit</span></li>
+          <li data-start="2024-10" data-end="2025-10" style="--months: 12"><span class="seg" aria-hidden="true"></span><strong>Senior QE</strong><span>PERURI</span></li>
+          <li data-start="2025-10" data-end="present" style="--months: 13"><span class="seg" aria-hidden="true"></span><strong>Current role</strong><span>PERURI</span></li>
+        </ol>
+        <figcaption class="career-axis"><span>May 2022</span><span>Now · <span data-career-total>4 yr 6 mo</span> in QA</span></figcaption>
+      </figure>
       <ol class="experience-list">
         <!-- TODO(owner): official title for the current role; confirm "Lead QA strategy" wording. -->
         <li><p class="dates">Oct 2025 – present</p><div><h3>Quality Engineering · PERURI</h3><p>Lead QA strategy and coordinate testing across applications.</p></div></li>

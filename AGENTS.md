@@ -275,3 +275,22 @@ warna baru di tempat lain.
 - Motion hanya di Case 03: `profile/workflow.js` menyorot node diagram sesuai
   langkah yang sedang dibaca (`data-step` ↔ `data-stage`). Dengan reduced
   motion tidak ada highlight; semua tetap terbaca.
+- Motion tambahan (career bar, alur Case 01, status Case 02) berjalan sekali
+  lewat `[data-reveal]` + `IntersectionObserver` dan berakhir di keadaan yang
+  sama dengan tampilan statis. Tanpa JS atau reduced motion: langsung final.
+- `profile/og.png` (1200×630) adalah gambar preview link; render ulang dari
+  HTML jika teks hero berubah.
+
+## Deploy dan domain (2026-11-05)
+
+- Satu-satunya Worker untuk samuelpgt.com adalah `personal-page`. Custom
+  Domain dan ketiga route tercatat di `wrangler.jsonc`; wrangler mengganti
+  daftar route dengan isi config setiap deploy, jadi ubah route di sana,
+  bukan di dashboard.
+- Worker lama `samuelpgt-profile` (portofolio statis) sudah dihapus karena
+  route-nya merebut `/` dan `/profile/*`. Jangan deploy Worker lain ke domain
+  ini.
+- `html_handling` = "none": setiap path HTML butuh aturan di `_redirects`
+  (termasuk `/ /index.html 200`), kalau tidak hasilnya 404.
+- Deploy: `npx wrangler deploy` dari checkout yang sama dengan `origin/main`.
+  Default branch GitHub sekarang `main`.

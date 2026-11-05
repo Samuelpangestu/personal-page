@@ -8,5 +8,5 @@
 /weddingsamuelledy/announcement/ /weddingsamuelledy/announcement.html 200
 /weddingsamuelledy /weddingsamuelledy/index.html 200
 /weddingsamuelledy/ /weddingsamuelledy/index.html 200
-/profile /profile/index.html 200
-/profile/ /profile/index.html 200
+/profile / 301
+/profile/ / 301

@@ -55,7 +55,7 @@ application was rejected.
 
 ## TODO before submitting
 
-- [ ] Confirm or replace the "QAPilot" product name (still a placeholder — see `profile/index.html`)
+- [ ] Confirm or replace the "QAPilot" product name (still a placeholder; the pitch page at /profile was removed on 2026-11-05, see git history)
 - [ ] Fill in or leave blank the LinkedIn field above
 - [ ] Decide on the incorporation path (PT Perorangan via OSS, or stay pre-incorporation for this submission)
 - [ ] Open https://samuelpgt.com/profile yourself to verify it renders correctly before putting the link in the form

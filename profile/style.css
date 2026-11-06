@@ -235,6 +235,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; }
   border-radius: 999px;
 }
 .status-steps p { margin-top: .35rem; color: var(--muted); }
+.case-note { max-width: 62ch; margin-top: 1.5rem; color: var(--muted); }
+.case-note strong { color: var(--text); }
 
 /* Case 03: steps + sticky decision map */
 .triage-layout {
@@ -393,7 +395,8 @@ h3 { font-size: 1.0625rem; line-height: 1.4; }
 .tool summary:hover .tool-name { text-decoration: underline; }
 .tool-static { padding: .9rem 0 .9rem 2rem; }
 .tool-desc { margin-block: .2rem .25rem; color: var(--muted); max-width: 62ch; }
-.tool-static a { display: inline-flex; align-items: center; min-height: 44px; }
+.tool-static > a { display: inline-flex; align-items: center; min-height: 44px; }
+.tool-static .project-list { margin-top: .5rem; }
 .tool-body { padding: 0 0 1.5rem 2rem; }
 .tool-body > h3 { margin-top: 1.25rem; font-size: 1rem; }
 .tool-body > h3:first-child { margin-top: 0; }

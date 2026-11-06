@@ -10,7 +10,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2308090a'/%3E%3Cpath d='M9 22l5-5-5-5' fill='none' stroke='%23e4f222' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 22h7' stroke='%23f4f5f1' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Samuel Pangestu G Tobing | Quality Engineering &amp; Test Automation">
-  <meta property="og:description" content="Cross-team regression checks, shared test workflows, and AI-assisted test triage with human review.">
+  <meta property="og:description" content="Cross-team regression for a 14-application integration, shared test automation libraries, and AI-assisted testing with human review.">
   <meta property="og:url" content="https://samuelpgt.com/">
   <meta property="og:image" content="https://samuelpgt.com/profile/og.png">
   <meta property="og:image:width" content="1200">
@@ -40,29 +40,28 @@
       <p class="label">Quality engineering · Test automation · Release decisions</p>
       <h1 id="profile-name">Samuel Pangestu<br>G Tobing</h1>
       <p class="intro">I help software teams decide what to test, automate the checks that repeat, and turn test results into release decisions, including when one user journey spans several teams.</p>
-      <!-- TODO(owner): replace "Quality engineering" with your official title since Oct 2025, and confirm the PERURI description. -->
-      <p class="career">Quality engineering at <strong>PERURI</strong>, Indonesia's state-owned security printing company · in QA since 2022 · previously <strong>Stockbit / Bibit</strong></p>
+      <p class="career">Leading a team of 30 QA engineers at <strong>PERURI (INA Digital)</strong> · in QA since 2022 · previously <strong>Stockbit / Bibit</strong></p>
 
       <ul class="proof" aria-label="Highlights">
         <li>
           <a href="#cross-team">
             <span class="index">01 · Cross-team</span>
-            <strong>Regression checks across applications</strong>
-            <span>Shared checks for journeys that pass through apps owned by different teams.</span>
+            <strong>14 applications, one release review</strong>
+            <span>Superapp integration plus 3 new projects. Post-release incidents down 50%.</span>
           </a>
         </li>
         <li>
           <a href="#test-workflow">
             <span class="index">02 · Automation</span>
-            <strong>One workflow for shared tests</strong>
-            <span>Each test request, its status, and its results kept together.</span>
+            <strong>Shared test core libraries</strong>
+            <span>One foundation for API, web, and mobile tests. 99% of critical journeys automated.</span>
           </a>
         </li>
         <li>
           <a href="#ai-testing">
             <span class="index">03 · AI</span>
-            <strong>Test triage with human review</strong>
-            <span>44/44 local workflow checks, controlled inputs.</span>
+            <strong>AI Agent Speed and test generation</strong>
+            <span>Test creation time down 80%. Triage verified 44/44 locally.</span>
           </a>
         </li>
       </ul>
@@ -77,17 +76,18 @@
 
     <div id="work">
       <section id="cross-team" class="section case-study" aria-labelledby="cross-team-heading">
-        <p class="label">Case study · 01</p>
+        <p class="label">Cross-team regression · Release coordination</p>
         <h2 id="cross-team-heading">One release check for journeys that cross several applications</h2>
         <p class="case-intro">When each team tests only its own application, the handoffs between applications can go unchecked. I coordinate shared regression checks so a release is judged on the whole journey.</p>
 
         <div class="case-layout">
-          <!-- TODO(owner): confirm the approach and review wording, then add scope (number of apps/teams) and one sourced outcome. -->
           <dl class="case-facts">
+            <div><dt>Context</dt><dd>A superapp integration that consolidates 14 standalone applications into one platform, plus 3 new application projects, each built by a squad of 10–20 developers.</dd></div>
             <div><dt>Problem</dt><dd>A user journey passes through applications owned by different teams. Each part can pass its own tests while the journey still fails.</dd></div>
-            <div><dt>My role</dt><dd>Coordinate the shared regression checks across the teams involved and bring the results into one release review.</dd></div>
-            <div><dt>Approach</dt><dd>Map each shared journey end to end and include the handoffs between applications in the regression scope.</dd></div>
+            <div><dt>My role</dt><dd>Lead a team of 30 QA engineers, coordinate shared regression checks across squads, and run one release review.</dd></div>
+            <div><dt>Approach</dt><dd>Map each shared journey end to end, include the handoffs between applications in the regression scope, and use contract testing and service virtualization so squads can test in parallel.</dd></div>
             <div><dt>Release review</dt><dd>Four questions: scope, test evidence, open risks, and the decision with its reason. <a href="#release-checklist">The template is below.</a></dd></div>
+            <div><dt>Outcome</dt><dd>Post-release incidents down 50% through pre-release validation of integrated journeys.</dd></div>
           </dl>
 
           <figure class="journey" aria-labelledby="journey-caption" data-reveal>
@@ -107,32 +107,33 @@
       </section>
 
       <section id="test-workflow" class="section case-study" aria-labelledby="case-heading">
-        <p class="label">Case study · 02</p>
-        <h2 id="case-heading">From a test request to results the team can use</h2>
-        <p class="case-intro">When several teams share automated tests, it can be hard to tell what ran and why a check failed. I helped build a workflow that keeps each test request, its status, and its results together.</p>
+        <p class="label">Test automation · Shared foundation</p>
+        <h2 id="case-heading">One automation foundation every project builds on</h2>
+        <p class="case-intro">When each project builds its own test framework, the same problems get solved many times and results look different everywhere. I built two shared core libraries and the pipeline around them, so every project writes, runs, and reports tests the same way.</p>
         <ol class="status-steps" data-reveal>
           <li>
-            <span class="status">Requested</span>
-            <h3>Request a test run</h3>
-            <p>A team member chooses what to test. The request is queued so the team can see it is waiting to run.</p>
+            <span class="status">Versioned package</span>
+            <h3>Build on a shared core</h3>
+            <p>API Test Core (Java 17, RestAssured, Cucumber) and Web Test Core (TypeScript, Playwright, Cucumber) provide authentication, request and assertion steps, schema validation, multi-environment config, and test data from Google Sheets. Each merge to main publishes a new version.</p>
           </li>
           <li>
             <span class="status">Running</span>
-            <h3>Run the checks</h3>
-            <p>A test runner picks up the request, runs the selected checks, and reports their status.</p>
+            <h3>Run in the pipeline</h3>
+            <p>A <a href="https://github.com/Samuelpangestu/inadigital-qa-library">Jenkins shared library</a> runs the tests, stores the Allure report, and notifies the team in Google Chat, Slack, or Teams.</p>
           </li>
           <li>
             <span class="status">Ready for review</span>
             <h3>Review the results</h3>
-            <p>The team sees which checks passed or failed and uses the run's reports or logs to investigate failures.</p>
+            <p>Teams see which checks passed or failed and track coverage and execution in a <a href="https://github.com/Samuelpangestu/apps-script-automation-tools">QA Test Management System</a> built on Google Sheets.</p>
           </li>
         </ol>
+        <p class="case-note"><strong>Outcome:</strong> 99% of critical user journeys automated with one framework for web, mobile, and API.</p>
       </section>
 
       <section id="ai-testing" class="section case-study" aria-labelledby="ai-testing-heading">
-        <p class="label">Case study · 03</p>
-        <h2 id="ai-testing-heading">AI-assisted test triage, with a person in the loop</h2>
-        <p class="case-intro">When an automated test fails, someone has to work out whether the product, the test, the test data, or the environment broke. I'm building an agent workflow that gathers evidence first and stops for a reviewer before changing what counts as a pass.</p>
+        <p class="label">AI-assisted testing · Human review</p>
+        <h2 id="ai-testing-heading">AI Agent Speed: test triage with a person in the loop</h2>
+        <p class="case-intro">When an automated test fails, someone has to work out whether the product, the test, the test data, or the environment broke. At PERURI (INA Digital) I'm building AI Agent Speed, an agent workflow that gathers evidence first and stops for a reviewer before changing what counts as a pass.</p>
 
         <div class="triage-layout" data-scroll-steps>
           <ol class="triage-steps">
@@ -203,37 +204,54 @@
             <span class="chip chip-open">Not measured yet</span>
           </li>
         </ol>
+
+        <h3 class="evidence-heading">AI-assisted test generation, already in use</h3>
+        <p class="case-note">API Test Core turns PRD documents into Gherkin scenarios through the Gemini API, next to Postman-to-Gherkin and K6 script generators. <strong>Test creation time down 80%.</strong></p>
       </section>
     </div>
 
     <section id="experience" class="section" aria-labelledby="experience-heading">
       <h2 id="experience-heading">Experience</h2>
-      <p class="case-intro">From mobile, API, and performance testing at a consumer investing app to coordinating testing across applications.</p>
+      <p class="case-intro">From mobile, API, and performance testing at a consumer investing app to leading 30 QA engineers across applications.</p>
       <figure class="career-chart" data-reveal>
         <ol class="career-bar">
           <li data-start="2022-05" data-end="2024-10" style="--months: 29"><span class="seg" aria-hidden="true"></span><strong>Test Engineer</strong><span>Stockbit / Bibit</span></li>
           <li data-start="2024-10" data-end="2025-10" style="--months: 12"><span class="seg" aria-hidden="true"></span><strong>Senior QE</strong><span>PERURI</span></li>
-          <li data-start="2025-10" data-end="present" style="--months: 13"><span class="seg" aria-hidden="true"></span><strong>Current role</strong><span>PERURI</span></li>
+          <li data-start="2025-10" data-end="present" style="--months: 13"><span class="seg" aria-hidden="true"></span><strong>Lead QE</strong><span>PERURI</span></li>
         </ol>
         <figcaption class="career-axis"><span>May 2022</span><span>Now · <span data-career-total>4 yr 6 mo</span> in QA</span></figcaption>
       </figure>
       <ol class="experience-list">
-        <!-- TODO(owner): official title for the current role; confirm "Lead QA strategy" wording. -->
-        <li><p class="dates">Oct 2025 – present</p><div><h3>Quality Engineering · PERURI</h3><p>Lead QA strategy and coordinate testing across applications.</p></div></li>
-        <li><p class="dates">Oct 2024 – Oct 2025</p><div><h3>Senior Quality Engineer · PERURI</h3><p>Established QA standards, automated quality gates, and shared test frameworks.</p></div></li>
-        <li><p class="dates">May 2022 – Oct 2024</p><div><h3>Test Engineer · Stockbit / Bibit</h3><p>Built and maintained mobile automation and ran API and performance tests.</p></div></li>
+        <li><p class="dates">Oct 2025 – present</p><div><h3>Lead Quality Engineer · PERURI (INA Digital)</h3><p>Lead 30 QA engineers on a superapp integration of 14 applications plus 3 new projects. Built shared automation core libraries, introduced AI-assisted test generation, and cut post-release incidents by 50%.</p></div></li>
+        <li><p class="dates">Oct 2024 – Oct 2025</p><div><h3>Senior Quality Engineer · PERURI (INA Digital)</h3><p>Led 15 QA engineers. Set QA standards and Jenkins quality gates that cut release cycle time by 50%, and introduced K6 performance testing.</p></div></li>
+        <li><p class="dates">May 2022 – Oct 2024</p><div><h3>Test Engineer · Stockbit / Bibit</h3><p>Built mobile automation with Appium and Cucumber and web automation with Katalon, cutting testing time by 70%. Ran K6 performance tests.</p></div></li>
       </ol>
     </section>
 
     <section id="tools" class="section" aria-labelledby="tools-heading">
-      <p class="label">For QA leads</p>
-      <h2 id="tools-heading">Tools and templates</h2>
+      <p class="label">Initiatives · Tools · Templates</p>
+      <h2 id="tools-heading">Key initiatives</h2>
 
       <div class="tool-list">
+        <div class="tool tool-static">
+          <p class="tool-name">At a glance</p>
+          <dl class="project-list">
+            <div><dt><a href="#ai-testing">AI Agent Speed</a></dt><dd>AI-assisted test triage with human review gates. PERURI (INA Digital).</dd></div>
+            <div><dt>API Test Core and Web Test Core</dt><dd>Shared automation libraries for API and web tests, released as versioned packages. Private.</dd></div>
+            <div><dt>AI-assisted test generation</dt><dd>PRD-to-Gherkin with the Gemini API, plus Postman-to-Gherkin and K6 script generators.</dd></div>
+            <div><dt><a href="https://github.com/Samuelpangestu/performance-test-calculator">Performance Testing Calculator</a></dt><dd>Plans load tests with Little's Law: single-API and end-to-end modes, test levels from 70% to 150%, and k6 instance sizing.</dd></div>
+            <div><dt><a href="https://github.com/Samuelpangestu/performance-test">K6 Performance Test Framework</a></dt><dd>Smoke, load, stress, soak, and breakpoint scenarios with HTML reports.</dd></div>
+            <div><dt><a href="https://github.com/Samuelpangestu/inadigital-qa-library">Jenkins QA Library</a></dt><dd>Pipeline utilities for test runs, Allure reports, report storage, and notifications.</dd></div>
+            <div><dt><a href="https://github.com/Samuelpangestu/apps-script-automation-tools">QA Test Management System</a></dt><dd>Test cases, execution tracking, dashboards, and team KPIs on Google Sheets and Apps Script.</dd></div>
+            <div><dt><a href="https://github.com/Samuelpangestu/qa-document-templates">QA Document Templates</a></dt><dd>Eight templates from test plan to test closure report.</dd></div>
+            <div><dt><a href="/qa-local-recorder-privacy">QA Platform Local Recorder</a></dt><dd>Chrome extension that records browser actions into Playwright drafts for the QA Platform, with entered values redacted before upload.</dd></div>
+          </dl>
+        </div>
+
         <details id="load-test-planner" class="tool">
-          <summary><span class="tool-name">Load Test Planner</span><span class="tool-meta">120 req/s → 20 virtual users</span></summary>
+          <summary><span class="tool-name">Try it: Load Test Planner</span><span class="tool-meta">120 req/s → 20 virtual users</span></summary>
           <div class="tool-body">
-            <p class="planner-intro">Estimate how many virtual users a load generator might need to start a test at your target request rate.</p>
+            <p class="planner-intro">A quick version of the <a href="https://github.com/Samuelpangestu/performance-test-calculator">Performance Testing Calculator</a>. Estimate how many virtual users a load generator might need to start a test at your target request rate.</p>
             <div class="planner-layout">
               <form id="planner-form" hidden>
                 <label for="request-rate">Target requests per second</label>
@@ -257,34 +275,10 @@
 
         <div id="release-checklist" class="tool tool-static">
           <p class="tool-name">Release Readiness Checklist</p>
-          <p class="tool-desc">A template for recording what was tested, what risks remain, and why a release should proceed or wait.</p>
+          <p class="tool-desc">A template for recording what was tested, what risks remain, and why a release should proceed or wait. It complements the <a href="https://github.com/Samuelpangestu/qa-document-templates">eight QA document templates</a>.</p>
           <a href="profile/release-readiness-checklist.md" download>Download the Markdown checklist</a>
         </div>
 
-        <details id="project-index" class="tool">
-          <summary><span class="tool-name">Project index</span><span class="tool-meta">10 projects · 3 areas</span></summary>
-          <div class="tool-body">
-            <h3>Test planning and operations</h3>
-            <dl class="project-list">
-              <div><dt>Browser Test Recording</dt><dd>Captures browser actions as a starting point for writing automated tests.</dd></div>
-              <div><dt>Automated Release Checks</dt><dd>Reuses the same steps to run tests, generate reports, and notify teams when results are ready.</dd></div>
-              <div><dt>Test Coordination Tools</dt><dd>Helps teams organize test cases and track progress with shared spreadsheets and automation.</dd></div>
-            </dl>
-            <h3>Web, API, and mobile testing</h3>
-            <dl class="project-list">
-              <div><dt>Reusable Browser Tests</dt><dd>Shares common browser actions and checks across applications to make test suites easier to maintain.</dd></div>
-              <div><dt>API Test Automation</dt><dd>Uses common request helpers to check how services respond and how they handle errors.</dd></div>
-              <div><dt>Shared Test Setup</dt><dd>Uses the same setup routines for browser and mobile tests that depend on backend services.</dd></div>
-              <div><dt>Mobile Test Automation</dt><dd>Checks common user journeys on Android and iOS with shared scenarios.</dd></div>
-              <div><dt>Role-Based Testing</dt><dd>Checks how common workflows behave for different users, such as staff and administrators.</dd></div>
-            </dl>
-            <h3>Performance testing</h3>
-            <dl class="project-list">
-              <div><dt>Performance Testing Framework</dt><dd>Defines repeatable load scenarios, measures response times and error rates, and reports whether the system meets its performance targets.</dd></div>
-              <div><dt><a href="#load-test-planner">Load Test Planner</a></dt><dd>Estimates how many virtual users a load test needs for a target request rate.</dd></div>
-            </dl>
-          </div>
-        </details>
       </div>
     </section>
   </main>
@@ -292,8 +286,8 @@
   <footer class="site-footer" id="contact">
     <div class="wrap footer-inner">
       <h2>Hiring for quality engineering or test automation?</h2>
-      <!-- TODO(owner): add location and what roles you are open to. -->
-      <p>LinkedIn is the fastest way to reach me.</p>
+      <!-- TODO(owner): add the roles you are open to. -->
+      <p>Based in Bekasi, Indonesia. LinkedIn is the fastest way to reach me.</p>
       <div class="actions">
         <a class="button primary" href="https://www.linkedin.com/in/samuel-pangestu-g-tobing/">View LinkedIn</a>
         <a class="button" href="mailto:samuel@samuelpgt.com">samuel@samuelpgt.com</a>

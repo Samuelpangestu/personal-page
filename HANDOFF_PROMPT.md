@@ -187,17 +187,16 @@ Kirim pertanyaan ini dalam satu pesan, lalu tunggu jawaban saya:
 
 ## 7. Pekerjaan lain yang masih terbuka
 
-Semuanya ditandai `TODO(owner)` di `index.html`:
+Data utama sudah dikonfirmasi owner pada 2026-11-06 dan sudah tampil di
+halaman (lihat `AGENTS.md`, bagian "Profil publik di root"). Yang tersisa,
+ditandai `TODO(owner)` di `index.html`:
 
-- Jabatan resmi untuk peran Oktober 2025 – sekarang (sekarang tertulis
-  "Quality Engineering · PERURI").
-- Konfirmasi frasa "Lead QA strategy" di Experience.
-- Konfirmasi deskripsi "Indonesia's state-owned security printing company".
-- Lingkup dan satu hasil bersumber untuk Case 01.
-- Tombol "Download CV" (taruh PDF di `profile/cv.pdf`).
-- Lokasi dan jenis peran yang saya cari (di footer).
-- Kalau teks hero berubah, render ulang `profile/og.png` (1200×630) dengan
-  gaya yang sama.
+- Tombol "Download CV": owner belum memutuskan apakah CV (berisi nomor
+  telepon) boleh publik. Jangan pasang tanpa izin.
+- Jenis peran yang dicari (footer).
+- Konfirmasi deskripsi synthetic replay di Case 03.
+- Waktu integration testing sebelum → sesudah dan jumlah transaksi Stockbit
+  belum diberikan; jangan tulis angka untuk keduanya.
 
 ## 8. Cara kerja dan verifikasi
 

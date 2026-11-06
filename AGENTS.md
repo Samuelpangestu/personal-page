@@ -281,6 +281,14 @@ warna baru di tempat lain.
 - `profile/og.png` (1200×630) adalah gambar preview link; render ulang dari
   HTML jika teks hero berubah.
 
+- Sejak 2026-11-06 isi halaman diselaraskan dengan CV owner (Nov 2026):
+  angka yang tampil (tim 30 QA, 14 aplikasi + 3 proyek baru, insiden -50%,
+  coverage 99% critical journeys, waktu buat tes -80%, release cycle -50%,
+  testing time Stockbit -70%) dikonfirmasi owner. Employer ditulis
+  "PERURI (INA Digital)". Jabatan "Lead Quality Engineer" hanya di
+  Experience, bukan judul profil. Section terakhir bernama "Key initiatives"
+  dan harus sama dengan bagian Key Initiatives di CV.
+
 ## Deploy dan domain (2026-11-05)
 
 - Satu-satunya Worker untuk samuelpgt.com adalah `personal-page`. Custom

@@ -48,6 +48,10 @@ tersedia, **tanyakan ke saya**, jangan mengarang.
     `_redirects` (contoh: `/ /index.html 200`), kalau tidak hasilnya 404.
   - Jangan pernah deploy Worker lain ke domain ini. Worker lama
     `samuelpgt-profile` sudah dihapus karena route-nya merebut `/`.
+  - Kalau deploy gagal dengan pesan `CLOUDFLARE_API_TOKEN` di lingkungan
+    non-interaktif, jalankan `npx wrangler whoami` dulu (menyegarkan token
+    OAuth). Kalau masih gagal, minta owner menjalankan `npx wrangler login`
+    di terminalnya. Jangan pernah menampilkan atau menulis token.
 
 ## 3. Batasan konten (wajib)
 
@@ -59,6 +63,8 @@ tersedia, **tanyakan ke saya**, jangan mengarang.
 3. Jelaskan pekerjaan lewat masalah, kontribusi, dan hasil. **Jangan menyebut
    nama proyek internal, nama sistem internal, URL privat, atau data klien.**
    Pakai label generik (misalnya "Application A / Team A").
+   Pengecualian yang sudah disetujui owner: nama "AI Agent Speed" dan
+   employer "PERURI (INA Digital)".
 4. Bukti AI punya tiga tingkat yang **tidak boleh digabung atau dinaikkan
    statusnya** tanpa data:
    - Synthetic replay: ilustratif, menunjukkan perilaku, bukan akurasi.
@@ -88,102 +94,84 @@ tersedia, **tanyakan ke saya**, jangan mengarang.
 - Mobile-first: tanpa scroll horizontal di 375px, gutter minimal 16px,
   target sentuh minimal 44px, fokus keyboard terlihat.
 
-## 5. Struktur halaman saat ini
+## 5. Struktur halaman saat ini (per 6 November 2026)
 
 1. Header sticky: Work · AI · Experience · tombol LinkedIn.
-2. Hero: label, nama, satu kalimat nilai, ringkasan karier, tiga kartu
-   bukti yang menautkan ke studi kasus, tombol LinkedIn / See the work /
-   Email me.
-3. Case study · 01: koordinasi regression lintas aplikasi (diagram
-   Application A → B → C → One release review, dengan animasi titik).
-4. Case study · 02: workflow test request (status Requested → Running →
-   Ready for review, dengan animasi status).
-5. Case study · 03: AI-assisted test triage (peta keputusan agent dengan
-   gerbang review manusia, plus blok "What has been verified so far").
-6. Experience: grafik karier proporsional plus tiga peran.
-7. Tools and templates: Load Test Planner (bisa dilipat), Release
-   Readiness Checklist (unduh), Project index (bisa dilipat).
-8. Footer: CTA kontak (LinkedIn, email, GitHub).
+2. Hero: label, nama, satu kalimat nilai, baris karier ("Leading a team of
+   30 QA engineers at PERURI (INA Digital) · in QA since 2022 · previously
+   Stockbit / Bibit"), tiga kartu bukti dengan angka, tombol LinkedIn /
+   See the work / Email me.
+3. `Cross-team regression · Release coordination`: Context, Problem, My role,
+   Approach, Release review, Outcome, plus diagram Application A → B → C →
+   One release review (animasi titik).
+4. `Test automation · Shared foundation`: API Test Core dan Web Test Core →
+   Jenkins QA Library → QA Test Management System (animasi status), plus
+   Outcome 99%.
+5. `AI-assisted testing · Human review`: AI Agent Speed (peta keputusan agent,
+   blok "What has been verified so far") dan blok AI-assisted test generation
+   (Gemini, PRD → Gherkin, -80%).
+6. Experience: grafik karier proporsional plus tiga peran dengan angka.
+7. Key initiatives: daftar 9 inisiatif (sama dengan bagian Key Initiatives di
+   CV owner), Load Test Planner interaktif, Release Readiness Checklist.
+8. Footer: lokasi, CTA kontak (LinkedIn, email, GitHub).
 
-## 6. Tugas utama: buat ketiga studi kasus lebih deskriptif
+Halaman lain di domain yang sama: `/qa-local-recorder-privacy` (privacy
+policy Chrome extension, harus tetap 200 tanpa login) dan undangan di
+`/weddingsamuelledy/` (jangan disentuh).
 
-Saat ini tiap studi kasus terlalu ringkas. Label "Case study · 01/02/03"
-tidak menjelaskan apa-apa, dan pembaca belum bisa melihat keputusan,
-trade-off, maupun cara saya memverifikasi hasil.
+## 6. Tugas utama: lengkapi ketiga studi kasus
 
-### 6.1 Label dan judul
+Label deskriptif dan angka utama sudah terpasang. Yang belum ada adalah
+cerita keputusan dan verifikasi, yang paling dicari QA lead.
 
-Ganti label generik dengan label yang menjelaskan isi. Contoh arah (boleh
-disempurnakan):
+### 6.1 Struktur yang harus dilengkapi
 
-| Sekarang        | Usulan label                                   | Arah judul                                                     |
-| --------------- | ---------------------------------------------- | -------------------------------------------------------------- |
-| Case study · 01 | `Cross-team regression · Release coordination` | One release check for journeys that cross several applications |
-| Case study · 02 | `Test automation · Shared workflow`            | From a test request to results the team can use                |
-| Case study · 03 | `AI-assisted testing · Human review`           | AI-assisted test triage, with a person in the loop             |
+Pakai urutan ini di ketiga studi kasus (pola https://www.antonsten.com/work/):
+Context → Problem → My role → What I did → Decisions and trade-offs →
+How I verified it → Outcome → What I'd do next (opsional). Sekitar 180–260
+kata per studi kasus di luar diagram. Pakai `<dl class="case-facts">` yang
+sudah ada di Case 01 sebagai pola. Pertahankan diagram dan motion.
 
-Kartu bukti di hero dan menu "Work" harus memakai nama yang sama.
+Yang sudah ada:
+- Case 01: Context, Problem, My role, Approach, Release review, Outcome.
+  Belum ada: Decisions and trade-offs, How I verified it.
+- Case 02: intro, tiga langkah, Outcome. Belum ada: Context, My role,
+  Decisions and trade-offs, How I verified it.
+- Case 03: intro, langkah agent, bukti tiga tingkat, blok test generation.
+  Belum ada: My role, Decisions and trade-offs.
 
-### 6.2 Struktur setiap studi kasus
+### 6.2 Fakta yang sudah dikonfirmasi owner
 
-Pakai struktur yang sama di ketiganya, dengan pola mirip
-<https://www.antonsten.com/work/> (singkat, konkret, berurutan):
+- Lead Quality Engineer sejak Okt 2025 di PERURI (INA Digital), memimpin 30
+  QA engineer. Senior Quality Engineer Okt 2024 – Okt 2025, memimpin 15.
+  Test Engineer di Stockbit / Bibit Mei 2022 – Okt 2024.
+- Superapp integration: 14 aplikasi standalone plus 3 proyek aplikasi baru,
+  squad 10–20 developer per aplikasi. Contract testing dan service
+  virtualization.
+- Angka: insiden pasca-rilis -50%, 99% critical user journeys otomatis,
+  waktu membuat tes -80% (AI-assisted generation), release cycle -50%
+  (Senior QE), testing time di Stockbit -70%.
+- Repo pendukung (cek README sebelum menulis): `api-test-core` dan
+  `web-test-core` (privat), `inadigital-qa-library`,
+  `apps-script-automation-tools`, `qa-document-templates`,
+  `performance-test-calculator`, `performance-test` di
+  github.com/Samuelpangestu. Generator tes memakai Gemini API.
+- AI Agent Speed adalah proyek di PERURI (INA Digital). Bukti verifikasi
+  tetap tiga tingkat (bagian 3).
 
-1. **Context**: satu atau dua kalimat. Tim atau sistem seperti apa (generik),
-   siapa yang terdampak, kenapa ini penting.
-2. **Problem**: apa yang salah atau berisiko sebelum saya terlibat. Gunakan
-   gejala yang bisa dibayangkan recruiter.
-3. **My role**: apa yang saya pegang dan apa yang dikerjakan orang lain.
-   Bedakan "I built", "I led", dan "I helped" secara jujur.
-4. **What I did**: tiga sampai lima langkah konkret, masing-masing satu
-   kalimat yang diawali kata kerja.
-5. **Decisions and trade-offs**: dua atau tiga keputusan, masing-masing
-   dengan alasan dan apa yang dikorbankan.
-6. **How I verified it**: bagaimana saya tahu hasilnya benar. Ini bagian
-   terpenting untuk QA lead.
-7. **Outcome**: hasil yang terukur **hanya jika saya memberi data**. Kalau
-   belum ada, tulis hasil kualitatif yang bisa dipertanggungjawabkan, lalu
-   tambahkan `TODO(owner)` untuk angka.
-8. **What I'd do next** (opsional, satu kalimat): menunjukkan cara berpikir.
+### 6.3 Pertanyaan yang wajib kamu ajukan sebelum menulis
 
-Batas panjang: sekitar 180–260 kata per studi kasus di luar diagram. Bagian
-3–7 boleh memakai `<dl>` dua kolom di desktop dan satu kolom di mobile,
-seperti `.case-facts` yang sudah ada. Diagram dan motion yang sudah ada
-dipertahankan; ubah hanya kalau isinya berubah.
+Kirim dalam satu pesan, lalu tunggu jawaban:
 
-### 6.3 Fakta yang sudah boleh dipakai
-
-- Case 01: saya mengoordinasikan shared regression checks untuk journey yang
-  melewati beberapa aplikasi milik tim berbeda, dan menyatukan hasilnya ke
-  satu release review berbasis empat pertanyaan (scope, test evidence, open
-  risks, decision dengan alasannya). Template-nya ada di
-  `profile/release-readiness-checklist.md`.
-- Case 02: saya ikut membangun workflow yang menyimpan setiap test request,
-  statusnya, dan hasilnya di satu tempat (request diantrikan, test runner
-  menjalankan checks, tim meninjau hasil lewat report atau log).
-- Case 03: agent mengumpulkan bukti (trace, log, request ID), mengklasifikasi
-  kegagalan (produk, tes, data tes, atau environment), boleh memulihkan data
-  tes dan rerun, boleh mengusulkan perbaikan locator, dan **wajib berhenti
-  untuk reviewer** sebelum mengubah apa yang dianggap lulus. Kalau bukti
-  kurang, agent eskalasi tanpa menebak penyebab. Bukti verifikasi mengikuti
-  tiga tingkat di bagian 3.
-
-### 6.4 Pertanyaan yang wajib kamu ajukan ke saya sebelum menulis
-
-Kirim pertanyaan ini dalam satu pesan, lalu tunggu jawaban saya:
-
-- Case 01: berapa aplikasi dan tim yang terlibat? Berapa sering release
-  review berjalan? Apa satu masalah nyata yang tertangkap di serah-terima
-  antaraplikasi? Apakah ada angka sebelum dan sesudah (misalnya defect
-  lintas aplikasi yang lolos ke produksi)?
-- Case 02: bagian mana yang saya bangun sendiri dan mana yang dibangun orang
-  lain? Berapa tim yang memakai workflow ini? Apa yang berubah bagi tim
-  (waktu investigasi, kejelasan status, jumlah run)?
-- Case 03: apakah sudah dipakai di pipeline nyata atau masih prototipe lokal?
-  Keputusan desain apa yang paling penting bagi saya? Apa rencana evaluasi
-  live-nya?
-- Umum: jabatan resmi sejak Oktober 2025, deskripsi singkat PERURI yang
-  saya setujui, dan apakah CV PDF sudah tersedia.
+- Untuk tiap studi kasus: dua keputusan terpenting dan alasannya, apa yang
+  dikorbankan, dan bagaimana hasilnya diverifikasi.
+- Case 01: waktu integration testing sebelum → sesudah (owner pernah menjawab
+  "99%", artinya belum jelas). Satu contoh masalah nyata yang tertangkap di
+  serah-terima antaraplikasi.
+- Case 02: bagian mana dari library yang dibangun sendiri dan mana bersama
+  tim; berapa project yang memakainya.
+- Case 03: apakah AI Agent Speed sudah dipakai di pipeline nyata atau masih
+  lokal; rencana evaluasi live.
 
 ## 7. Pekerjaan lain yang masih terbuka
 

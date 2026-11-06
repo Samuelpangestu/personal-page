@@ -14,3 +14,4 @@ worker.js
 wrangler.jsonc
 scripts
 google-apps-script
+HANDOFF_PROMPT.md

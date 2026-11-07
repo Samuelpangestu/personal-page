@@ -251,8 +251,9 @@ Yang tersisa:
 - Detail tugas QA Analyst Megaxus Nov 2019–Apr 2022 — detail Game QA
   dari CV 2022 owner sudah dipakai; detail Analyst sendiri belum ada.
 - Owner perlu memasukkan https://samuelpgt.com ke LinkedIn Post Inspector
-  agar preview `og.png` diperbarui. Hero berubah ("in QA since 2013"),
-  jadi `profile/og.png` perlu di-render ulang dari HTML.
+  agar preview `og.png` diperbarui. `profile/og.png` SUDAH di-render ulang
+  7 Nov 2026 dari teks hero saat ini (intro persis + baris karier 30 QA,
+  sejak 2013), desain kartu sama seperti sebelumnya.
 - Verifikasi 375px/1280px + reduced-motion SUDAH dilakukan 7 Nov 2026
   dengan Playwright di halaman hasil edit: tanpa scroll horizontal,
   tanpa error konsol, konten tampil penuh di reduced-motion. Satu bug

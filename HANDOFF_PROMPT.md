@@ -94,7 +94,7 @@ tersedia, **tanyakan ke saya**, jangan mengarang.
 - Mobile-first: tanpa scroll horizontal di 375px, gutter minimal 16px,
   target sentuh minimal 44px, fokus keyboard terlihat.
 
-## 5. Struktur halaman saat ini (per 6 November 2026)
+## 5. Struktur halaman saat ini (per 7 November 2026)
 
 1. Header sticky: Work · AI · Experience · tombol LinkedIn.
 2. Hero: label, nama, satu kalimat nilai, baris karier ("Leading a team of
@@ -173,20 +173,50 @@ Kirim dalam satu pesan, lalu tunggu jawaban:
 - Case 03: apakah AI Agent Speed sudah dipakai di pipeline nyata atau masih
   lokal; rencana evaluasi live.
 
-## 7. Pekerjaan lain yang masih terbuka
+## 7. CV (dokumen privat, harus selaras dengan halaman)
+
+- File: `~/Documents/Samuel/Samuel Pangestu G Tobing - CV (Nov 2026).docx`
+  dan `.pdf`. Sumbernya `~/Documents/Samuel/cv-source/build.js` (docx-js,
+  A4, 2 halaman); cara build ada di `README.md` di folder yang sama.
+- **Jangan pernah menaruh CV atau build.js di repo ini.** Repo publik dan
+  seluruh folder di-serve oleh wrangler; CV memuat nomor telepon.
+- Headline CV umum: "Quality Engineering | Test Automation | Release
+  Quality | ISTQB CTFL". Jabatan resmi muncul di Experience.
+- Bagian "Key Initiatives" di CV dan section "Key initiatives" di halaman
+  harus berisi daftar yang sama (9 item, termasuk QA Platform Local
+  Recorder). Kalau satu diubah, ubah yang lain.
+- Angka di CV sama dengan bagian 6.2. Skill hanya yang terbukti di
+  pengalaman atau repo; daftar skill yang dihapus dari CV lama ada di
+  riwayat percakapan owner, tanyakan sebelum menambah lagi.
+
+## 8. Halaman privacy policy Chrome extension
+
+- `qa-local-recorder-privacy.html`, route `/qa-local-recorder-privacy`
+  (dan versi dengan `/`) di `_redirects`. Dirujuk oleh listing Chrome Web
+  Store QA Platform Local Recorder v2.
+- Harus selalu HTTP 200 tanpa login. Kontak: samuel.pangestu.gonggom@gmail.com.
+- Kalau isi kebijakan berubah, perbarui tanggal "Last updated" dan versi
+  extension yang disebut. **Jangan mengubah apa pun di Chrome Web Store.**
+
+## 9. Pekerjaan lain yang masih terbuka
 
 Data utama sudah dikonfirmasi owner pada 2026-11-06 dan sudah tampil di
-halaman (lihat `AGENTS.md`, bagian "Profil publik di root"). Yang tersisa,
-ditandai `TODO(owner)` di `index.html`:
+halaman serta CV. Yang tersisa:
 
-- Tombol "Download CV": owner belum memutuskan apakah CV (berisi nomor
-  telepon) boleh publik. Jangan pasang tanpa izin.
-- Jenis peran yang dicari (footer).
-- Konfirmasi deskripsi synthetic replay di Case 03.
+- Tombol "Download CV" (`TODO(owner)` di `index.html`): owner belum
+  memutuskan. Opsi yang disarankan: PDF khusus publik tanpa nomor telepon.
+  Jangan pasang tanpa izin.
+- Jenis peran yang dicari, untuk footer (`TODO(owner)`).
+- Konfirmasi deskripsi synthetic replay di Case 03 (`TODO(owner)`).
 - Waktu integration testing sebelum → sesudah dan jumlah transaksi Stockbit
-  belum diberikan; jangan tulis angka untuk keduanya.
+  per hari belum diberikan; jangan tulis angka untuk keduanya di halaman
+  maupun CV.
+- README publik `apps-script-automation-tools` menyebut nama proyek internal
+  (SIPGN, INAGOV, e-Meterai). Tanyakan owner apakah perlu disamarkan.
+- Owner perlu memasukkan https://samuelpgt.com ke LinkedIn Post Inspector
+  agar preview `og.png` diperbarui.
 
-## 8. Cara kerja dan verifikasi
+## 10. Cara kerja dan verifikasi
 
 1. Mulai dari `git pull` di `main`. Jangan menyentuh area undangan.
 2. Pisahkan commit per perubahan dengan pesan yang jelas.
@@ -198,8 +228,10 @@ ditandai `TODO(owner)` di `index.html`:
      console, jangan dimasukkan ke repo);
    - Load Test Planner dan semua `<details>` masih berfungsi.
 4. Setelah deploy, cek `https://samuelpgt.com/` dan file di `/profile/`
-   sama persis dengan repo, `/profile` mengarah ke `/`, dan file privat
-   (`AGENTS.md`, `worker.js`, `.git/config`) tetap 404.
+   sama persis dengan repo, `/profile` mengarah ke `/`,
+   `/qa-local-recorder-privacy` tetap 200, undangan `/weddingsamuelledy/`
+   tetap 200, dan file privat (`AGENTS.md`, `HANDOFF_PROMPT.md`,
+   `worker.js`, `.git/config`) tetap 404.
 5. Perbarui bagian "Profil publik di root" di `AGENTS.md` kalau ada keputusan
    baru.
 6. Di akhir, laporkan: apa yang berubah, apa yang sudah dicek, apa yang belum

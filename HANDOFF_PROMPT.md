@@ -142,9 +142,17 @@ Yang sudah ada:
 
 ### 6.2 Fakta yang sudah dikonfirmasi owner
 
-- Lead Quality Engineer sejak Okt 2025 di PERURI (INA Digital), memimpin 30
-  QA engineer. Senior Quality Engineer Okt 2024 – Okt 2025, memimpin 15.
-  Test Engineer di Stockbit / Bibit Mei 2022 – Okt 2024.
+- Lead Quality Engineer sejak Jan 2025 di PERURI (INA Digital).
+  Senior Quality Engineer Okt 2024 – Jan 2025. Test Engineer di
+  Stockbit / Bibit Mei 2022 – Okt 2024. Sebelum itu di Megaxus
+  Infotech: Game Quality Assurance / Tester Feb 2013 – Nov 2019,
+  Quality Assurance Analyst Nov 2019 – Apr 2022 (detail tugas
+  Analyst belum tersedia — jangan mengarang). QA sejak Feb 2013.
+- KONFLIK ANGKA TIM (belum terselesaikan, 7 Nov 2026): LinkedIn
+  menyebut tim Lead 20 dan Senior 13; konfirmasi owner sebelumnya
+  menyebut 30 dan 15. Klarifikasi konteks/periode sebelum memakai
+  angka tim sebagai klaim utama. Sementara ini angka tim dihapus
+  dari hero, profil, dan bullet peran di halaman dan CV.
 - Superapp integration: 14 aplikasi standalone plus 3 proyek aplikasi baru,
   squad 10–20 developer per aplikasi. Contract testing dan service
   virtualization.
@@ -201,20 +209,43 @@ Kirim dalam satu pesan, lalu tunggu jawaban:
 ## 9. Pekerjaan lain yang masih terbuka
 
 Data utama sudah dikonfirmasi owner pada 2026-11-06 dan sudah tampil di
-halaman serta CV. Yang tersisa:
+halaman serta CV. Koreksi 2026-11-07: timeline karier diperbaiki (QA sejak
+Feb 2013, Megaxus 2013–2022, Senior Okt 2024–Jan 2025, Lead sejak Jan
+2025) dan angka tim dihapus sementara karena konflik LinkedIn (20/13)
+vs konfirmasi lama (30/15). Update 7 Nov 2026 (owner approved):
+- Jabatan Megaxus Nov 2019–Apr 2022: pakai "Quality Assurance Analyst".
+- Lead mulai Jan 2025 (dikonfirmasi). Angka tim tetap belum dijawab —
+  tetap tidak dipakai sebagai klaim utama.
+- Integration testing ~2 minggu → ~3 hari dipakai di Case 01 dengan
+  penjelasan mekanismenya (squad menguji paralel), bukan sebagai
+  persentase mentah.
+- Selenium di Stockbit hanya kursus — dihapus dari bullet Stockbit
+  (diganti Katalon); Selenium tetap untuk framework PERURI + sertifikat
+  kursus Selenium IDE 2022.
+- ISTQB CTFL 2025 dikonfirmasi.
+- Studi kasus dilengkapi Decisions and trade-offs + How I verified it
+  dari fakta yang sudah dikonfirmasi. Yang masih TODO(owner): satu
+  contoh bug handover nyata (Case 01), bagian library solo vs tim +
+  jumlah project pemakai (Case 02), status pipeline nyata + rencana
+  evaluasi live AI Agent Speed (Case 03).
+- Tombol "Download CV" terpasang: profile/cv.pdf (PDF publik tanpa
+  nomor telepon). Footer: "Open to Senior / Lead Quality Engineer roles."
+- Sanitasi nama internal di repo publik: disetujui owner 7 Nov 2026;
+  patch disiapkan terpisah (lihat SANITIZE_REPORT.md) — butuh push
+  owner karena tidak ada akses GitHub dari VM ini.
+Yang tersisa:
 
-- Tombol "Download CV" (`TODO(owner)` di `index.html`): owner belum
-  memutuskan. Opsi yang disarankan: PDF khusus publik tanpa nomor telepon.
-  Jangan pasang tanpa izin.
-- Jenis peran yang dicari, untuk footer (`TODO(owner)`).
+- Konflik angka tim (12 vs 20 vs 30; Senior 13 vs 15) — butuh klarifikasi owner.
+- Detail tugas QA Analyst Megaxus Nov 2019–Apr 2022 — belum tersedia.
+- Keputusan, trade-off, dan verifikasi ketiga studi kasus (§6.3) —
+  sudah dilengkapi 7 Nov 2026 dari fakta yang dikonfirmasi; tersisa
+  TODO(owner) spesifik di komentar HTML: contoh bug handover nyata,
+  solo vs tim + jumlah project, status pipeline nyata AI Agent Speed.
+
 - Konfirmasi deskripsi synthetic replay di Case 03 (`TODO(owner)`).
-- Waktu integration testing sebelum → sesudah dan jumlah transaksi Stockbit
-  per hari belum diberikan; jangan tulis angka untuk keduanya di halaman
-  maupun CV.
-- README publik `apps-script-automation-tools` menyebut nama proyek internal
-  (SIPGN, INAGOV, e-Meterai). Tanyakan owner apakah perlu disamarkan.
 - Owner perlu memasukkan https://samuelpgt.com ke LinkedIn Post Inspector
-  agar preview `og.png` diperbarui.
+  agar preview `og.png` diperbarui. Hero berubah ("in QA since 2013"),
+  jadi `profile/og.png` perlu di-render ulang dari HTML.
 
 ## 10. Cara kerja dan verifikasi
 

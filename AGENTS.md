@@ -282,12 +282,20 @@ warna baru di tempat lain.
   HTML jika teks hero berubah.
 
 - Sejak 2026-11-06 isi halaman diselaraskan dengan CV owner (Nov 2026):
-  angka yang tampil (tim 30 QA, 14 aplikasi + 3 proyek baru, insiden -50%,
+  angka yang tampil (14 aplikasi + 3 proyek baru, insiden -50%,
   coverage 99% critical journeys, waktu buat tes -80%, release cycle -50%,
   testing time Stockbit -70%) dikonfirmasi owner. Employer ditulis
   "PERURI (INA Digital)". Jabatan "Lead Quality Engineer" hanya di
   Experience, bukan judul profil. Section terakhir bernama "Key initiatives"
   dan harus sama dengan bagian Key Initiatives di CV.
+- Koreksi 2026-11-07: riwayat karier yang benar adalah QA sejak Feb 2013
+  (Megaxus Infotech: Game QA Feb 2013–Nov 2019, QA Analyst Nov 2019–Apr
+  2022), Stockbit / Bibit Mei 2022–Okt 2024, Senior QE Okt 2024–Jan 2025,
+  Lead QE sejak Jan 2025. Versi lama halaman ("in QA since 2022", Lead
+  sejak Okt 2025, Senior sampai Okt 2025, tanpa Megaxus) sudah diperbaiki.
+  Angka tim MASIH KONFLIK dan tidak dipakai sebagai klaim utama sampai
+  owner mengklarifikasi: LinkedIn menyebut Lead 20 / Senior 13,
+  konfirmasi lama menyebut 30 / 15. Lihat TODO(owner) di index.html.
 
 ## Deploy dan domain (2026-11-05)
 

@@ -447,7 +447,7 @@ h3 { font-size: 1.0625rem; line-height: 1.4; }
 /* Career timeline: segment width = months in role (set by workflow.js) */
 .career-chart { margin-top: 1.75rem; }
 .career-bar { display: flex; gap: 3px; }
-.career-bar li { flex: var(--months) 1 0; min-width: 0; }
+.career-bar li { flex: var(--months) 1 0; min-width: 3rem; }
 .career-bar .seg {
   display: block;
   height: .5rem;
@@ -492,8 +492,10 @@ h3 { font-size: 1.0625rem; line-height: 1.4; }
    same state the static page shows. */
 .motion .career-chart:not(.in-view) .seg { transform: scaleX(0); }
 .motion .career-chart.in-view .seg { transition: transform 700ms cubic-bezier(.2, .7, .2, 1); }
-.motion .career-chart.in-view li:nth-child(2) .seg { transition-delay: 600ms; }
-.motion .career-chart.in-view li:nth-child(3) .seg { transition-delay: 1100ms; }
+.motion .career-chart.in-view li:nth-child(2) .seg { transition-delay: 250ms; }
+.motion .career-chart.in-view li:nth-child(3) .seg { transition-delay: 500ms; }
+.motion .career-chart.in-view li:nth-child(4) .seg { transition-delay: 750ms; }
+.motion .career-chart.in-view li:nth-child(5) .seg { transition-delay: 1000ms; }
 
 .motion .journey .journey-dot {
   display: block;

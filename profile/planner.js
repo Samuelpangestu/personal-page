@@ -1,6 +1,7 @@
 const planner = document.querySelector("#planner-form");
 const estimate = document.querySelector("#planner-value");
 const explanation = document.querySelector("#planner-calculation");
+const summaryMeta = document.querySelector("#load-test-planner .tool-meta");
 const format = new Intl.NumberFormat("en", { maximumSignificantDigits: 6 });
 const wholeNumber = new Intl.NumberFormat("en");
 
@@ -16,6 +17,9 @@ planner.addEventListener("submit", (event) => {
   const unit = virtualUsers === 1 ? "virtual user" : "virtual users";
 
   estimate.textContent = `${wholeNumber.format(virtualUsers)} ${unit}`;
+  if (summaryMeta) {
+    summaryMeta.textContent = `${format.format(requestRate)} req/s → ${wholeNumber.format(virtualUsers)} ${unit}`;
+  }
   explanation.textContent = `${format.format(requestRate)} requests/s ÷ ${format.format(requestsPerIteration)} requests per iteration = ${format.format(iterationRate)} iterations/s. At ${format.format(duration)} seconds per iteration, estimated concurrency is ${format.format(concurrency)}, rounded up to size the test.`;
 });
 

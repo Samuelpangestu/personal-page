@@ -1,0 +1,25 @@
+:root { color-scheme: light; font: 16px/1.6 system-ui, sans-serif; color: #1d3028; background: #f5f7f4; }
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; }
+main { max-width: 38rem; margin: 6vh auto; padding: 1.5rem; }
+h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); line-height: 1.2; margin: .6rem 0; }
+.eyebrow { font-size: .875rem; color: #486153; }
+.intro { font-size: 1.125rem; }
+.scope, .footnote, details p { color: #4b6055; font-size: .875rem; }
+#status { min-height: 1.6em; overflow-wrap: anywhere; }
+#status[data-error="true"] { color: #982b24; }
+button { min-height: 46px; border: 1px solid #27553e; border-radius: 6px; background: #27553e; color: white; padding: .65rem 1rem; font: inherit; cursor: pointer; }
+button:disabled { opacity: .6; cursor: wait; }
+button.secondary { color: #27553e; background: transparent; }
+button:focus-visible, input:focus-visible, summary:focus-visible { outline: 3px solid #a35613; outline-offset: 4px; }
+#google { width: 100%; }
+details { border-top: 1px solid #c7d2ca; margin-top: 1.5rem; padding-top: .75rem; }
+summary { padding: .5rem 0; cursor: pointer; }
+form { display: grid; gap: .6rem; padding-top: 1rem; }
+input { width: 100%; min-height: 46px; font: inherit; border: 1px solid #718b7b; border-radius: 4px; padding: .5rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1rem; }
+dl { display: grid; grid-template-columns: minmax(0, 1fr); font-size: .875rem; }
+dt { font-weight: 600; margin-top: .7rem; }
+dd { margin: 0; overflow-wrap: anywhere; }
+.footnote { margin-top: 2rem; }

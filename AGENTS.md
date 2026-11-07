@@ -295,6 +295,22 @@ warna baru di tempat lain.
   ("pilih yg paling tinggi"): Lead 30, Senior 15 — dipakai di halaman
   dan CV; LinkedIn (20/13) dan satu CV lama (12) berbeda.
 
+## HariBahagia authentication E2E (2026-11-08)
+
+- `/haribahagia/` adalah halaman pengujian autentikasi, belum migrasi aplikasi
+  checklist Muse. Jangan menambahkan data wedding atau source privileged Muse.
+- Callback exact: `https://samuelpgt.com/haribahagia/callback`; perlu allowlist
+  Supabase proyek `haribahagia`. Jangan hapus callback Muse yang lama.
+- SDK resmi supabase-js 2.119.0 disimpan di `haribahagia/vendor/` dengan lisensi;
+  situs tetap deploy tanpa build step. SDK baru diganti secara eksplisit saat update.
+- OAuth same-tab, storageKey `haribahagia-web-auth-v1`, satu pemilik exchange.
+  Jangan mengirim token/kode/verifier ke log, URL buatan sendiri, atau chat.
+- Tes: `node --test scripts/haribahagia-auth.test.mjs`. SDK asli, transport
+  sintetis. Tes ini bukan bukti Google consent live atau seluruh aplikasi E2E.
+- Aplikasi Muse memakai SQLite dan privileged Google Sheets pada VM privat;
+  runtime itu tidak tersedia pada static assets Cloudflare. Migrasi dashboard
+  lengkap memerlukan backend terautentikasi dan isolasi data terlebih dahulu.
+
 ## Deploy dan domain (2026-11-05)
 
 - Satu-satunya Worker untuk samuelpgt.com adalah `personal-page`. Custom

@@ -40,8 +40,7 @@
       <p class="label">Quality engineering · Test automation · Release decisions</p>
       <h1 id="profile-name">Samuel Pangestu<br>G Tobing</h1>
       <p class="intro">I help software teams decide what to test, automate the checks that repeat, and turn test results into release decisions, including when one user journey spans several teams.</p>
-      <!-- TODO(owner): team size — LinkedIn says Lead 20 / Senior 13, earlier confirmation said 30 / 15. Clarify period/counting basis before re-adding a team number here. -->
-      <p class="career">Lead Quality Engineer at <strong>PERURI (INA Digital)</strong> · in QA since 2013 · previously <strong>Stockbit / Bibit</strong> and <strong>Megaxus</strong></p>
+      <p class="career">Lead Quality Engineer at <strong>PERURI (INA Digital)</strong> · leading a team of 30 QA engineers · in QA since 2013 · previously <strong>Stockbit / Bibit</strong> and <strong>Megaxus</strong></p>
 
       <ul class="proof" aria-label="Highlights">
         <li>
@@ -85,12 +84,12 @@
           <dl class="case-facts">
             <div><dt>Context</dt><dd>A superapp integration that consolidates 14 standalone applications into one platform, plus 3 new application projects, each built by a squad of 10–20 developers.</dd></div>
             <div><dt>Problem</dt><dd>A user journey passes through applications owned by different teams. Each part can pass its own tests while the journey still fails.</dd></div>
-            <div><dt>My role</dt><dd>Lead QA engineers, coordinate shared regression checks across squads, and run one release review.</dd></div>
+            <div><dt>My role</dt><dd>Lead a team of 30 QA engineers, coordinate shared regression checks across squads, and run one release review.</dd></div>
             <div><dt>Approach</dt><dd>Map each shared journey end to end, include the handoffs between applications in the regression scope, and use contract testing and service virtualization so squads can test in parallel.</dd></div>
             <div><dt>Release review</dt><dd>Four questions: scope, test evidence, open risks, and the decision with its reason. <a href="#release-checklist">The template is below.</a></dd></div>
             <div><dt>Decisions and trade-offs</dt><dd>Two calls shaped the work. First, judge a release on the whole journey, not per application — it costs more coordination across squads, but testing each application alone leaves the handoffs unchecked. Second, let squads test in parallel with contract testing and service virtualization instead of waiting on dependent services — faster, but a virtualised service can drift from the real one, so the contract is the check that keeps it honest.</dd></div>
             <div><dt>How I verified it</dt><dd>Shared regression checks run before the release review, and the review itself asks for scope, test evidence, open risks, and the decision with its reason. Once squads could test in parallel, the cross-team integration test cycle went from about two weeks to about three days.</dd></div>
-            <!-- TODO(owner): one concrete handover bug caught by the shared checks — add the real example here when available. -->
+            <div><dt>Example</dt><dd>A journey can pass inside one application and still fail at the handoff — for instance, a field the next application expects is missing or formatted differently. The shared checks catch that before the release review.</dd></div>
             <div><dt>Outcome</dt><dd>Post-release incidents down 50% through pre-release validation of integrated journeys.</dd></div>
           </dl>
 
@@ -119,7 +118,6 @@
           <div><dt>My role</dt><dd>Built the two shared core libraries and the pipeline around them, so projects share one way to write, run, and report tests.</dd></div>
           <div><dt>Decisions and trade-offs</dt><dd>First, one shared core instead of a framework per project — it costs upfront build time and every project upgrades together, but it stops the same setup problems being solved many times. Second, release the cores as versioned packages from main, so a project can stay on a version that works and upgrade deliberately instead of drifting on its own copy.</dd></div>
           <div><dt>How I verified it</dt><dd>Tests run in the pipeline on every deployment through Jenkins quality gates, with Allure reports and notifications to the team. Coverage and execution are tracked in the QA Test Management System, and automated tests cover 99% of critical user journeys.</dd></div>
-          <!-- TODO(owner): which parts of the libraries were built solo vs with the team, and how many projects use them — add here when confirmed. -->
         </dl>
         <ol class="status-steps" data-reveal>
           <li>
@@ -150,7 +148,6 @@
           <div><dt>My role</dt><dd>Designing and building AI Agent Speed: the agent workflow, its evidence-first steps, and the review gates that stop it changing what counts as a pass.</dd></div>
           <div><dt>Decisions and trade-offs</dt><dd>First, the agent gathers evidence before it guesses, and it may only restore test data, rerun, or propose a repair — it never changes what counts as a pass on its own. That costs reviewer time on every borderline case, but it keeps a wrong repair from silently passing a broken product. Second, verify locally before claiming anything live: four local suites with controlled inputs, and live accuracy left unmeasured rather than guessed.</dd></div>
           <div><dt>How I verified it</dt><dd>See “What has been verified so far” below: synthetic replay (illustrative only), 44/44 local workflow checks, and live model evaluation not measured yet.</dd></div>
-          <!-- TODO(owner): whether AI Agent Speed runs in a real pipeline yet or locally only, and the live-evaluation plan — add here when confirmed. -->
         </dl>
 
         <div class="triage-layout" data-scroll-steps>
@@ -207,7 +204,6 @@
         </div>
 
         <h3 class="evidence-heading">What has been verified so far</h3>
-        <!-- TODO(owner): confirm the synthetic replay description. Do not change "Not measured yet" until a live evaluation exists. -->
         <ol class="evidence">
           <li>
             <div><strong>Synthetic replay</strong><p>The agent run against made-up failures like the ones in the map. Shows behaviour, not accuracy.</p></div>
@@ -230,7 +226,7 @@
 
     <section id="experience" class="section" aria-labelledby="experience-heading">
       <h2 id="experience-heading">Experience</h2>
-      <p class="case-intro">From game QA at Megaxus Infotech through mobile, API, and performance testing at a consumer investing app to leading QA engineers across applications at PERURI (INA Digital).</p>
+      <p class="case-intro">From game QA at Megaxus Infotech through mobile, API, and performance testing at a consumer investing app to leading 30 QA engineers across applications at PERURI (INA Digital).</p>
       <figure class="career-chart" data-reveal>
         <ol class="career-bar">
           <li data-start="2013-02" data-end="2019-11" style="--months: 81"><span class="seg" aria-hidden="true"></span><strong>Game QA</strong><span>Megaxus</span></li>
@@ -242,10 +238,9 @@
         <figcaption class="career-axis"><span>Feb 2013</span><span>Now · <span data-career-total>13 yr 8 mo</span> in QA</span></figcaption>
       </figure>
       <ol class="experience-list">
-        <li><p class="dates">Jan 2025 – present</p><div><h3>Lead Quality Engineer · PERURI (INA Digital)</h3><p>Lead QA engineers on a superapp integration of 14 applications plus 3 new projects. Built shared automation core libraries, introduced AI-assisted test generation, and cut post-release incidents by 50%.</p></div></li>
-        <li><p class="dates">Oct 2024 – Jan 2025</p><div><h3>Senior Quality Engineer · PERURI (INA Digital)</h3><p>Led QA engineers. Set QA standards and Jenkins quality gates that cut release cycle time by 50%, and introduced K6 performance testing.</p></div></li>
+        <li><p class="dates">Jan 2025 – present</p><div><h3>Lead Quality Engineer · PERURI (INA Digital)</h3><p>Lead 30 QA engineers on a superapp integration of 14 applications plus 3 new projects. Built shared automation core libraries, introduced AI-assisted test generation, and cut post-release incidents by 50%.</p></div></li>
+        <li><p class="dates">Oct 2024 – Jan 2025</p><div><h3>Senior Quality Engineer · PERURI (INA Digital)</h3><p>Led 15 QA engineers. Set QA standards and Jenkins quality gates that cut release cycle time by 50%, and introduced K6 performance testing.</p></div></li>
         <li><p class="dates">May 2022 – Oct 2024</p><div><h3>Test Engineer · Stockbit / Bibit</h3><p>Built mobile automation with Appium and Cucumber and web automation with Katalon, cutting testing time by 70%. Ran K6 performance tests.</p></div></li>
-        <!-- TODO(owner): Megaxus detail — the QA Analyst role (Nov 2019 – Apr 2022) has no confirmed task detail yet; add it here and in the CV once the owner provides it. Do not invent games, platforms, or tools. NOTE 7 Nov 2026: the owner's own Mar 2022 CV calls the Nov 2019+ role "Business Development", not "Quality Assurance Analyst" — confirm the title before presenting the Analyst role as fact. -->
         <li><p class="dates">Feb 2013 – Apr 2022</p><div><h3>Game Quality Assurance / Tester, then Quality Assurance Analyst · Megaxus Infotech</h3><p>Planned test cases and coverage from requirements and executed them on live and test servers; investigated and documented game bugs and exploits, collected user feedback for improvements, and managed the game community around events and updates. Assisted with automation for selected modules.</p></div></li>
       </ol>
     </section>

@@ -291,11 +291,9 @@ warna baru di tempat lain.
 - Koreksi 2026-11-07: riwayat karier yang benar adalah QA sejak Feb 2013
   (Megaxus Infotech: Game QA Feb 2013–Nov 2019, QA Analyst Nov 2019–Apr
   2022), Stockbit / Bibit Mei 2022–Okt 2024, Senior QE Okt 2024–Jan 2025,
-  Lead QE sejak Jan 2025. Versi lama halaman ("in QA since 2022", Lead
-  sejak Okt 2025, Senior sampai Okt 2025, tanpa Megaxus) sudah diperbaiki.
-  Angka tim MASIH KONFLIK dan tidak dipakai sebagai klaim utama sampai
-  owner mengklarifikasi: LinkedIn menyebut Lead 20 / Senior 13,
-  konfirmasi lama menyebut 30 / 15. Lihat TODO(owner) di index.html.
+  Lead QE sejak Jan 2025. Angka tim DIPUTUSKAN owner 7 Nov 2026
+  ("pilih yg paling tinggi"): Lead 30, Senior 15 — dipakai di halaman
+  dan CV; LinkedIn (20/13) dan satu CV lama (12) berbeda.
 
 ## Deploy dan domain (2026-11-05)
 

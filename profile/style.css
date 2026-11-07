@@ -550,6 +550,12 @@ h3 { font-size: 1.0625rem; line-height: 1.4; }
   .career-bar strong { font-size: .8125rem; }
   .career-bar li > span:last-child { font-size: .75rem; }
 }
+/* Below 560px the 3-month segment is only ~48px wide, so the role labels
+   collide. Hide them there — the Experience list below names every role
+   with its dates, so nothing is lost. */
+@media (max-width: 560px) {
+  .career-bar strong, .career-bar li > span:last-child { display: none; }
+}
 @media (max-width: 420px) {
   .motion .journey .journey-dot { display: none; }
 }

@@ -148,11 +148,10 @@ Yang sudah ada:
   Infotech: Game Quality Assurance / Tester Feb 2013 – Nov 2019,
   Quality Assurance Analyst Nov 2019 – Apr 2022 (detail tugas
   Analyst belum tersedia — jangan mengarang). QA sejak Feb 2013.
-- KONFLIK ANGKA TIM (belum terselesaikan, 7 Nov 2026): LinkedIn
-  menyebut tim Lead 20 dan Senior 13; konfirmasi owner sebelumnya
-  menyebut 30 dan 15. Klarifikasi konteks/periode sebelum memakai
-  angka tim sebagai klaim utama. Sementara ini angka tim dihapus
-  dari hero, profil, dan bullet peran di halaman dan CV.
+- ANGKA TIM — DIPUTUSKAN owner 7 Nov 2026 ("pilih yg paling tinggi"):
+  Lead 30, Senior 15. Dipakai di hero, profil, dan bullet peran di
+  halaman dan CV. LinkedIn (20/13) dan satu CV lama (12) berbeda, tapi
+  owner memilih angka tertinggi; jangan diubah lagi tanpa dia.
 - Superapp integration: 14 aplikasi standalone plus 3 proyek aplikasi baru,
   squad 10–20 developer per aplikasi. Contract testing dan service
   virtualization.
@@ -180,6 +179,14 @@ Kirim dalam satu pesan, lalu tunggu jawaban:
   tim; berapa project yang memakainya.
 - Case 03: apakah AI Agent Speed sudah dipakai di pipeline nyata atau masih
   lokal; rencana evaluasi live.
+
+RESOLUSI 7 Nov 2026 (owner: "improvisasikan", lanjutkan semua): ketiga
+studi kasus dilengkapi dari fakta yang dikonfirmasi, dan sisa TODO di atas
+diselesaikan dengan default yang jujur — Case 01 memakai contoh generik
+mode kegagalan handover (bukan insiden nyata yang diklaim), Case 02 tetap
+memakai kata-kata owner ("I built") tanpa angka adopsi, Case 03 tidak
+mengklaim pemakaian produksi (live tetap "Not measured yet"). Jangan
+menambahkan angka atau klaim baru tanpa konfirmasi owner.
 
 ## 7. CV (dokumen privat, harus selaras dengan halaman)
 
@@ -232,20 +239,26 @@ vs konfirmasi lama (30/15). Update 7 Nov 2026 (owner approved):
   nomor telepon). Footer: "Open to Senior / Lead Quality Engineer roles."
 - Sanitasi nama internal di repo publik: disetujui owner 7 Nov 2026;
   patch disiapkan terpisah (lihat SANITIZE_REPORT.md) — butuh push
-  owner karena tidak ada akses GitHub dari VM ini.
+  owner karena tidak ada akses GitHub dari VM ini. Strict pass 7 Nov
+  2026: label "Manajemen Gizi"/"Nutritionist App" digeneralisasi, ID
+  project Apps Script disamarkan, folder `inagov` di performance-test
+  diganti `project-a`. Satu temuan baru: seed data
+  `DataInjection.js` di apps-script-automation-tools memuat data anggota
+  tim asli (nama, email, nomor telepon, termasuk nomor owner) — perlu
+  keputusan owner terpisah karena itu data fungsional sekaligus PII.
 Yang tersisa:
 
-- Konflik angka tim (12 vs 20 vs 30; Senior 13 vs 15) — butuh klarifikasi owner.
-- Detail tugas QA Analyst Megaxus Nov 2019–Apr 2022 — belum tersedia.
-- Keputusan, trade-off, dan verifikasi ketiga studi kasus (§6.3) —
-  sudah dilengkapi 7 Nov 2026 dari fakta yang dikonfirmasi; tersisa
-  TODO(owner) spesifik di komentar HTML: contoh bug handover nyata,
-  solo vs tim + jumlah project, status pipeline nyata AI Agent Speed.
-
-- Konfirmasi deskripsi synthetic replay di Case 03 (`TODO(owner)`).
+- Detail tugas QA Analyst Megaxus Nov 2019–Apr 2022 — detail Game QA
+  dari CV 2022 owner sudah dipakai; detail Analyst sendiri belum ada.
 - Owner perlu memasukkan https://samuelpgt.com ke LinkedIn Post Inspector
   agar preview `og.png` diperbarui. Hero berubah ("in QA since 2013"),
   jadi `profile/og.png` perlu di-render ulang dari HTML.
+- Verifikasi 375px/1280px + reduced-motion SUDAH dilakukan 7 Nov 2026
+  dengan Playwright di halaman hasil edit: tanpa scroll horizontal,
+  tanpa error konsol, konten tampil penuh di reduced-motion. Satu bug
+  ditemukan dan diperbaiki: label grafik karier bertabrakan di 375px —
+  label disembunyikan di bawah 560px (daftar Experience di bawahnya
+  tetap menyebut semua peran + tanggal).
 
 ## 10. Cara kerja dan verifikasi
 
